@@ -8,7 +8,10 @@ FASE 1
 #### Dependencias del backend
 
 > pip install psycopg2
+
 > pip install django-tastypie
+
+> pip install django-cors-headers
 
 #### Set up de la base de datos
 en api
@@ -38,3 +41,5 @@ para correr el cliente se ejecuta el comando
 
 ### Links útiles
 > https://codeburst.io/create-a-django-api-in-under-20-minutes-2a082a60f6f3 Crear API en django.
+
+> https://www.metaltoad.com/blog/angular-api-calls-django-authentication-jwt Llamada a la API
