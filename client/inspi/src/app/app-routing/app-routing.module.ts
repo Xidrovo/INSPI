@@ -1,10 +1,31 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Routes, RouterModule } from '@angular/router';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { LoginComponent } from '../login/login.component';
+import { PlantillasComponent } from '../plantillas/plantillas.component';
+import { PlantillasHomeComponent } from '../plantillas/plantillas-home/plantillas-home.component';
+import { PlantillaEditorComponent } from '../plantillas/plantilla-editor/plantilla-editor.component';
+import { PlantillaViewerComponent } from '../plantillas/plantilla-viewer/plantilla-viewer.component';
+
+const routes: Routes = [           
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'login', component: LoginComponent},
+    {
+      path: 'plantillas', 
+      component: PlantillasComponent,
+      children: [            
+          {path: '', component: PlantillasHomeComponent },
+          {path: 'plantilla-editor', component: PlantillaEditorComponent },
+          {path: 'plantilla-viewer', component: PlantillaViewerComponent },
+          {path: '**', redirectTo: '', pathMatch: 'full'}
+      ]
+    },
+    { path: '**', redirectTo: '', pathMatch: 'full'}
+];
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: []
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

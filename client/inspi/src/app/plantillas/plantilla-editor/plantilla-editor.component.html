@@ -1,0 +1,26 @@
+<div class="col-md-12">
+  <div class="row-flex">
+    <div class="row justify-content-between align-items-center">
+      <div class="col-md-auto">
+        <button type="button" class="btn btn-danger" routerLink="plantillas">Cancelar</button>
+      </div>
+      <div class="col-md-auto">
+        <button type="button" class="btn btn-success" (click)="guardarPlantilla()" routerLink="plantillas">Guardar</button>
+      </div>
+    </div>
+    
+
+    <div class="plantillas-container container">
+      <div class="row justify-content-around">
+        <input class="col-md-4" type="text" name="nombrePlantilla" placeholder="Nombre de la plantilla" required="required">
+        <input class="col-md-7" type="text" name="descripcion" placeholder="Descripción de la plantilla">
+      </div>
+      <div class="row justify-content-end">
+        <div class="col-md-auto">
+          <button class="btn btn-primary">Añadir sección</button>
+        </div>          
+      </div>
+    </div>
+   
+  </div>
+</div>

@@ -1,0 +1,19 @@
+.numberField {
+    width: 100%;
+    border: 0px;
+}
+
+.table {    
+    text-align: center;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: .8rem;
+}
+
+.table thead th{
+    vertical-align: middle;    
+}
+
+.table th, .table td {
+    padding: 0.3rem;
+}

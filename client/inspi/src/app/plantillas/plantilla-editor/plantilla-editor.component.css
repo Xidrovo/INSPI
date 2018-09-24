@@ -1,0 +1,15 @@
+.plantillas-container {
+    border: 1px solid gray;
+    padding: 1%;
+    min-height: 400px;
+    margin-top: 1%;
+}
+
+.container .row {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.seccion-container {
+    border: 1px solid gray;
+}

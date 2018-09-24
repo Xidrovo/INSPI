@@ -1,0 +1,26 @@
+.plantillas-container {
+    border: 1px solid gray;
+    padding: 1%;
+    min-height: 400px;
+    margin-top: 1%;
+}
+
+.plantilla-box {    
+    padding: 1%;
+    margin: .1%;
+    background-color: beige;
+}
+
+.plantilla-box:hover {
+    background-color: rgb(199, 199, 199);
+}
+
+.modal-container {
+    min-width: 800px;
+}
+
+.delete-button {
+    max-height: 40px;
+    min-width: 85px;
+    text-align: center;
+}
