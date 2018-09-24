@@ -23,6 +23,7 @@ import { PlantillasHomeComponent } from './plantillas/plantillas-home/plantillas
 import { TablaRamComponent } from './tabla-ram/tabla-ram.component';
 import { TablaPruebasbioquimicasComponent } from './tabla-pruebasbioquimicas/tabla-pruebasbioquimicas.component';
 import { TipoPreguntaComponent } from './tipo-pregunta/tipo-pregunta.component';
+import { AgregarSeccionComponent } from './agregar-seccion/agregar-seccion.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TipoPreguntaComponent } from './tipo-pregunta/tipo-pregunta.component';
     PlantillasHomeComponent,
     TablaRamComponent,
     TablaPruebasbioquimicasComponent,
-    TipoPreguntaComponent
+    TipoPreguntaComponent,
+    AgregarSeccionComponent
   ],
   imports: [
     BrowserModule,

@@ -9,7 +9,6 @@
       </div>
     </div>
     
-
     <div class="plantillas-container container">
       <div class="row justify-content-around">
         <input class="col-md-4" type="text" name="nombrePlantilla" placeholder="Nombre de la plantilla" required="required">
@@ -17,11 +16,30 @@
       </div>
       <div class="row justify-content-end">
         <div class="col-md-auto">
-          <button class="btn btn-primary">Añadir sección</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#seccionModal">Añadir sección</button>
+        </div>        
+      </div>
+      <ng-container #seccionContainer></ng-container>
+    </div>   
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="seccionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Título de la nueva sección</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <app-tipo-pregunta></app-tipo-pregunta>          
+        <div class="modal-body">
+          <input [(ngModel)]="title" type="text" class="form-control" placeholder="Titulo" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="AddSeccion()" data-dismiss="modal">Agregar sección</button>
+        </div>
       </div>
     </div>
-   
   </div>
 </div>
