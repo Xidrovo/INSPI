@@ -22,6 +22,7 @@ import { PlantillaViewerComponent } from './plantillas/plantilla-viewer/plantill
 import { PlantillasHomeComponent } from './plantillas/plantillas-home/plantillas-home.component';
 import { TablaRamComponent } from './tabla-ram/tabla-ram.component';
 import { TablaPruebasbioquimicasComponent } from './tabla-pruebasbioquimicas/tabla-pruebasbioquimicas.component';
+import { TipoPreguntaComponent } from './tipo-pregunta/tipo-pregunta.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TablaPruebasbioquimicasComponent } from './tabla-pruebasbioquimicas/tab
     PlantillaViewerComponent,
     PlantillasHomeComponent,
     TablaRamComponent,
-    TablaPruebasbioquimicasComponent
+    TablaPruebasbioquimicasComponent,
+    TipoPreguntaComponent
   ],
   imports: [
     BrowserModule,
