@@ -1,0 +1,50 @@
+***			CREAR PLANTILLA (POST) -> url /api/crearPlantilla			***
+EJEMPLO: 
+{
+	'TITULO_PLANTILLA' : 'Plantilla 1',
+	'SECCIONES' : [
+		{
+			'TITULO_SECCION' : 'seccion A',
+			'PREGUNTAS' : [
+				{
+					'TITULO_PREGUNTA' : 'pregunta A.1',
+					'DESCRIPCION' : 'descripcion de pregunta',
+					'REQUERIDO' : 'True',
+					'DETALLE' : 'detalle de pregunta',
+					'TIPO_DATO' : 'TEXTO'
+				},
+				{
+					'TITULO_PREGUNTA' : 'pregunta A.2',
+					'DESCRIPCION' : 'descripcion de pregunta',
+					'REQUERIDO' : 'True',
+					'DETALLE' : 'detalle de pregunta',
+					'TIPO_DATO' : 'RANGO'
+				}
+			]
+		},
+		{
+			'TITULO_SECCION' : 'seccion B',
+			'PREGUNTAS' : [
+				{
+					'TITULO_PREGUNTA' : 'pregunta B.1',
+					'DESCRIPCION' : 'descripcion de pregunta',
+					'REQUERIDO' : 'False',
+					'DETALLE' : 'detalle de pregunta',
+					'TIPO_DATO' : 'TEXTO'
+				},
+				{
+					'TITULO_PREGUNTA' : 'pregunta B.2',
+					'DESCRIPCION' : 'descripcion de pregunta',
+					'REQUERIDO' : 'False',
+					'DETALLE' : 'detalle de pregunta',
+					'TIPO_DATO' : 'TABLA_BACTERIOLOGIA'
+				}
+			]
+		}
+	]
+}
+
+
+
+
+
