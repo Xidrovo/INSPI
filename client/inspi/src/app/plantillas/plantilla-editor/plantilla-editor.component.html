@@ -11,17 +11,23 @@
     
     <div class="plantillas-container container">
       <div class="row justify-content-around">
-        <input class="col-md-4" type="text" name="nombrePlantilla" placeholder="Nombre de la plantilla" required="required">
-        <input class="col-md-7" type="text" name="descripcion" placeholder="Descripción de la plantilla">
+        <input class="col-md-6" type="text" name="nombrePlantilla" placeholder="Nombre de la plantilla" required="required">
+        <div class="col-md-12"><br></div>
+        <textarea class="col-md-7" type="text" name="descripcion" placeholder="Descripción de la plantilla"></textarea>
+      </div>      
+      <ng-container #seccionContainer></ng-container>
+      <br>
+      <div class="bottom-btn">
+        <button class="btn btn-success" style="position: absolute; bottom: 1%;">Crear</button>
       </div>
-      <div class="row justify-content-end">
+      <div class="row justify-content-end" style="position:absolute; bottom: 1%; right:15%;">
         <div class="col-md-auto">
           <button class="btn btn-primary" data-toggle="modal" data-target="#seccionModal">Añadir sección</button>
-        </div>        
+        </div>
       </div>
-      <ng-container #seccionContainer></ng-container>
     </div>   
   </div>
+
   <!-- Modal -->
   <div class="modal fade" id="seccionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -37,7 +43,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" (click)="AddSeccion()" data-dismiss="modal">Agregar sección</button>
+          <button type="button" class="btn btn-primary" (click)="addSeccion()" data-dismiss="modal">Agregar sección</button>
         </div>
       </div>
     </div>
