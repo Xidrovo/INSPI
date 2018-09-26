@@ -16,6 +16,7 @@ import { Component, OnInit, NgModule, ComponentFactoryResolver, Input, Output, E
 export class AgregarSeccionComponent {
   private title: String = '<Título aquí>'
   private index: Number = 0
+  private arrayPreguntas: any[] = []
 
   @Output() deleteClick: EventEmitter<String> = new EventEmitter<String>();
 
@@ -29,5 +30,9 @@ export class AgregarSeccionComponent {
 
   eliminar(event, index) {
     this.deleteClick.emit(index)
+  }
+
+  addInfo(info) {
+    this.arrayPreguntas.push(info)
   }
 }

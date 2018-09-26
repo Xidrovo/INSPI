@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-tipo-pregunta',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TipoPreguntaComponent implements OnInit {
 
-  constructor() { }
+  @Output() sendInfo = new EventEmitter();
+
+  private tituloPregunta: string
+  private tipoPregunta: string
 
   ngOnInit() {
   }
-
+  //Envía en un json el tipo de pregunta y el título
+  sendPregunta() {
+    this.sendInfo.emit( {titulo: this.tituloPregunta, tipo: this.tipoPregunta} ) //Envío un objeto con título y tipo.
+  }
+  setTipo(value) {
+    this.tipoPregunta = value
+  }
 }

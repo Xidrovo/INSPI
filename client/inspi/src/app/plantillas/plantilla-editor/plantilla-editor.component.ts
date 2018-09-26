@@ -35,6 +35,7 @@ export class PlantillaEditorComponent {
     let componentRef = this.refsArray.pop()
     componentRef.destroy()
   }
+  //Elimina el componente del DOM y del array de Ref dado un índice.
   eliminarAlgo(index){
     let componentRef = this.refsArray[index]
     componentRef.destroy()
