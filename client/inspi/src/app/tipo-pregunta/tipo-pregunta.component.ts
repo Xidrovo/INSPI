@@ -17,6 +17,7 @@ export class TipoPreguntaComponent implements OnInit {
   //Envía en un json el tipo de pregunta y el título
   sendPregunta() {
     this.sendInfo.emit( {titulo: this.tituloPregunta, tipo: this.tipoPregunta} ) //Envío un objeto con título y tipo.
+    this.tituloPregunta = "";
   }
   setTipo(value) {
     this.tipoPregunta = value

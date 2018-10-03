@@ -11,6 +11,7 @@ import { AgregarSeccionComponent } from '../../agregar-seccion/agregar-seccion.c
 export class PlantillaEditorComponent {
 
   private title: string
+  private plantilla: any = {}
   refsArray: any[] = []
 
   @ViewChild('seccionContainer', { read: ViewContainerRef }) container;
@@ -28,6 +29,7 @@ export class PlantillaEditorComponent {
       this.eliminarAlgo(componentRef._component.index)
     })
     this.refsArray.push(componentRef)
+    this.title = "";
   }
 
   //Esta función elimina la última referencia de sección agregada.
@@ -49,5 +51,9 @@ export class PlantillaEditorComponent {
       value._component.setIndex(cont)
       cont++
     })
+  }
+  // realizar un post a la api para almacenar la plantilla
+  guardarPlantilla(){
+
   }
 }
