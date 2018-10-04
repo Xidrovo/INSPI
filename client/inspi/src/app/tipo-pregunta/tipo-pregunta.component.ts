@@ -8,6 +8,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 export class TipoPreguntaComponent implements OnInit {
 
   @Output() sendInfo = new EventEmitter();
+ 
 
   private tituloPregunta: string
   private tipoPregunta: string
@@ -22,4 +23,5 @@ export class TipoPreguntaComponent implements OnInit {
   setTipo(value) {
     this.tipoPregunta = value
   }
+ 
 }
