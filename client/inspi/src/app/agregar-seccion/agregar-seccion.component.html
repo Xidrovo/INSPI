@@ -5,27 +5,68 @@
       <h4>Sección: {{title}}</h4>
     </div>
     <div class="col-md-auto" data-toggle="tooltip" data-placement="left" title="Eliminar sección">
-      <button type="button" class="close" aria-label="Close" (click)="eliminar($event, index)">
+    <button type="button" class="close" aria-label="Close" (click)="eliminar($event, index)">
         <span aria-hidden="true">&times;</span>
-      </button>
+      </button>      
     </div>
   </div>
     
   <div class="row justify-content-end">
     <div class="col-md-auto">
-      <app-tipo-pregunta (sendInfo)='addInfo($event)'></app-tipo-pregunta>
+        <div class="form-group" [attr.id]="'group' + index">
+          <label [attr.for]="'sel' + index">Agregar preguntas: </label>
+          <select [attr.name]="'selectPreguntas' + index" [(ngModel)]="tipo" class="selectpicker form-control"
+                  [attr.id]="'sel' + index" (change)="onSelectChange()">
+            <option value="Selección Única">Selección única</option>
+            <option value="Selección Múltiple">Selección Múltiple</option>
+            <option value="Valor Exacto">Valor Exacto</option>
+            <option value="Valor Rango">Valor Rango</option>
+            <option value="Texto">Texto</option>
+            <option value="Tabla RAM">Tabla RAM</option>
+            <option value="Tabla Microbacterias">Tabla Microbacterias</option>
+          </select>
+        </div>
     </div>
   </div>
   <div>
-    <div class="container">
-      <div class="shadow-none p-1 mb-1 bg-light rounded row" *ngFor="let pregunta of arrayPreguntas" style="margin: 1%;">
+    <div class="container" [attr.id]="'cont' + index">
+      <div class="shadow-none p-1 mb-1 bg-light rounded row" *ngFor="let pregunta of arrayPreguntas;  let y = index" style="margin: 1%;">
           <div class="col">{{pregunta.titulo}}</div>
           <div class="col">{{pregunta.tipo}}</div>
           <div class="col">
-            <button type="button" class="btn btn-success" style="margin: 1%;">Editar</button>
-            <button type="button" class="btn btn-danger" style="margin: 1%;">Eliminar</button>
+            <!-- No creo que editar sea necesario aquí. -->
+          <!-- <button type="button" class="btn btn-success" style="margin: 1%;">Editar</button> -->
+            <button (click)="borrarPregunta(y)" class="btn btn-danger" style="margin: 1%;">Eliminar</button>
           </div>
       </div>
     </div>
   </div>
+  <!-- Modal here -->
+  <div [attr.id]="'preguntasModal' + index" class="modal fade" tabindex="-1" 
+        role="dialog" aria-labelledby="myModalLabel" 
+        aria-hidden="true" >
+   <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">pregunta {{tipo}}</h4>
+        </div>
+        <div class="modal-body">
+          <label for="tituloPregunta">Título</label>
+          <input type="text" class="form-control"
+                  id="tituloPregunta" aria-describedby="emailHelp"
+                  placeholder="Ingrese título" [(ngModel)]="titulo">
+          <div *ngIf="tipo == 'Selección Múltiple' ">
+            <label for="textArea">Opciones*</label>
+            <textarea class="form-control" id="textArea" rows="3"></textarea>
+            <h6><small>*Cada salto de linea es una opción</small></h6>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="addInfo()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
