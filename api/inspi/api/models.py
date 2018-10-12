@@ -55,6 +55,7 @@ class Seccion(models.Model):
 
 class Plantilla(models.Model):
 	titulo = models.CharField(max_length=200)
+	descripcion = models.TextField(default=None, blank=True, null=True)
 
 	def crear(self, titulo):
 		p = Plantilla()
