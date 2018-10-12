@@ -95,8 +95,62 @@ class PlantillaView(View):
 				'msg': 'Hubo un error al crear la nueva plantilla: ' + str(e)
 			})
 
-	# def put(self, request, plantilla_id):
-	# 	return HttpResponse(str(plantilla_id))
+	def put(self, request, plantilla_id):
+		if Plantilla.objects.filter(pk=plantilla_id).count() > 0:
+			try:
+				# extraer el JSON como un string
+				plantilla_str = request.body.decode('utf-8')
+
+				# transformamos el string a un diccionario
+				plantillaJSON = json.loads(plantilla_str)
+
+				# traemos la plantilla que se desea editar y la actualizamos
+				plantilla_obj = Plantilla.objects.get(pk=plantilla_id)
+				plantilla_obj.titulo = plantillaJSON['titulo']
+				plantilla_obj.descripcion = plantillaJSON['descripcion']
+				plantilla_obj.save()
+
+				# borramos todas las secciones existentes (y sus preguntas)
+				Seccion.objects.filter(plantilla=plantilla_id).delete()
+
+				# extraemos los datos para las secciones
+				secciones = plantillaJSON['secciones']
+
+				for seccion in secciones:
+					titulo_seccion = seccion['titulo'] 
+					preguntas = seccion['preguntas']
+
+					# creamos una nueva sección y la asociamos a la plantilla
+					seccion_obj = Seccion().crear(titulo_seccion, plantilla_obj)
+
+					for pregunta in preguntas:
+						# extraemos los datos para las preguntas
+						titulo_pregunta = pregunta['titulo']
+						descripcion = pregunta['descripcion']
+						requerido = pregunta['requerido'] in ['True','true']
+						detalle = json.dumps(pregunta['detalle'])
+						tipo_de_dato_id = pregunta['tipo_dato']
+
+						# buscamos el tipo de dato enviado
+						try:
+							tipo_de_dato = TipoDeDato.objects.get(pk=tipo_de_dato_id)
+						# si no se encuentra el tipo de dato, se marca como 'desconocido'
+						except:
+							tipo_de_dato = TipoDeDato.objects.get(nombre='desconocido')
+
+						# creamos la pregunta y la asociamos a la sección
+						pregunta_obj = Pregunta().crear(titulo_pregunta, descripcion, requerido, detalle, seccion_obj, tipo_de_dato)
+				return JsonResponse({'error': 0})
+			except Exception as e:
+				return JsonResponse({
+					'error': 1,
+					'msg': 'Hubo un error al crear la nueva plantilla: ' + str(e)
+				})
+		else:
+			return JsonResponse({
+				'error': 1,
+				'msg': 'La plantilla que desea editar no existe.'
+			})
 
 	def delete(self, request, plantilla_id):
 		if Plantilla.objects.filter(pk=plantilla_id).count() > 0:
