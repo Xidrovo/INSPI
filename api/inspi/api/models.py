@@ -1,4 +1,5 @@
 from django.db import models
+import json
 
 # Create your models here.
 
@@ -36,6 +37,21 @@ class Pregunta(models.Model):
 		p.save()
 		return p
 
+	def to_dict(self):
+		if not self.detalle:
+			detalle = ""
+		else:
+			detalle = json.loads(self.detalle)
+
+		return {
+			'id':self.pk,
+			'titulo':self.titulo,
+			'descripcion':self.descripcion,
+			'requerido':self.requerido,
+			'detalle':detalle,
+			'tipo_data':self.tipo_de_dato.pk
+		}
+
 	def __str__(self):
 		return '%s - SEC: %s - PLANT: %s' % (self.titulo, self.seccion.titulo, self.seccion.plantilla.titulo)
 
@@ -43,12 +59,26 @@ class Seccion(models.Model):
 	titulo = models.CharField(max_length=200)
 	plantilla = models.ForeignKey('Plantilla', on_delete=models.CASCADE)
 
+	@property
+	def preguntas(self):
+		return Pregunta.objects.filter(seccion=self.pk)
+
 	def crear(self, titulo, plantilla):
 		s = Seccion()
 		s.titulo = titulo
 		s.plantilla = plantilla
 		s.save()
 		return s 
+
+	def to_dict(self):
+		preguntas = []
+		for pregunta in self.preguntas:
+			preguntas.append(pregunta.to_dict())
+		return {
+			'id':self.pk,
+			'titulo':self.titulo,
+			'preguntas':preguntas
+		}
 
 	def __str__(self):
 		return '%s - PLANT: %s' % (self.titulo, self.plantilla.titulo)
@@ -63,6 +93,21 @@ class Plantilla(models.Model):
 		p.descripcion = descripcion
 		p.save()
 		return p
+
+	@property
+	def secciones(self):
+		return Seccion.objects.filter(plantilla=self.pk)
+
+	def to_dict(self):
+		secciones = []
+		for seccion in self.secciones:
+			secciones.append(seccion.to_dict())
+		return {
+			'id':self.pk,
+			'titulo':self.titulo,
+			'descripcion':self.descripcion,
+			'secciones':secciones
+		}
 
 	def __str__(self):
 		return '%s' % (self.titulo)

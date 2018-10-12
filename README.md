@@ -101,3 +101,42 @@ para correr el cliente se ejecuta el comando
 		    },
 		    ...
 		]
+
+#### Visualizar información de una plantilla
+* URL: /api/readPlantilla/[plantilla_id]
+* Método: GET
+* Respuesta:
+
+		{
+		    "descripcion": "Plantilla para el programa de evaluación externa de la calidad",
+		    "id": 4,
+		    "titulo": "Plantilla 1",
+		    "secciones": [
+		        {
+		            "id": 4,
+		            "titulo": "Sección A",
+		            "preguntas": [
+		                {
+		                    "requerido": true,
+		                    "descripcion": "En esta pregunta el valor ingresado debe estar dentro del rango.",
+		                    "detalle": {
+		                        "inicio": 1,
+		                        "fin": 9
+		                    },
+		                    "id": 6,
+		                    "tipo_data": 15,
+		                    "titulo": "Pregunta A.2"
+		                },
+		                {
+		                    "requerido": true,
+		                    "descripcion": "En esta pregunta debe ingresar un párrafo.",
+		                    "detalle": "",
+		                    "id": 5,
+		                    "tipo_data": 15,
+		                    "titulo": "Pregunta A.1"
+		                }
+		            ]
+		        }
+		    ]
+		}
+

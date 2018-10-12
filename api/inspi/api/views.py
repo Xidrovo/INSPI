@@ -37,7 +37,7 @@ def crearPlantilla(request):
 				titulo_pregunta = pregunta['titulo']
 				descripcion = pregunta['descripcion']
 				requerido = pregunta['requerido'] in ['True','true']
-				detalle = pregunta['detalle']
+				detalle = json.dumps(pregunta['detalle'])
 				tipo_de_dato_id = pregunta['tipo_dato']
 
 				# BUSCAR EL TIPO DE DATO
@@ -60,3 +60,9 @@ def getAllPlantillas(request):
 		# transformamos el QuerySet de plantillas a un string de JSON y lo retornamos
 		plantillas_str = serializers.serialize('json', plantillas)
 		return HttpResponse(plantillas_str, content_type='application/json')
+
+def readPlantilla(request, plantilla_id):
+	if request.method == 'GET':
+		# obtenemos la plantilla consultada y la retornamos
+		plantilla = Plantilla.objects.get(pk=plantilla_id)
+		return JsonResponse(plantilla.to_dict())

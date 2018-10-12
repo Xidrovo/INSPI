@@ -19,5 +19,6 @@ from api import views
 
 urlpatterns = [
    path('crearPlantilla', views.crearPlantilla, name='crearPlantilla'),
-   path('getAllPlantillas', views.getAllPlantillas, name='getAllPlantillas')
+   path('getAllPlantillas', views.getAllPlantillas, name='getAllPlantillas'),
+   path('readPlantilla/<int:plantilla_id>', views.readPlantilla, name='readPlantilla'),
 ]
