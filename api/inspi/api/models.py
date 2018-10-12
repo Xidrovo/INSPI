@@ -57,17 +57,12 @@ class Plantilla(models.Model):
 	titulo = models.CharField(max_length=200)
 	descripcion = models.TextField(default=None, blank=True, null=True)
 
-	def crear(self, titulo):
+	def crear(self, titulo, descripcion):
 		p = Plantilla()
 		p.titulo = titulo
+		p.descripcion = descripcion
 		p.save()
 		return p
 
 	def __str__(self):
 		return '%s' % (self.titulo)
-
-
-
-
-
-

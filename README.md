@@ -84,3 +84,20 @@ para correr el cliente se ejecuta el comando
 		
 		{"error": 0}
 * **Recordar:** dependiendo de si hubo algún error o no al procesar los datos recibidos, la API responderá con un valor 1 o 0 respectivamente
+
+#### Obtener todas las plantillas
+* URL: /api/getAllPlantillas
+* Método: GET
+* Respuesta:
+
+		[
+		    {
+		        "model": "api.plantilla",
+		        "pk": 3,
+		        "fields": {
+		            "titulo": "Plantilla 1",
+		            "descripcion": null
+		        }
+		    },
+		    ...
+		]
