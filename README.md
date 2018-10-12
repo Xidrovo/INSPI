@@ -43,3 +43,44 @@ para correr el cliente se ejecuta el comando
 > https://codeburst.io/create-a-django-api-in-under-20-minutes-2a082a60f6f3 Crear API en django.
 
 > https://www.metaltoad.com/blog/angular-api-calls-django-authentication-jwt Llamada a la API
+
+## Back-end: envío y recepción de parámetros
+### Plantillas
+#### Crear una plantilla
+* URL: /api/crearPlantilla
+* Método: POST
+* Envío:
+
+		{
+			"titulo": "Plantilla 1",
+			"descripcion": "Plantilla para el programa de evaluación externa de la calidad",
+			"secciones": [
+				{
+					"titulo": "Sección A",
+					"preguntas": [
+						{
+							"titulo": "Pregunta A.1",
+							"descripcion": "En esta pregunta debe ingresar un párrafo.",
+							"requerido": "True",
+							"detalle": "",
+							"tipo_dato": 5
+						},
+						{
+							"titulo": "Pregunta A.2",
+							"descripcion": "En esta pregunta el valor ingresado debe estar dentro del rango.",
+							"requerido": "True",
+							"detalle": {
+								"inicio": 1,
+								"fin": 9
+							},
+							"tipo_dato": 4
+						}
+					]
+				},
+				...
+			]
+		}
+* Respuesta
+		
+		{"error": 0}
+* **Recordar:** dependiendo de si hubo algún error o no al procesar los datos recibidos, la API responderá con un valor 1 o 0 respectivamente
