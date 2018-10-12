@@ -47,7 +47,7 @@ para correr el cliente se ejecuta el comando
 ## Back-end: envío y recepción de parámetros
 ### Plantillas
 #### Crear una plantilla
-* URL: /api/crearPlantilla
+* URL: /api/plantillas
 * Método: POST
 * Envío:
 
@@ -86,7 +86,7 @@ para correr el cliente se ejecuta el comando
 * **Recordar:** dependiendo de si hubo algún error o no al procesar los datos recibidos, la API responderá con un valor 1 o 0 respectivamente
 
 #### Obtener todas las plantillas
-* URL: /api/getAllPlantillas
+* URL: /api/plantillas
 * Método: GET
 * Respuesta:
 
@@ -103,7 +103,7 @@ para correr el cliente se ejecuta el comando
 		]
 
 #### Visualizar información de una plantilla
-* URL: /api/readPlantilla/[plantilla_id]
+* URL: /api/plantillas/[plantilla_id]
 * Método: GET
 * Respuesta:
 

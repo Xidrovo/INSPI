@@ -14,11 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from api import views
+from api.views import PlantillaView
 
 urlpatterns = [
-   path('crearPlantilla', views.crearPlantilla, name='crearPlantilla'),
-   path('getAllPlantillas', views.getAllPlantillas, name='getAllPlantillas'),
-   path('readPlantilla/<int:plantilla_id>', views.readPlantilla, name='readPlantilla'),
+   re_path(r'^plantillas/(?P<plantilla_id>[0-9]*)|$', PlantillaView.as_view()),
 ]
