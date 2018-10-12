@@ -167,3 +167,21 @@ class PlantillaView(View):
 				'error': 1,
 				'msg': 'La plantilla que desea eliminar no existe.'
 			})
+
+def get_tipos_de_dato(request):
+	if request.method == "GET":
+		try:
+			# obtenemos todos los tipos de dato existentes
+			tipos_de_dato = TipoDeDato.objects.all()
+			# transformamos el QuerySet de tipos de dato a un string de JSON y lo retornamos
+			tipos_de_dato_str = serializers.serialize('json', tipos_de_dato)
+
+			return JsonResponse({
+				'error': 0,
+				'tipos_de_dato': json.loads(tipos_de_dato_str)
+			})
+		except Exception as e:
+			return JsonResponse({
+				'error': 1,
+				'msg': 'Hubo un error al consultar los tipos de dato: ' + str(e)
+			})

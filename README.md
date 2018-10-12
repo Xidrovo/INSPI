@@ -87,6 +87,47 @@ para correr el cliente se ejecuta el comando
 			"error": 0
 		}
 
+#### Editar una plantilla
+* URL: /api/plantillas/[plantilla_id]
+* Método: PUT
+* Envío:
+
+		{
+			"titulo": "Plantilla 2",
+			"descripcion": "Plantilla para el programa de evaluación externa de la calidad",
+			"secciones": [
+				{
+					"titulo": "Sección B",
+					"preguntas": [
+						{
+							"titulo": "Pregunta B.1",
+							"descripcion": "En esta pregunta debe ingresar un párrafo.",
+							"requerido": "True",
+							"detalle": "",
+							"tipo_dato": 5
+						},
+						{
+							"titulo": "Pregunta B.2",
+							"descripcion": "En esta pregunta el valor ingresado debe estar dentro del rango.",
+							"requerido": "True",
+							"detalle": {
+								"inicio": 1,
+								"fin": 9
+							},
+							"tipo_dato": 4
+						}
+					]
+				},
+				...
+			]
+		}
+
+* Respuesta:
+		
+		{
+			"error": 0
+		}
+
 #### Obtener todas las plantillas
 * URL: /api/plantillas/
 * Método: GET
@@ -155,6 +196,34 @@ para correr el cliente se ejecuta el comando
 
 		{
 			"error": 0
+		}
+
+#### Obtener todos los tipos de dato
+* URL: /api/tipos_de_dato/
+* Método: GET
+* Respuesta:
+
+		{
+		    "tipos_de_dato": [
+		        {
+		            "pk": 8,
+		            "fields": {
+		                "nombre": "seleccion_unica",
+		                "detalle": ""
+		            },
+		            "model": "api.tipodedato"
+		        },
+		        {
+		            "pk": 9,
+		            "fields": {
+		                "nombre": "seleccion_multiple",
+		                "detalle": ""
+		            },
+		            "model": "api.tipodedato"
+		        },
+		        ...
+		    ],
+		    "error": 0
 		}
 
 **Recordar:** si hubo algún error al momento de procesar el requerimiento, la API responderá con el siguiente mensaje:

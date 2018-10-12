@@ -19,5 +19,6 @@ from api import views
 from api.views import PlantillaView
 
 urlpatterns = [
-   re_path(r'^plantillas/(?P<plantilla_id>[0-9]*|)$', PlantillaView.as_view()),
+   re_path(r'^plantillas/(?P<plantilla_id>[0-9]*|)$', PlantillaView.as_view(), name='plantillas'),
+   path('tipos_de_dato/', views.get_tipos_de_dato, name='tipos_de_dato')
 ]
