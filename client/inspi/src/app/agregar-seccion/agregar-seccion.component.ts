@@ -1,5 +1,5 @@
 import { Component, OnInit, NgModule, ComponentFactoryResolver, Input, Output, EventEmitter } from '@angular/core';
-
+declare var $: any;
 @NgModule ({
    exports: [ AgregarSeccionComponent ],
    entryComponents: [
@@ -17,6 +17,8 @@ export class AgregarSeccionComponent {
   private title: String = '<Título aquí>'
   private index: Number = 0
   private arrayPreguntas: any[] = []
+  private titulo: ''
+  private tipo: ''
 
   @Output() deleteClick: EventEmitter<String> = new EventEmitter<String>();
 
@@ -32,7 +34,22 @@ export class AgregarSeccionComponent {
     this.deleteClick.emit(index)
   }
 
-  addInfo(info) {
-    this.arrayPreguntas.push(info)
+  addInfo(titulo, pregunta) {
+    let info = {
+      titulo: this.titulo,
+      tipo: this.tipo
+    }
+    this.arrayPreguntas.push( info )
+    $('#preguntasModal' + this.index).modal('hide');
+    this.titulo = ''
+    this.tipo = ''
+  }
+
+  onSelectChange() {
+    $('#preguntasModal' + this.index).modal('show');
+  }
+
+  borrarPregunta(index) {
+    this.arrayPreguntas.splice(index, 1)
   }
 }
