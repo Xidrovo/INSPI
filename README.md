@@ -47,7 +47,7 @@ para correr el cliente se ejecuta el comando
 ## Back-end: envío y recepción de parámetros
 ### Plantillas
 #### Crear una plantilla
-* URL: /api/plantillas
+* URL: /api/plantillas/
 * Método: POST
 * Envío:
 
@@ -80,27 +80,32 @@ para correr el cliente se ejecuta el comando
 				...
 			]
 		}
-* Respuesta
+
+* Respuesta:
 		
-		{"error": 0}
-* **Recordar:** dependiendo de si hubo algún error o no al procesar los datos recibidos, la API responderá con un valor 1 o 0 respectivamente
+		{
+			"error": 0
+		}
 
 #### Obtener todas las plantillas
-* URL: /api/plantillas
+* URL: /api/plantillas/
 * Método: GET
 * Respuesta:
 
-		[
-		    {
-		        "model": "api.plantilla",
-		        "pk": 3,
-		        "fields": {
-		            "titulo": "Plantilla 1",
-		            "descripcion": null
-		        }
-		    },
-		    ...
-		]
+		{
+		    "error": 0,
+		    "plantillas": [
+		    	{
+		    	    "model": "api.plantilla",
+		    	    "pk": 3,
+		    	    "fields": {
+		    	        "titulo": "Plantilla 1",
+		    	        "descripcion": null
+		    	    }
+		    	},
+		    	...
+		    ]
+		}
 
 #### Visualizar información de una plantilla
 * URL: /api/plantillas/[plantilla_id]
@@ -108,35 +113,54 @@ para correr el cliente se ejecuta el comando
 * Respuesta:
 
 		{
-		    "descripcion": "Plantilla para el programa de evaluación externa de la calidad",
-		    "id": 4,
-		    "titulo": "Plantilla 1",
-		    "secciones": [
-		        {
-		            "id": 4,
-		            "titulo": "Sección A",
-		            "preguntas": [
-		                {
-		                    "requerido": true,
-		                    "descripcion": "En esta pregunta el valor ingresado debe estar dentro del rango.",
-		                    "detalle": {
-		                        "inicio": 1,
-		                        "fin": 9
-		                    },
-		                    "id": 6,
-		                    "tipo_data": 15,
-		                    "titulo": "Pregunta A.2"
-		                },
-		                {
-		                    "requerido": true,
-		                    "descripcion": "En esta pregunta debe ingresar un párrafo.",
-		                    "detalle": "",
-		                    "id": 5,
-		                    "tipo_data": 15,
-		                    "titulo": "Pregunta A.1"
-		                }
-		            ]
-		        }
-		    ]
+			"error": 0,
+			"plantilla": {
+			    "descripcion": "Plantilla para el programa de evaluación externa de la calidad",
+			    "id": 4,
+			    "titulo": "Plantilla 1",
+			    "secciones": [
+			        {
+			            "id": 4,
+			            "titulo": "Sección A",
+			            "preguntas": [
+			                {
+			                    "requerido": true,
+			                    "descripcion": "En esta pregunta el valor ingresado debe estar dentro del rango.",
+			                    "detalle": {
+			                        "inicio": 1,
+			                        "fin": 9
+			                    },
+			                    "id": 6,
+			                    "tipo_data": 15,
+			                    "titulo": "Pregunta A.2"
+			                },
+			                {
+			                    "requerido": true,
+			                    "descripcion": "En esta pregunta debe ingresar un párrafo.",
+			                    "detalle": "",
+			                    "id": 5,
+			                    "tipo_data": 15,
+			                    "titulo": "Pregunta A.1"
+			                }
+			            ]
+			        }
+			    ]
+			}
+		}
+
+#### Eliminar una plantilla
+* URL: /api/plantillas/[plantilla_id]
+* Método: DELETE
+* Respuesta:
+
+		{
+			"error": 0
+		}
+
+**Recordar:** si hubo algún error al momento de procesar el requerimiento, la API responderá con el siguiente mensaje:
+
+		{
+			"error": 1,
+			"msg:": "mensaje_de_error"
 		}
 
