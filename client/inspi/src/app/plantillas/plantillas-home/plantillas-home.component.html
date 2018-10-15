@@ -6,39 +6,41 @@
         <button type="button" class="btn btn-primary" routerLink="plantilla-editor">Crear plantilla</button>
       </div>
     </div>
-    
+
 
     <div class="plantillas-container container">
-      <div *ngFor="let plantilla of plantillas" class="plantilla-box row align-items-center justify-content-between" data-toggle="modal" [attr.data-target]="'#'+plantilla.id">
+      <div *ngFor="let plantilla of plantillas" class="plantilla-box row align-items-center justify-content-between"
+        data-toggle="modal" [attr.data-target]="'#'+plantilla.id">
         <div class="row-flex col-md-10" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla">
           <h5 class="col-md-12">{{ plantilla.title }}</h5>
           <h6 class="col-md-12">{{ plantilla.description }}</h6>
         </div>
-        <div class="col-md-auto">          
+        <div class="col-md-auto">
           <button type="button" class="btn btn-danger delete-button" (click)="eliminarPlantilla(plantilla); $event.stopPropagation();">Eliminar</button>
-        </div>        
+        </div>
 
         <!-- Modal Vista Previa Plantilla -->
-        <div class="modal fade" id="{{plantilla.id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal fade" id="{{plantilla.id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+          aria-hidden="true">
           <div class="modal-dialog modal-container" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="modelTitleId">Vista previa</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
-                </button>            
+                </button>
               </div>
               <div class="modal-body">
                 <app-plantilla-viewer [plantilla]="plantilla"></app-plantilla-viewer>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>            
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-            
+
   </div>
 </div>

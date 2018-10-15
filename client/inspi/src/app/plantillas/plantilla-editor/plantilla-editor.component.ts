@@ -67,12 +67,12 @@ export class PlantillaEditorComponent {
   guardarPlantilla() {
     this.apiService
       .addPlantilla({
-        titulo: 'hola y chao',
+        titulo: 'Plantlla 3',
         descripcion:
-          'Plantilla para el programa de evaluación externa de la calidad',
+          'Plantilla para el programa de evaluación externa de la calidad :3',
         secciones: [
           {
-            titulo: 'Seccion A',
+            titulo: 'Seccion B',
             descripcion: 'En esta pregunta debe ingresar un párrafo',
             requerido: true,
             detalle: '',

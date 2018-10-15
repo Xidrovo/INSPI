@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { resolve } from 'url';
-import { catchError } from 'rxjs/operators';
+
 import { throwError, of } from 'rxjs';
 
 @Injectable({
@@ -10,14 +9,41 @@ import { throwError, of } from 'rxjs';
 export class ApiService {
   API_URL = 'http://localhost:8000';
   constructor(private httpClient: HttpClient) {}
-  getNotes() {
-    return this.httpClient.get(`${this.API_URL}/api/note/1`);
+  getPlantillas() {
+    return this.httpClient.get(`${this.API_URL}/api/plantillas/`);
+  }
+  // This function must call the get /api/plantillas/:plantilla_id
+  getPlantilla(idPlantilla) {
+    return this.httpClient
+      .get(`${this.API_URL}/api/plantillas/` + idPlantilla)
+      .toPromise()
+      .then(res => console.log(res.toString()))
+      .catch(err => console.log(err));
+  }
+  // This function must call the get /api/tipos_de_dato/
+  getTipoDeDatos() {
+    return this.httpClient.get(`${this.API_URL}/api/tipos_de_dato/`);
   }
   // This function must call the post /api/plantillas/
-  public addPlantilla(payload): any {
-    console.log(payload);
+  addPlantilla(payload): any {
     return this.httpClient
       .post(`${this.API_URL}/api/plantillas/`, payload)
+      .toPromise()
+      .then(res => console.log(res.toString()))
+      .catch(err => console.log(err));
+  }
+  // This function must call the post /api/plantillas/:idPlantilla
+  setPlantilla(payload): any {
+    return this.httpClient
+      .put(`${this.API_URL}/api/plantillas/` + payload.id, payload)
+      .toPromise()
+      .then(res => console.log(res.toString()))
+      .catch(err => console.log(err));
+  }
+  // This function must call the delete /api/plantillas/:plantilla_id
+  deletePlantilla(idPlantilla): any {
+    return this.httpClient
+      .delete(`${this.API_URL}/api/plantillas/` + idPlantilla)
       .toPromise()
       .then(res => console.log(res.toString()))
       .catch(err => console.log(err));
