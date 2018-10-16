@@ -111,3 +111,30 @@ class Plantilla(models.Model):
 
 	def __str__(self):
 		return '%s' % (self.titulo)
+
+class Programa(models.Model):
+	nombre = models.CharField(max_length=50)
+	fecha_inicio = models.DateTimeField(auto_now_add=True)
+	fecha_fin = models.DateTimeField(auto_now_add=True)
+	fecha_envio_paquete = models.DateTimeField(auto_now_add=True)
+	fecha_envio_resultados = models.DateTimeField(auto_now_add=True)
+	estado = models.BooleanField(default=True)
+
+	def crear(self, nombre, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete):
+		p = Programa()
+		p.nombre = nombre
+		p.fecha_inicio = fecha_inicio
+		p.fecha_fin = fecha_fin
+		p.fecha_envio_paquete = fecha_envio_paquete
+		p.fecha_envio_resultados = fecha_envio_resultados
+		p.estado = True
+		p.save()
+		return p
+
+	def __str__(self):
+		return '%s INICIO: %s' % (self.nombre, str(fecha_inicio))
+
+
+
+
+
