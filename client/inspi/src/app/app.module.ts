@@ -24,6 +24,14 @@ import { TablaRamComponent } from './tabla-ram/tabla-ram.component';
 import { TablaPruebasbioquimicasComponent } from './tabla-pruebasbioquimicas/tabla-pruebasbioquimicas.component';
 import { TipoPreguntaComponent } from './tipo-pregunta/tipo-pregunta.component';
 import { AgregarSeccionComponent } from './agregar-seccion/agregar-seccion.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './app.effects';
+import { reducers, metaReducers } from './store/reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../../environments/environment';
+import { AppEffects } from './store/effects/app.effects';
 
 @NgModule({
   declarations: [
@@ -48,7 +56,10 @@ import { AgregarSeccionComponent } from './agregar-seccion/agregar-seccion.compo
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([AppEffects]),
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "inspi"
+  "defaultProject": "inspi",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
