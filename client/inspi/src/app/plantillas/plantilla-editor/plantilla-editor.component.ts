@@ -17,7 +17,10 @@ import { ApiService } from '../../api.service';
 })
 export class PlantillaEditorComponent {
   private title: string;
-  private plantilla: any = {};
+  private plantilla: any;
+  private payload: any = [{}];
+  private titulo: string;
+  private descripcion: string;
   refsArray: any[] = [];
   @ViewChild('seccionContainer', { read: ViewContainerRef })
   container;
@@ -65,7 +68,23 @@ export class PlantillaEditorComponent {
   }
   // realizar un post a la api para almacenar la plantilla
   guardarPlantilla() {
+    this.refsArray.forEach(x => {
+      this.payload.push(x._component.getInfo());
+    });
+    this.plantilla = {
+      titulo: this.titulo,
+      descripcion: this.descripcion,
+      secciones: this.payload[1]
+    };
+    console.log('-------');
+    console.log(this.plantilla);
+    console.log('-------');
     this.apiService
+      .addPlantilla(this.plantilla)
+      .subscribe((data: Array<Object>) => {
+        console.log(data);
+      });
+    /*  this.apiService
       .addPlantilla({
         titulo: 'Plantlla 3',
         descripcion:
@@ -82,6 +101,6 @@ export class PlantillaEditorComponent {
       })
       .subscribe((data: Array<object>) => {
         console.log(data);
-      });
+      }); */
   }
 }

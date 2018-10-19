@@ -5,15 +5,16 @@
         <button type="button" class="btn btn-danger" routerLink="plantillas">Cancelar</button>
       </div>
       <div class="col-md-auto">
-        <button type="button" class="btn btn-success" (click)="guardarPlantilla()" routerLink="plantillas">Guardar</button>
+        <button type="button" class="btn btn-success" (click)="guardarPlantilla()">Guardar</button>
       </div>
     </div>
 
     <div class="plantillas-container col-md-12">
       <div class="row justify-content-around">
-        <input class="col-md-7" type="text" name="nombrePlantilla" placeholder="Nombre de la plantilla" required="required">
+        <input class="col-md-7" type="text" name="nombrePlantilla" placeholder="Nombre de la plantilla" required="required"
+          [(ngModel)]="titulo">
         <div class="col-md-12"><br></div>
-        <textarea class="col-md-7" type="text" name="descripcion" placeholder="Descripción de la plantilla"></textarea>
+        <textarea class="col-md-7" type="text" name="descripcion" placeholder="Descripción de la plantilla" [(ngModel)]="descripcion"></textarea>
       </div>
       <ng-container #seccionContainer></ng-container>
       <br>
