@@ -131,6 +131,15 @@ class Programa(models.Model):
 		p.save()
 		return p
 
+	def to_dict(self):
+		return {
+			'id':self.pk,
+			'fecha_inicio':self.fecha_inicio,
+			'fecha_fin':self.fecha_fin,
+			'fecha_envio_paquete':self.fecha_envio_paquete,
+			'fecha_envio_resultados':self.fecha_envio_resultados
+		}
+
 	def __str__(self):
 		return '%s INICIO: %s' % (self.nombre, str(fecha_inicio))
 

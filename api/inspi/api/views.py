@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views import View
-from api.models import Plantilla, Seccion, TipoDeDato, Pregunta
+from api.models import Programa, Plantilla, Seccion, TipoDeDato, Pregunta
 from django.core import serializers
 import ast
 import json
@@ -167,6 +167,74 @@ class PlantillaView(View):
 				'error': 1,
 				'msg': 'La plantilla que desea eliminar no existe.'
 			})
+
+class ProgramaView(View):
+	def put(self, request, programa_id):
+		if Programa.objects.filter(pk=programa_id).count() > 0:
+			try:
+				# extraer el JSON como un string
+				programa_str = request.body.decode('utf-8')
+
+				# transformamos el string a un diccionario
+				programaJSON = json.loads(programa_str)
+
+				# traemos el programa que se desea editar y la actualizamos
+				programa_obj = Prgroama.objects.get(pk=programa_id)
+				programa_obj.fecha_inicio = programaJSON['fecha_inicio']
+				programa_obj.fecha_fin = programaJSON['fecha_fin']
+				programa_obj.fecha_envio_paquete = programaJSON['fecha_envio_paquete']
+				programa_obj.fecha_envio_resultados = programaJSON['fecha_envio_resultados']
+				programa_obj.save()
+
+				return JsonResponse({'error': 0})
+			except Exception as e:
+				return JsonResponse({
+					'error': 1,
+					'msg': 'Hubo un error al crear el nuevo programa: ' + str(e)
+				})
+		else:
+			return JsonResponse({
+				'error': 1,
+				'msg': 'El programa que desea editar no existe.'
+			})
+
+	def get(self, request, programa_id):
+		if (not programa_id):
+			try:
+				# obtenemos todos los programas existentes
+				programas = Programa.objects.all()
+				# transformamos el QuerySet de programas a un string de JSON y lo retornamos
+				programas_str = serializers.serialize('json', programas)
+
+				return JsonResponse({
+					'error': 0,
+					'programas': json.loads(programas_str)
+				})
+			except Exception as e:
+				return JsonResponse({
+					'error': 1,
+					'msg': 'Hubo un error al consultar los programas: ' + str(e)
+				})
+		else:
+			if Programa.objects.filter(pk=programa_id).count() > 0:
+				try:
+					# obtenemos el programa consultado y lo retornamos
+					programa = Programa.objects.get(pk=programa_id)
+
+					return JsonResponse({
+						'error': 0,
+						'programa': programa.to_dict()
+					})
+				except Exception as e:
+					return JsonResponse({
+						'error': 1,
+						'msg': 'Hubo un error al consultar el programa: ' + str(e)
+					})
+			else:
+				return JsonResponse({
+					'error': 1,
+					'msg': 'El programa que desea consultar no existe.'
+				})
 
 def get_tipos_de_dato(request):
 	if request.method == "GET":

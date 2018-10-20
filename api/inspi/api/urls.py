@@ -20,5 +20,6 @@ from api.views import PlantillaView
 
 urlpatterns = [
    re_path(r'^plantillas/(?P<plantilla_id>[0-9]*|)$', PlantillaView.as_view(), name='plantillas'),
-   path('tipos_de_dato/', views.get_tipos_de_dato, name='tipos_de_dato')
+   path('tipos_de_dato/', views.get_tipos_de_dato, name='tipos_de_dato'),
+   re_path(r'^programas/(?P<programa_id>[0-9]*|)$', ProgramaView.as_view(), name='programas'),
 ]
