@@ -2,11 +2,11 @@
 
 from django.db import migrations
 
-def anadirTablaBacteriologia(apps, schema_editor):
+def anadirTablaRAM(apps, schema_editor):
 	TipoDeDato_model = apps.get_model('api', 'TipoDeDato')
-	tabla_bacte = TipoDeDato_model.objects.get(pk=3)
-	tabla_bacte.detalle = "{'CABECERA' : ['KIRBY BAUER','MIC'],'SUBCABECERA' : ['Nombre del antibiotico','Carga','Marca','Lectura del disco (mm)','Interpretacion','Marca','Resultado (ug/mL)','Interpretacion'],'NOMBRE_ANTIBIOTICO' : ['Oxacilina','Penicilina','Eritromicina','Vancomicina','Sulf. + Trimetoprim','Cloranfenicol','Cetriaxona','Ampicilina','Rifampicina','Otros']}"
-	tabla_bacte.save()
+	tabla_ram = TipoDeDato_model.objects.get(nombre='tabla_ram')
+	tabla_ram.detalle = "{'CABECERA' : ['KIRBY BAUER','MIC'],'SUBCABECERA' : ['Nombre del antibiotico','Carga','Marca','Lectura del disco (mm)','Interpretacion','Marca','Resultado (ug/mL)','Interpretacion'],'NOMBRE_ANTIBIOTICO' : ['Oxacilina','Penicilina','Eritromicina','Vancomicina','Sulf. + Trimetoprim','Cloranfenicol','Cetriaxona','Ampicilina','Rifampicina','Otros']}"
+	tabla_ram.save()
 
 class Migration(migrations.Migration):
 
@@ -15,5 +15,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-    	migrations.RunPython(anadirTablaBacteriologia),
+    	migrations.RunPython(anadirTablaRAM),
     ]

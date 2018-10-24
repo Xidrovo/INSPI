@@ -114,6 +114,7 @@ class Plantilla(models.Model):
 
 class Programa(models.Model):
 	nombre = models.CharField(max_length=50)
+	plantilla = models.ForeignKey('Plantilla', on_delete=models.CASCADE, blank=True)
 	fecha_inicio = models.DateTimeField(auto_now_add=True)
 	fecha_fin = models.DateTimeField(auto_now_add=True)
 	fecha_envio_paquete = models.DateTimeField(auto_now_add=True)
@@ -134,6 +135,7 @@ class Programa(models.Model):
 	def to_dict(self):
 		return {
 			'id':self.pk,
+			'plantilla_id':self.plantilla.id,
 			'fecha_inicio':self.fecha_inicio,
 			'fecha_fin':self.fecha_fin,
 			'fecha_envio_paquete':self.fecha_envio_paquete,
