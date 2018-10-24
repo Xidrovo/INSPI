@@ -209,7 +209,17 @@ para correr el cliente se ejecuta el comando
 		            "pk": 8,
 		            "fields": {
 		                "nombre": "seleccion_unica",
-		                "detalle": ""
+		                "detalle": {
+							{
+								"value": "",
+								"name": "Opción_1"
+							},
+							{
+								"value": "",
+								"name": "Opción_2"
+							},
+							...
+						}
 		            },
 		            "model": "api.tipodedato"
 		        },
@@ -217,7 +227,17 @@ para correr el cliente se ejecuta el comando
 		            "pk": 9,
 		            "fields": {
 		                "nombre": "seleccion_multiple",
-		                "detalle": ""
+		                "detalle": {
+							{
+								"value": "",
+								"name": "Opción_1"
+							},
+							{
+								"value": "",
+								"name": "Opción_2"
+							},
+							...
+						}
 		            },
 		            "model": "api.tipodedato"
 		        },
@@ -225,6 +245,20 @@ para correr el cliente se ejecuta el comando
 		    ],
 		    "error": 0
 		}
+
+#### Estructura del campo detalle (Aplicada para preguntas de selección de opciones)
+
+	[
+		{
+			"value": "",
+			"name": "Opción_1"
+		},
+		{
+			"value": "",
+			"name": "Opción_2"
+		},
+		...
+	]
 
 **Recordar:** si hubo algún error al momento de procesar el requerimiento, la API responderá con el siguiente mensaje:
 

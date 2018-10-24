@@ -14,13 +14,15 @@ class PlantillaView(View):
 		if (not plantilla_id):
 			try:
 				# obtenemos todas las plantillas existentes
-				plantillas = Plantilla.objects.all()
+				plantillas = []
+				for plantilla in Plantilla.objects.all():					
+					plantillas.append(plantilla.to_dict())
 				# transformamos el QuerySet de plantillas a un string de JSON y lo retornamos
-				plantillas_str = serializers.serialize('json', plantillas)
+				#plantillas_str = serializers.serialize('json', plantillas)
 
 				return JsonResponse({
 					'error': 0,
-					'plantillas': json.loads(plantillas_str)
+					'plantillas': plantillas#json.loads(plantillas_str)
 				})
 			except Exception as e:
 				return JsonResponse({

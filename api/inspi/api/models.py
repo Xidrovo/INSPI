@@ -15,6 +15,17 @@ class TipoDeDato(models.Model):
 	nombre = models.CharField(max_length=200)
 	detalle = models.TextField(blank=True)
 
+	def to_dict(self):		
+		if not self.detalle:
+			detalle = ""
+		else:
+			detalle = json.loads(self.detalle)
+
+		return {
+			"nombre": self.nombre,
+			"detalle": detalle
+		}
+
 	def __str__(self):
 		return '%s' % (self.nombre)
 
@@ -49,7 +60,7 @@ class Pregunta(models.Model):
 			'descripcion':self.descripcion,
 			'requerido':self.requerido,
 			'detalle':detalle,
-			'tipo_data':self.tipo_de_dato.pk
+			'tipo_data':self.tipo_de_dato.to_dict()
 		}
 
 	def __str__(self):
