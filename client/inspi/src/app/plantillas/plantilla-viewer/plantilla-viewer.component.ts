@@ -9,6 +9,10 @@ export class PlantillaViewerComponent implements OnInit {
 
   @Input() plantilla;
 
+  options = {
+    addSubmit: false
+  }
+
   constructor() { }
 
   ngOnInit() {

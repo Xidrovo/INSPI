@@ -1,8 +1,9 @@
 <div sf-form class="col-sm-auto">
-  <h3 style="text-align:center">{{ plantilla.title }}</h3>
+  <h3 style="text-align:center">{{ plantilla.titulo }}</h3>
   <json-schema-form
     [schema]="plantilla.schema"
-    [form] = "plantilla.form">
+    [form] = "plantilla.form"
+    [options] = "options">
   </json-schema-form>
 </div>
     

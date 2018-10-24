@@ -9,18 +9,19 @@
 
 
     <div class="plantillas-container container">
-      <div *ngFor="let plantilla of plantillasArray.plantillas" class="plantilla-box row align-items-center justify-content-between"
-        data-toggle="modal" [attr.data-target]="'#'+plantilla.id">
-        <div class="row-flex col-md-10" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla">
-          <h5 class="col-md-12">{{ plantilla.fields.titulo }}</h5>
-          <h6 class="col-md-12">{{ plantilla.fields.descripcion }}</h6>
+      <div *ngFor="let plantilla of plantillasArray" class=""
+        >
+        <div class="plantilla-box row align-items-center justify-content-between" data-toggle="modal" [attr.data-target]="'#id'+plantilla.id">
+          <div class="row-flex col-md-10" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla">
+            <h5 class="col-md-12">{{ plantilla.titulo }}</h5>
+            <h6 class="col-md-12">{{ plantilla.descripcion }}</h6>
+          </div>
+          <div class="col-md-auto">
+            <button type="button" class="btn btn-danger delete-button" (click)="eliminarPlantilla(plantilla); $event.stopPropagation();">Eliminar</button>
+          </div>
         </div>
-        <div class="col-md-auto">
-          <button type="button" class="btn btn-danger delete-button" (click)="eliminarPlantilla(plantilla); $event.stopPropagation();">Eliminar</button>
-        </div>
-
         <!-- Modal Vista Previa Plantilla -->
-        <div class="modal fade" id="{{plantilla.id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        <div class="modal fade" id="id{{plantilla.id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
           aria-hidden="true">
           <div class="modal-dialog modal-container" role="document">
             <div class="modal-content">
