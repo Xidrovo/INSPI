@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { AgregarSeccionComponent } from '../../agregar-seccion/agregar-seccion.component';
 import { ApiService } from '../../api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-plantilla-editor',
@@ -18,7 +19,7 @@ import { ApiService } from '../../api.service';
 export class PlantillaEditorComponent {
   private title: string;
   private plantilla: any;
-  private payload: any = [{}];
+  private payload: any = [];
   private titulo: string;
   private descripcion: string;
   refsArray: any[] = [];
@@ -26,7 +27,8 @@ export class PlantillaEditorComponent {
   container;
   constructor(
     private resolver: ComponentFactoryResolver,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private _router: Router
   ) {}
   // Agrega una nueva sección, llamando al componente AgregarSeccionComponent
   addSeccion() {
@@ -67,40 +69,17 @@ export class PlantillaEditorComponent {
     });
   }
   // realizar un post a la api para almacenar la plantilla
-  guardarPlantilla() {
+  async guardarPlantilla() {
     this.refsArray.forEach(x => {
       this.payload.push(x._component.getInfo());
     });
     this.plantilla = {
       titulo: this.titulo,
       descripcion: this.descripcion,
-      secciones: this.payload[1]
+      secciones: this.payload
     };
-    console.log('-------');
     console.log(this.plantilla);
-    console.log('-------');
-    this.apiService
-      .addPlantilla(this.plantilla)
-      .subscribe((data: Array<Object>) => {
-        console.log(data);
-      });
-    /*  this.apiService
-      .addPlantilla({
-        titulo: 'Plantlla 3',
-        descripcion:
-          'Plantilla para el programa de evaluación externa de la calidad :3',
-        secciones: [
-          {
-            titulo: 'Seccion B',
-            descripcion: 'En esta pregunta debe ingresar un párrafo',
-            requerido: true,
-            detalle: '',
-            tipo_dato: 5
-          }
-        ]
-      })
-      .subscribe((data: Array<object>) => {
-        console.log(data);
-      }); */
+    await this.apiService.addPlantilla(this.plantilla);
+    this._router.navigate(['/plantillas']);
   }
 }

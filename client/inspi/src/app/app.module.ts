@@ -4,11 +4,11 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from  '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Bootstrap4FrameworkModule } from 'angular6-json-schema-form';
 
-//Bootstrap modules, help to use bootstrap js without having jquery.
-//Ref: https://loiane.com/2017/08/how-to-add-bootstrap-to-an-angular-cli-project/#3-importing-the-css
+// Bootstrap modules, help to use bootstrap js without having jquery.
+// Ref: https://loiane.com/2017/08/how-to-add-bootstrap-to-an-angular-cli-project/#3-importing-the-css
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -29,10 +29,10 @@ import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../../environments/environment';
-import { NgReduxModule, NgRedux } from '@angular-redux/store'
-import { CounterActions } from './store/actions'
-import { IAppState, rootReducer, INITIAL_STATE } from './store/index'
+// import { environment } from '../../environments/environment';
+import { NgReduxModule, NgRedux } from '@angular-redux/store';
+import { CounterActions } from './store/actions';
+import { IAppState, rootReducer, INITIAL_STATE } from './store/index';
 
 @NgModule({
   declarations: [
@@ -60,19 +60,16 @@ import { IAppState, rootReducer, INITIAL_STATE } from './store/index'
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([AppEffects]),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    EffectsModule.forRoot([AppEffects])
+    //    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [CounterActions],
   bootstrap: [AppComponent]
 })
+export class AppBootstrapModule {}
 
-
-export class AppBootstrapModule { }
-
-export class AppModule { 
-  constructor( ngRedux: NgRedux<IAppState> ) {
-    ngRedux.configureStore( rootReducer, INITIAL_STATE )
+export class AppModule {
+  constructor(ngRedux: NgRedux<IAppState>) {
+    ngRedux.configureStore(rootReducer, INITIAL_STATE);
   }
 }
-
