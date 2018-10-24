@@ -6,6 +6,7 @@ import { PlantillasComponent } from '../plantillas/plantillas.component';
 import { PlantillasHomeComponent } from '../plantillas/plantillas-home/plantillas-home.component';
 import { PlantillaEditorComponent } from '../plantillas/plantilla-editor/plantilla-editor.component';
 import { PlantillaViewerComponent } from '../plantillas/plantilla-viewer/plantilla-viewer.component';
+import { NgReduxModule, NgRedux } from '@angular-redux/store'
 
 const routes: Routes = [           
     { path: 'dashboard', component: DashboardComponent },

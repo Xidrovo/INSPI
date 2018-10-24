@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-redux/store": "^6.6.0",
     "@angular/animations": "^6.1.8",
     "@angular/cdk": "^6.4.7",
     "@angular/common": "^6.1.0",
@@ -33,6 +34,7 @@
     "jquery": "^3.3.1",
     "ngx-bootstrap": "^3.0.1",
     "popper.js": "^1.14.4",
+    "redux": "^3.7.2",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
   },
