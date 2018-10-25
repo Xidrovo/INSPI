@@ -20,7 +20,7 @@
       <br>
       <div class="row justify-content-end col-md-12" style="position: absolute; bottom: 1%;">
         <div class="col-md-auto">
-          <button class="btn btn-primary" data-toggle="modal" data-target="#seccionModal">Añadir sección</button>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#seccionModal"><i class="fa fa-plus" aria-hidden="true"></i> Añadir sección</button>
         </div>
       </div>
 
@@ -38,12 +38,12 @@
           </button>
         </div>
         <div class="modal-body">
-          <input [(ngModel)]="title" type="text" class="form-control" placeholder="Titulo" aria-label="Username"
+          <input [(ngModel)]="title" type="text" class="form-control" placeholder="Titulo" aria-label="Titulo"
             aria-describedby="basic-addon1">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" (click)="addSeccion()" data-dismiss="modal">Agregar sección</button>
+          <button type="button" class="btn btn-primary" (click)="addSeccion()" data-dismiss="modal">Añadir</button>
         </div>
       </div>
     </div>

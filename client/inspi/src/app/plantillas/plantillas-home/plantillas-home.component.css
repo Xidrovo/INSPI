@@ -18,9 +18,3 @@
 .modal-container {
     min-width: 800px;
 }
-
-.delete-button {
-    max-height: 40px;
-    min-width: 85px;
-    text-align: center;
-}

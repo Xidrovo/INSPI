@@ -52,7 +52,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     FormsModule,
     HttpModule,
     HttpClientModule,
-    Bootstrap4FrameworkModule,
+    Bootstrap4FrameworkModule,    
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),

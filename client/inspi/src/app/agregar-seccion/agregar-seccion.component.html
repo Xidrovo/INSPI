@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-auto" data-toggle="tooltip" data-placement="left" title="Eliminar sección">
       <button type="button" class="close" aria-label="Close" (click)="eliminar($event, index)">
-        <span aria-hidden="true">&times;</span>
+        <i class="fa fa-trash" aria-hidden="true"></i>
       </button>
     </div>
   </div>
@@ -30,8 +30,8 @@
         <div class="col">{{pregunta.tipo}}</div>
         <div class="col">
           <!-- No creo que editar sea necesario aquí. -->
-          <button type="button" class="btn btn-success" style="margin: 1%;" (click)="getInfo()">Editar</button>
-          <button (click)="borrarPregunta(y)" class="btn btn-danger" style="margin: 1%;">Eliminar</button>
+          <button type="button" class="btn btn-success" style="margin: 1%;" (click)="getInfo()" data-toggle="tooltip" data-placement="top" title="Editar pregunta"><i class="fa fa-edit" aria-hidden="true"></i></button>
+          <button (click)="borrarPregunta(y)" class="btn btn-danger" style="margin: 1%;" data-toggle="tooltip" data-placement="top" title="Eliminar pregunta"><i class="fa fa-trash" aria-hidden="true"></i></button>
         </div>
       </div>
     </div>

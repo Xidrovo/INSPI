@@ -9,15 +9,16 @@
 
 
     <div class="plantillas-container container">
-      <div *ngFor="let plantilla of plantillasArray" class=""
-        >
+      <div *ngFor="let plantilla of plantillasArray">
         <div class="plantilla-box row align-items-center justify-content-between" data-toggle="modal" [attr.data-target]="'#id'+plantilla.id">
-          <div class="row-flex col-md-10" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla">
+          <div class="row-flex col-md-auto" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla">
             <h5 class="col-md-12">{{ plantilla.titulo }}</h5>
             <h6 class="col-md-12">{{ plantilla.descripcion }}</h6>
           </div>
-          <div class="col-md-auto">
-            <button type="button" class="btn btn-danger delete-button" (click)="eliminarPlantilla(plantilla); $event.stopPropagation();">Eliminar</button>
+          <div class="col-md-auto">            
+            <button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla"><i class="fa fa-eye" aria-hidden="true"></i></button>           
+            <button type="button" class="btn btn-secondary" (click)="$event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Editar plantilla"><i class="fa fa-edit" aria-hidden="true"></i></button>           
+            <button type="button" class="btn btn-danger" (click)="eliminarPlantilla(plantilla); $event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Eliminar plantilla"><i class="fa fa-trash" aria-hidden="true"></i></button>
           </div>
         </div>
         <!-- Modal Vista Previa Plantilla -->
