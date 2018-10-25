@@ -179,7 +179,7 @@ class ProgramaView(View):
 				programaJSON = json.loads(programa_str)
 
 				# traemos el programa que se desea editar y la actualizamos
-				programa_obj = Prgroama.objects.get(pk=programa_id)
+				programa_obj = Programa.objects.get(pk=programa_id)
 				programa_obj.fecha_inicio = programaJSON['fecha_inicio']
 				programa_obj.fecha_fin = programaJSON['fecha_fin']
 				programa_obj.fecha_envio_paquete = programaJSON['fecha_envio_paquete']
