@@ -238,6 +238,22 @@ class ProgramaView(View):
 					'msg': 'El programa que desea consultar no existe.'
 				})
 
+	def delete(self, request, programa_id):
+		if programa_id:
+			try:
+				Programa.objects.get(pk=programa_id).delete()
+				return JsonResponse({'error': 0})
+			except Exception as e:
+				return JsonResponse({
+					'error': 1,
+					'msg': 'Hubo un error al tratar de borrar el programa.'
+				})
+		else:
+			return JsonResponse({
+					'error': 1,
+					'msg': 'Error de solicitud'
+				})
+
 def get_tipos_de_dato(request):
 	if request.method == "GET":
 		try:

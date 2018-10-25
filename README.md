@@ -198,6 +198,15 @@ para correr el cliente se ejecuta el comando
 			"error": 0
 		}
 
+#### Eliminar un programa
+* URL: /api/programas/[programa_id]
+* Método: DELETE
+* Respuesta:
+
+		{
+			"error": 0
+		}
+
 #### Obtener todos los tipos de dato
 * URL: /api/tipos_de_dato/
 * Método: GET
