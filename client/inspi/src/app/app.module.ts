@@ -28,11 +28,10 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
+// import { reducers, metaReducers } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { environment } from '../../environments/environment';
-import { NgReduxModule, NgRedux } from '@angular-redux/store';
-import { CounterActions } from './store/actions';
-import { IAppState, rootReducer, INITIAL_STATE } from './store/index';
+// import { AppEffects } from './store/effects/app.effects';
 
 @NgModule({
   declarations: [
@@ -50,7 +49,6 @@ import { IAppState, rootReducer, INITIAL_STATE } from './store/index';
   ],
   imports: [
     BrowserModule,
-    NgReduxModule,
     FormsModule,
     HttpModule,
     HttpClientModule,
@@ -63,13 +61,8 @@ import { IAppState, rootReducer, INITIAL_STATE } from './store/index';
     EffectsModule.forRoot([AppEffects])
     //    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [CounterActions],
+  providers: [],
   bootstrap: [AppComponent]
 })
+export class AppModule {}
 export class AppBootstrapModule {}
-
-export class AppModule {
-  constructor(ngRedux: NgRedux<IAppState>) {
-    ngRedux.configureStore(rootReducer, INITIAL_STATE);
-  }
-}
