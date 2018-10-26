@@ -7,10 +7,12 @@ import { PlantillasHomeComponent } from '../plantillas/plantillas-home/plantilla
 import { PlantillaEditorComponent } from '../plantillas/plantilla-editor/plantilla-editor.component';
 import { PlantillaViewerComponent } from '../plantillas/plantilla-viewer/plantilla-viewer.component';
 import { NgReduxModule, NgRedux } from '@angular-redux/store'
+import { CampaniaComponent } from '../campania/campania.component';
 
 const routes: Routes = [           
     { path: 'dashboard', component: DashboardComponent },
     { path: 'login', component: LoginComponent},
+    { path: 'campania', component: CampaniaComponent},
     {
       path: 'plantillas', 
       component: PlantillasComponent,

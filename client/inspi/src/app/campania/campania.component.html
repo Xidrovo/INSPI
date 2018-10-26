@@ -1,0 +1,87 @@
+
+
+<div class="container">
+  <h2 class="title">Programa de Evaluación Externa de la Calidad</h2>
+  <h3 class="title">Nombre del CRN</h3>
+  
+  <div class="row justify-content-left align-items-center"> 
+      <div class="col-md-auto">
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#campaniaModal">Nuevo</button>
+      </div>
+      <div class="col-md-auto">
+        <button type="button" routerLink="/plantillas/plantillas" class="btn btn-secondary btn-lg" >Ver Plantillas</button>
+      </div>
+  </div>
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="campaniaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nueva Campaña</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form>
+
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Título:</label>
+              <input [(ngModel)]="title" type="text" class="form-control" placeholder="Titulo" aria-label="Titulo"
+            aria-describedby="basic-addon1">
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col">
+                  <label for="recipient-name" class="col-form-label">Fecha de Inicio:</label>
+                  <input class="form-control" type="date" value="2011-08-19" id="example-date-input"> 
+                </div>
+                <div class="col">
+                  <label for="recipient-name" class="col-form-label">Fecha de Fin:</label>
+                  <input class="form-control" type="date" value="2011-08-19" id="example-date-input"> 
+                </div>
+              </div>
+              
+            </div>
+
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Detalles:</label>
+              <textarea class="form-control" id="message-text"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Seleccione una Plantilla:</label>
+              <select class="form-control" id="exampleFormControlSelect1">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlFile1">Documentos Soporte:</label>
+              <input type="file" class="form-control-file" id="exampleFormControlFile1" multiple>
+            </div>
+
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Número de Viales:</label>
+              <input type="number" class="form-control" min="1" max="10">
+            </div>
+          </form>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="addSeccion()" data-dismiss="modal">Crear</button>
+          </div>
+
+      </div>
+    </div>
+  </div>

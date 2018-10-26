@@ -30,6 +30,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 // import { reducers, metaReducers } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { CampaniaComponent } from './campania/campania.component';
 // import { environment } from '../../environments/environment';
 // import { AppEffects } from './store/effects/app.effects';
 
@@ -45,7 +46,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     TablaRamComponent,
     TablaPruebasbioquimicasComponent,
     TipoPreguntaComponent,
-    AgregarSeccionComponent
+    AgregarSeccionComponent,
+    CampaniaComponent
   ],
   imports: [
     BrowserModule,
