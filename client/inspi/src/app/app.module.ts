@@ -53,7 +53,7 @@ import { CampaniaComponent } from './campania/campania.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    HttpClientModule,
+    HttpClientModule,    
     Bootstrap4FrameworkModule,    
     AppRoutingModule,
     BsDropdownModule.forRoot(),

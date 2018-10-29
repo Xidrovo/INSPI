@@ -10,7 +10,7 @@ export class PlantillaViewerComponent implements OnInit {
   @Input() plantilla;
 
   options = {
-    addSubmit: false
+    addSubmit: false,    
   }
 
   constructor() { }
