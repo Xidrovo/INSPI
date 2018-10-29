@@ -4,7 +4,16 @@
       <h4>Sección: {{title}}</h4>
     </div>
     <div class="col-md-auto" data-toggle="tooltip" data-placement="left" title="Eliminar sección">
-      <button type="button" class="close" aria-label="Close" (click)="eliminar($event, index)">
+      <swal #deleteSwal 
+        [options]="{ confirmButtonText: 'Sí', cancelButtonText: 'No' }"
+        [showCancelButton]="true"
+        [focusCancel]="true"
+        title="¿Está seguro que desea eliminar la sección?"
+        text="Se eliminarán todas las preguntas que contenga la sección {{title}}"
+        type="warning"
+        (confirm)="eliminar($event, index)">
+      </swal>
+      <button type="button" class="close" aria-label="Close" (click)="deleteSwal.show()">
         <i class="fa fa-trash" aria-hidden="true"></i>
       </button>
     </div>

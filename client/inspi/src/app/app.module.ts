@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Bootstrap4FrameworkModule } from 'angular6-json-schema-form';
+import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 
 // Bootstrap modules, help to use bootstrap js without having jquery.
 // Ref: https://loiane.com/2017/08/how-to-add-bootstrap-to-an-angular-cli-project/#3-importing-the-css
@@ -60,7 +61,13 @@ import { CampaniaComponent } from './campania/campania.component';
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([AppEffects])
+    EffectsModule.forRoot([AppEffects]),
+    SweetAlert2Module.forRoot({
+      buttonsStyling: true,
+      customClass: 'modal-content',
+      confirmButtonClass: 'btn btn-primary',
+      cancelButtonClass: 'btn btn-secondary'
+    })
     //    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [],
