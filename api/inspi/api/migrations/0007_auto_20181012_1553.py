@@ -22,6 +22,7 @@ def crearPlantillas(apps, schema_editor):
 
 	seccion_1a = Seccion_model()
 	seccion_1a.titulo = 'Sección A'
+	seccion_1a.orden = 1
 	seccion_1a.plantilla = plantilla_1
 	seccion_1a.save()
 
@@ -29,6 +30,7 @@ def crearPlantillas(apps, schema_editor):
 	pregunta_1a1.titulo = 'Pregunta A.1 - Escoja un valor de calibración de instrumentos'
 	pregunta_1a1.descripcion = 'Los valores mostrados a continuación corresponden mediciones de calibación de herramientas de diversas marcas. Escoja aquel que sea más cercano al de sus instrumentos.'
 	pregunta_1a1.requerido = True
+	pregunta_1a1.orden = 1
 	pregunta_1a1.detalle = '[{"valor": 100, "label": "Opción 1"}, {"valor": 200, "label": "Opción 2"}, {"valor": 300, "label": "Opción 3"}]'
 	pregunta_1a1.seccion = seccion_1a
 	pregunta_1a1.tipo_de_dato = dato_seleccion_unica
@@ -38,6 +40,7 @@ def crearPlantillas(apps, schema_editor):
 	pregunta_1a2.titulo = 'Pregunta A.2 - Describa la muestra observada'
 	pregunta_1a2.descripcion = 'Debe describir detenidamente las características de las bacterias observadas en la muestra, así como el proceso que siguió para el análisis.'
 	pregunta_1a2.requerido = True
+	pregunta_1a2.orden = 2
 	pregunta_1a2.detalle = '""'
 	pregunta_1a2.seccion = seccion_1a
 	pregunta_1a2.tipo_de_dato = dato_texto
@@ -45,6 +48,7 @@ def crearPlantillas(apps, schema_editor):
 
 	seccion_1b = Seccion_model()
 	seccion_1b.titulo = 'Sección B'
+	seccion_1b.orden = 2
 	seccion_1b.plantilla = plantilla_1
 	seccion_1b.save()
 
@@ -52,6 +56,7 @@ def crearPlantillas(apps, schema_editor):
 	pregunta_1b1.titulo = 'Pregunta B.1 - Ingrese la cantidad de anomalías detectadas'
 	pregunta_1b1.descripcion = 'Debe ingresar cuántas anomalías en total detectó durante el análisis de la muestra.'
 	pregunta_1b1.requerido = True
+	pregunta_1b1.orden = 1
 	pregunta_1b1.detalle = '{"fin": 9, "inicio": 1}'
 	pregunta_1b1.seccion = seccion_1b
 	pregunta_1b1.tipo_de_dato = dato_rango
@@ -65,6 +70,7 @@ def crearPlantillas(apps, schema_editor):
 
 	seccion_2a = Seccion_model()
 	seccion_2a.titulo = 'Seccion A'
+	seccion_2a.orden = 1
 	seccion_2a.plantilla = plantilla_2
 	seccion_2a.save()
 
@@ -72,6 +78,7 @@ def crearPlantillas(apps, schema_editor):
 	pregunta_2a1.titulo = 'Pregunta A.1 - Escoja un valor de calibración de instrumentos'
 	pregunta_2a1.descripcion = 'Los valores mostrados a continuación corresponden mediciones de calibación de herramientas de diversas marcas. Escoja aquel que sea más cercano al de sus instrumentos.'
 	pregunta_2a1.requerido = True
+	pregunta_2a1.orden = 1
 	pregunta_2a1.detalle = '{"valor": 25}'
 	pregunta_2a1.seccion = seccion_2a
 	pregunta_2a1.tipo_de_dato = dato_valor_exacto
@@ -81,6 +88,7 @@ def crearPlantillas(apps, schema_editor):
 	pregunta_2a2.titulo = 'Pregunta A.2 - Escoja los tipos de bacterias detectadas'
 	pregunta_2a2.descripcion = 'Debe escojer cuáles fueron los tipos de sepas que detectó en la muestra durante el análisis.'
 	pregunta_2a2.requerido = True
+	pregunta_2a2.orden = 2
 	pregunta_2a2.detalle = '[{"valor": "ABC", "label": "Sepa 1"}, {"valor": "DEF", "label": "Sepa 2"}, {"valor": "GHI", "label": "Sepa 3"}]'
 	pregunta_2a2.seccion = seccion_2a
 	pregunta_2a2.tipo_de_dato = dato_selecion_multiple
