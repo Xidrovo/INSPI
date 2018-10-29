@@ -30,6 +30,9 @@ export class AgregarSeccionComponent implements OnInit {
   private requerido = false;
   private detalle = '';
   private tipoDatos: any;
+  private editIndex = 0;
+  private onEdit: Boolean = false;
+  private dato = '';
   @Output()
   deleteClick: EventEmitter<String> = new EventEmitter<String>();
 
@@ -54,22 +57,27 @@ export class AgregarSeccionComponent implements OnInit {
   }
 
   addInfo(titulo, pregunta) {
-    const info = {
+    var info = {
       titulo: this.titulo,
       tipo_dato: this.tipo_dato,
       requerido: this.requerido,
       detalle: this.splitDetalle(this.detalle),
-      descripcion: this.descripcion
+      descripcion: this.descripcion,
+      dato: this.dato
     };
-    this.arrayPreguntas.push(info);
+    if (this.onEdit){
+      this.arrayPreguntas[this.editIndex] = info;      
+      this.onEdit = false;
+    } else{
+      this.arrayPreguntas.push(info);      
+    }
     $('#preguntasModal' + this.index).modal('hide');
-    this.titulo = '';
-    this.tipo_dato = '-1';
-    this.requerido = false;
-    this.detalle = '';
-    this.descripcion = '';
+    this.cleanModal()
   }
   splitDetalle(detalle) {
+    if (this.tipo_dato!=1 && this.tipo_dato!=2){
+      return detalle;
+    }
     var detail = Array();
     if (detalle !== null && detalle !== undefined) {
       detalle = detalle.split('\n');
@@ -88,9 +96,39 @@ export class AgregarSeccionComponent implements OnInit {
   }
   onSelectChange() {
     $('#preguntasModal' + this.index).modal('show');
+    this.dato = $('#sel'+this.index+' option:selected').text();
   }
 
   borrarPregunta(index) {
+    console.log("Indice a eliminar: ");
+    console.log(index);
     this.arrayPreguntas.splice(index, 1);
+  }
+
+  editarPregunta(index) {
+    console.log("Indice a editar: ");
+    console.log(index);
+    this.editIndex = index;
+    this.onEdit = true;
+    var info = this.arrayPreguntas[index];
+    this.titulo = info['titulo'];
+    this.tipo_dato = info['tipo_dato'];
+    this.requerido = info['requerido'];
+    this.detalle = info['detalle'];
+    this.descripcion = info['descripcion'];
+    $('#preguntasModal' + this.index).modal('show');
+  }
+
+  cancelAction(){
+    this.onEdit = false;
+    this.cleanModal();
+  }
+
+  cleanModal(){
+    this.titulo = '';
+    this.tipo_dato = '-1';
+    this.requerido = false;
+    this.detalle = '';
+    this.descripcion = '';
   }
 }
