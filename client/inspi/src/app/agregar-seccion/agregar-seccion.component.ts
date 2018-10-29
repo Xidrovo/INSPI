@@ -70,9 +70,16 @@ export class AgregarSeccionComponent implements OnInit {
     this.descripcion = '';
   }
   splitDetalle(detalle) {
-    console.log(detalle);
+    var detail = Array();
     if (detalle !== null && detalle !== undefined) {
-      return detalle.split('\n');
+      detalle = detalle.split('\n');
+      detalle.forEach((element, i) => {
+        detail.push({value: i, name:element});
+      });
+      console.log("Detalle generado: ");
+      console.log(detail);
+      console.log(detail.toString());
+      return detail;
     }
     return '';
   }

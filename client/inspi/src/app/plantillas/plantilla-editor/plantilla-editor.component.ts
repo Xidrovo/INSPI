@@ -21,7 +21,7 @@ export class PlantillaEditorComponent {
   private plantilla: any;
   private payload: any = [];
   private titulo: string;
-  private descripcion: string;
+  private descripcion: string = '';
   refsArray: any[] = [];
   @ViewChild('seccionContainer', { read: ViewContainerRef })
   container;
