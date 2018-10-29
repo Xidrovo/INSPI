@@ -24,11 +24,11 @@ export class AgregarSeccionComponent implements OnInit {
   private index: Number = 0;
   private arrayPreguntas: any[] = [];
 
-  private titulo: '';
-  private descripcion: '';
+  private titulo = '';
+  private descripcion = '';
   private tipo_dato: any;
-  private requerido: false;
-  private detalle: '';
+  private requerido = false;
+  private detalle = '';
   private tipoDatos: any;
   @Output()
   deleteClick: EventEmitter<String> = new EventEmitter<String>();
