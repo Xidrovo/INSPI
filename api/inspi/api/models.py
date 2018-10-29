@@ -34,17 +34,15 @@ class Pregunta(models.Model):
 	descripcion = models.TextField()
 	requerido = models.BooleanField()
 	detalle = models.TextField()
-	orden = models.IntegerField(default=0)
 	seccion = models.ForeignKey('Seccion', on_delete=models.CASCADE)
 	tipo_de_dato = models.ForeignKey('TipoDeDato', on_delete=models.CASCADE)
 
-	def crear(self, titulo, descripcion, requerido, detalle, orden, seccion, tipo_de_dato):
+	def crear(self, titulo, descripcion, requerido, detalle, seccion, tipo_de_dato):
 		p = Pregunta()
 		p.titulo = titulo
 		p.descripcion = descripcion
 		p.requerido = requerido
 		p.detalle = detalle
-		p.orden = orden
 		p.seccion = seccion
 		p.tipo_de_dato = tipo_de_dato
 		p.save()
@@ -62,7 +60,6 @@ class Pregunta(models.Model):
 			'descripcion':self.descripcion,
 			'requerido':self.requerido,
 			'detalle':detalle,
-			'orden' :self.orden,
 			'tipo_data':self.tipo_de_dato.to_dict()
 		}
 
@@ -71,17 +68,15 @@ class Pregunta(models.Model):
 
 class Seccion(models.Model):
 	titulo = models.CharField(max_length=200)
-	orden = models.IntegerField(default=0)
 	plantilla = models.ForeignKey('Plantilla', on_delete=models.CASCADE)
 
 	@property
 	def preguntas(self):
-		return Pregunta.objects.filter(seccion=self.pk).order_by('orden')
+		return Pregunta.objects.filter(seccion=self.pk).order_by('id')
 
-	def crear(self, titulo, orden, plantilla):
+	def crear(self, titulo, plantilla):
 		s = Seccion()
 		s.titulo = titulo
-		s.orden = orden
 		s.plantilla = plantilla
 		s.save()
 		return s 
@@ -93,7 +88,6 @@ class Seccion(models.Model):
 		return {
 			'id':self.pk,
 			'titulo':self.titulo,
-			'orden' :self.orden,
 			'preguntas':preguntas
 		}
 
@@ -113,7 +107,7 @@ class Plantilla(models.Model):
 
 	@property
 	def secciones(self):
-		return Seccion.objects.filter(plantilla=self.pk).order_by('orden')
+		return Seccion.objects.filter(plantilla=self.pk).order_by('id')
 
 	def to_dict(self):
 		secciones = []

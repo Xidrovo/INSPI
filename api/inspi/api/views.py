@@ -69,16 +69,14 @@ class PlantillaView(View):
 			for seccion in secciones:
 				titulo_seccion = seccion['titulo'] 
 				preguntas = seccion['preguntas']
-				orden_seccion = seccion['orden']
 
 				# creamos una nueva sección y la asociamos a la plantilla
-				seccion_obj = Seccion().crear(titulo_seccion, orden_seccion, plantilla_obj)
+				seccion_obj = Seccion().crear(titulo_seccion, plantilla_obj)
 
 				for pregunta in preguntas:
 					# extraemos los datos para crear las preguntas
 					titulo_pregunta = pregunta['titulo']
 					descripcion = pregunta['descripcion']
-					orden_pregunta = pregunta['orden']
 					requerido = pregunta['requerido'] in ['True','true']
 					detalle = json.dumps(pregunta['detalle'])
 					tipo_de_dato_id = pregunta['tipo_dato']
@@ -91,7 +89,7 @@ class PlantillaView(View):
 						tipo_de_dato = TipoDeDato.objects.get(nombre='desconocido')
 
 					# creamos la pregunta y la asociamos a la sección
-					pregunta_obj = Pregunta().crear(titulo_pregunta, descripcion, requerido, detalle, orden, seccion_obj, tipo_de_dato)
+					pregunta_obj = Pregunta().crear(titulo_pregunta, descripcion, requerido, detalle, seccion_obj, tipo_de_dato)
 			return JsonResponse({'error': 0})
 		except Exception as e:
 			return JsonResponse({
@@ -123,16 +121,14 @@ class PlantillaView(View):
 				for seccion in secciones:
 					titulo_seccion = seccion['titulo'] 
 					preguntas = seccion['preguntas']
-					orden_seccion = seccion['orden']
 
 					# creamos una nueva sección y la asociamos a la plantilla
-					seccion_obj = Seccion().crear(titulo_seccion, orden, plantilla_obj)
+					seccion_obj = Seccion().crear(titulo_seccion, plantilla_obj)
 
 					for pregunta in preguntas:
 						# extraemos los datos para las preguntas
 						titulo_pregunta = pregunta['titulo']
 						descripcion = pregunta['descripcion']
-						orden_pregunta = pregunta['orden']
 						requerido = pregunta['requerido'] in ['True','true']
 						detalle = json.dumps(pregunta['detalle'])
 						tipo_de_dato_id = pregunta['tipo_dato']
@@ -145,7 +141,7 @@ class PlantillaView(View):
 							tipo_de_dato = TipoDeDato.objects.get(nombre='desconocido')
 
 						# creamos la pregunta y la asociamos a la sección
-						pregunta_obj = Pregunta().crear(titulo_pregunta, descripcion, requerido, detalle, orden, seccion_obj, tipo_de_dato)
+						pregunta_obj = Pregunta().crear(titulo_pregunta, descripcion, requerido, detalle, seccion_obj, tipo_de_dato)
 				return JsonResponse({'error': 0})
 			except Exception as e:
 				return JsonResponse({
