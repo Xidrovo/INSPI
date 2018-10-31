@@ -3,11 +3,6 @@
 <div class="container">
   <h2 class="title">Programa de Evaluación Externa de la Calidad</h2>
   <h3 class="title">CRN</h3>
-
-  <div *ngFor="let plantilla of plantillasArray">
-    <h1>{{plantilla.descripcion}}</h1>
-  </div>
-
   
   <div class="row justify-content-left align-items-center"> 
       <div class="col-md-auto">
@@ -19,50 +14,40 @@
   </div>
 </div>
 <div class="plantillas-container container">
-<div *ngFor="let plantilla of plantillasArray">
-        <div class="plantilla-box row align-items-center justify-content-between" data-toggle="modal" [attr.data-target]="'#id'+plantilla.id">
-          <div class="row-flex col-md-auto" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla">
-            <h5 class="col-md-12">{{ plantilla.id }}</h5>
-            <h6 class="col-md-12">dd</h6>
-          </div>
-          <div class="col-md-auto">            
-            <button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla"><i class="fa fa-eye" aria-hidden="true"></i></button>           
-            <button type="button" class="btn btn-secondary" (click)="$event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Editar plantilla"><i class="fa fa-edit" aria-hidden="true"></i></button>           
-            <swal #deleteSwal 
-              [options]="{ confirmButtonText: 'Sí', cancelButtonText: 'No' }"
-              [showCancelButton]="true"
-              [focusCancel]="true"
-              title="¿Está seguro que desea eliminar la plantilla?"
-              text="La plantilla {{plantilla.titulo}} se eliminará de manera permanente"
-              type="warning"
-              (confirm)="eliminarPlantilla(plantilla)">
-            </swal>
-            <button type="button" class="btn btn-danger" (click)="deleteSwal.show(); $event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Eliminar plantilla"><i class="fa fa-trash" aria-hidden="true"></i></button>
-          </div>
-        </div>
-        <!-- Modal Vista Previa Plantilla -->
-        <div class="modal fade" id="id{{plantilla.id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-          aria-hidden="true">
-          <div class="modal-dialog modal-container" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="modelTitleId">Vista previa</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <app-plantilla-viewer [plantilla]="plantilla"></app-plantilla-viewer>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              </div>
+  <div *ngFor="let campania of campaniasArray">
+          <div class="plantilla-box row align-items-center justify-content-between" data-toggle="modal">
+            <div class="row-flex col-md-auto" data-toggle="tooltip" data-placement="top" title="Abrir Campaña">
+              <h5 class="col-md-12">{{ campania.nombre }}</h5>
+              <h6 class="col-md-12">Del {{ campania.fecha_inicio}} al {{ campania.fecha_fin}}</h6>
+            </div>
+            <div class="col-md-auto">            
+              <button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla"><i class="fa fa-eye" aria-hidden="true"></i></button>           
+              <button type="button" class="btn btn-danger" (click)="deleteSwal.show(); $event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Eliminar plantilla"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </div>
           </div>
+          <!-- Modal Vista Previa Plantilla 
+          <div class="modal fade" id="id{{plantilla.id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog modal-container" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modelTitleId">Vista previa</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <app-plantilla-viewer [plantilla]="plantilla"></app-plantilla-viewer>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div> -->
         </div>
-      </div>
       
-</div>
+
 
   <!-- Modal -->
   <div class="modal fade" id="campaniaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -112,12 +97,10 @@
 
             <div class="form-group">
               <label for="exampleFormControlSelect1">Seleccione una Plantilla:</label>
-              <select [(ngModel)]="plantilla_id" class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select [(ngModel)]="plantilla_id" class="selectpicker form-control"
+                (change)="onSelectChange()">
+                <option value="-1" default>-- Escoja una Plantilla --</option>
+                <option *ngFor="let plantilla of plantillasArray" [attr.value]="plantilla.id">{{plantilla.titulo}}</option>
               </select>
             </div>
           </form>
