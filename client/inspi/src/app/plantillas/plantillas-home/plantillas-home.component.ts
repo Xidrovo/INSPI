@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 
 import { ApiService } from '../../api.service';
 import { Plantilla } from '../plantilla.model';
 import { Pregunta } from '../pregunta.model';
 import { Seccion } from '../seccion.model';
+
+
 @Component({
   selector: 'app-plantillas-home',
   templateUrl: './plantillas-home.component.html',
@@ -35,7 +37,11 @@ export class PlantillasHomeComponent implements OnInit {
     this.apiService.getPlantillas()
       .subscribe(
         (data: object) => {
-          this.plantillasArray = data['error']==0? data['plantillas'].map((p):Plantilla=>{return this.parsePlantilla(p)}) : [{id:-1,titulo:"",descripcion:data['msg'],secciones:[]}];          
+          this.plantillasArray = data['error']==0?
+           data['plantillas'].map((p):Plantilla=>
+           {return this.parsePlantilla(p)}) : 
+           [{id:-1,titulo:"",descripcion:data['msg'],
+           secciones:[]}];          
         }
       );
   }

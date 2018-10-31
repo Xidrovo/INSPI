@@ -9,6 +9,27 @@ import { throwError, of } from 'rxjs';
 export class ApiService {
   API_URL = 'http://localhost:8000';
   constructor(private httpClient: HttpClient) {}
+
+  getCampanias() {
+    return this.httpClient.get(`${this.API_URL}/api/programas/`);
+  }
+  // This function must call the get /api/plantillas/:plantilla_id
+  getCampania(idCampania) {
+    return this.httpClient
+      .get(`${this.API_URL}/api/programas/` + idCampania)
+      .toPromise()
+      .then(res => console.log(res.toString()))
+      .catch(err => console.log(err));
+  }
+
+  addCampania(payload): any {
+    return this.httpClient
+      .post(`${this.API_URL}/api/programas/`, payload)
+      .toPromise()
+      .then(res => console.log(res.toString()))
+      .catch(err => console.log(err));
+  }
+  
   getPlantillas() {
     return this.httpClient.get(`${this.API_URL}/api/plantillas/`);
   }
