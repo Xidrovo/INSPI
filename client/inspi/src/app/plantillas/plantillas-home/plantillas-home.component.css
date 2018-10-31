@@ -1,20 +1,30 @@
 .plantillas-container {
-    border: 1px solid gray;
-    padding: 1%;
-    min-height: 400px;
-    margin-top: 1%;
+  border: 1px solid gray;
+  padding: 1%;
+  min-height: 400px;
+  margin-top: 1%;
 }
 
-.plantilla-box {    
-    padding: 1%;
-    margin: .1%;
-    background-color: beige;
+.plantilla-box {
+  padding: 1%;
+  margin: 0.1%;
+  background-color: beige;
 }
 
 .plantilla-box:hover {
-    background-color: rgb(199, 199, 199);
+  background-color: rgb(199, 199, 199);
 }
 
 .modal-container {
-    min-width: 800px;
+  min-width: 800px;
+}
+
+.btn-create {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 4%;
+  margin-right: 4%;
+  border-radius: 100px;
+  font-weight: bold;
 }

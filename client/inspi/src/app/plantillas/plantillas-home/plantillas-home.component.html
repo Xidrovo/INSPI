@@ -1,33 +1,32 @@
 <div class="col-sm-12">
   <div class="row-flex">
     <div class="row justify-content-between align-items-center">
-      <div class="col-md-auto">Plantillas creadas</div>
       <div class="col-md-auto">
-        <button type="button" class="btn btn-primary" routerLink="plantilla-editor">Crear plantilla</button>
+        <button type="button" class="btn btn-primary btn-create btn-lg shadow mb-5" routerLink="plantilla-editor"><i
+            class="fa fa-plus" aria-hidden="true"></i></button>
       </div>
     </div>
 
 
     <div class="plantillas-container container">
       <div *ngFor="let plantilla of plantillasArray">
-        <div class="plantilla-box row align-items-center justify-content-between" data-toggle="modal" [attr.data-target]="'#id'+plantilla.id">
+        <div class="plantilla-box row align-items-center justify-content-between" style="cursor: pointer;" data-toggle="modal"
+          [attr.data-target]="'#id'+plantilla.id">
           <div class="row-flex col-md-auto" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla">
             <h5 class="col-md-12">{{ plantilla.titulo }}</h5>
             <h6 class="col-md-12">{{ plantilla.descripcion }}</h6>
           </div>
-          <div class="col-md-auto">            
-            <button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla"><i class="fa fa-eye" aria-hidden="true"></i></button>           
-            <button type="button" class="btn btn-secondary" (click)="$event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Editar plantilla"><i class="fa fa-edit" aria-hidden="true"></i></button>           
-            <swal #deleteSwal 
-              [options]="{ confirmButtonText: 'Sí', cancelButtonText: 'No' }"
-              [showCancelButton]="true"
-              [focusCancel]="true"
-              title="¿Está seguro que desea eliminar la plantilla?"
-              text="La plantilla {{plantilla.titulo}} se eliminará de manera permanente"
-              type="warning"
-              (confirm)="eliminarPlantilla(plantilla)">
+          <div class="col-md-auto">
+            <button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla"><i
+                class="fa fa-eye" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-secondary" (click)="$event.stopPropagation();" data-toggle="tooltip"
+              data-placement="top" title="Editar plantilla"><i class="fa fa-edit" aria-hidden="true"></i></button>
+            <swal #deleteSwal [options]="{ confirmButtonText: 'Sí', cancelButtonText: 'No' }" [showCancelButton]="true"
+              [focusCancel]="true" title="¿Está seguro que desea eliminar la plantilla?" text="La plantilla {{plantilla.titulo}} se eliminará de manera permanente"
+              type="warning" (confirm)="eliminarPlantilla(plantilla)">
             </swal>
-            <button type="button" class="btn btn-danger" (click)="deleteSwal.show(); $event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Eliminar plantilla"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-danger" (click)="deleteSwal.show(); $event.stopPropagation();"
+              data-toggle="tooltip" data-placement="top" title="Eliminar plantilla"><i class="fa fa-trash" aria-hidden="true"></i></button>
           </div>
         </div>
         <!-- Modal Vista Previa Plantilla -->

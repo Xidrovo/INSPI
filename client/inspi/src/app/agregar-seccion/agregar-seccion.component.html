@@ -4,14 +4,9 @@
       <h4>Sección: {{title}}</h4>
     </div>
     <div class="col-md-auto" data-toggle="tooltip" data-placement="left" title="Eliminar sección">
-      <swal #deleteSwal 
-        [options]="{ confirmButtonText: 'Sí', cancelButtonText: 'No' }"
-        [showCancelButton]="true"
-        [focusCancel]="true"
-        title="¿Está seguro que desea eliminar la sección?"
-        text="Se eliminarán todas las preguntas que contenga la sección {{title}}"
-        type="warning"
-        (confirm)="eliminar($event, index)">
+      <swal #deleteSwal [options]="{ confirmButtonText: 'Sí', cancelButtonText: 'No' }" [showCancelButton]="true"
+        [focusCancel]="true" title="¿Está seguro que desea eliminar la sección?" text="Se eliminarán todas las preguntas que contenga la sección {{title}}"
+        type="warning" (confirm)="eliminar($event, index)">
       </swal>
       <button type="button" class="close" aria-label="Close" (click)="deleteSwal.show()">
         <i class="fa fa-trash" aria-hidden="true"></i>
@@ -39,8 +34,10 @@
         <div class="col">{{pregunta.dato}}</div>
         <div class="col">
           <!-- No creo que editar sea necesario aquí. -->
-          <button type="button" class="btn btn-success" style="margin: 1%;" (click)="editarPregunta(y)" data-toggle="tooltip" data-placement="top" title="Editar pregunta"><i class="fa fa-edit" aria-hidden="true"></i></button>
-          <button (click)="borrarPregunta(y)" class="btn btn-danger" style="margin: 1%;" data-toggle="tooltip" data-placement="top" title="Eliminar pregunta"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-success" style="margin: 1%;" (click)="editarPregunta(y)" data-toggle="tooltip"
+            data-placement="top" title="Editar pregunta"><i class="fa fa-edit" aria-hidden="true"></i></button>
+          <button (click)="borrarPregunta(y)" class="btn btn-danger" style="margin: 1%;" data-toggle="tooltip"
+            data-placement="top" title="Eliminar pregunta"><i class="fa fa-trash" aria-hidden="true"></i></button>
         </div>
       </div>
     </div>
