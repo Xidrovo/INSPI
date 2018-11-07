@@ -154,7 +154,7 @@ class Programa(models.Model):
 		}
 
 	def __str__(self):
-		return '%s INICIO: %s' % (self.nombre, str(fecha_inicio))
+		return '%s INICIO: %s' % (self.nombre, str(self.fecha_inicio))
 
 
 
