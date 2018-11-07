@@ -132,10 +132,15 @@ class Programa(models.Model):
 	fecha_envio_resultados = models.DateField()
 	estado = models.BooleanField(default=True)
 
-	def crear(self, nombre, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete):
+	def crear(self, nombre, plantilla_id, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete):
+		plantilla = None
+		if Plantilla.objects.filter(pk=plantilla_id) > 0:
+			plantilla = Plantilla.objects.get(pk=plantilla_id)
+
 		try:
 			p = Programa()
 			p.nombre = nombre
+			p.plantilla = plantilla
 			p.fecha_inicio = fecha_inicio
 			p.fecha_fin = fecha_fin
 			p.fecha_envio_paquete = fecha_envio_paquete

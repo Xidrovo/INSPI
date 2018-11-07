@@ -205,6 +205,7 @@ para correr el cliente se ejecuta el comando
 * Envio:
 		{
 			"nombre" : "Nombre del programa",
+			"plantilla_id" : << id de plantilla >>,
 			"fecha_inicio" : "12/12/2018",
 			"fecha_fin" : "12/12/2018",
 			"fecha_envio_paquete" : "12/12/2018",
