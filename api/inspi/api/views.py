@@ -179,13 +179,24 @@ class ProgramaView(View):
 				# transformamos el string a un diccionario
 				programaJSON = json.loads(programa_str)
 
-				# creamos el programa 
-				programa_obj = Programa()
-				programa_obj.fecha_inicio = programaJSON['fecha_inicio']
-				programa_obj.fecha_fin = programaJSON['fecha_fin']
-				programa_obj.fecha_envio_paquete = programaJSON['fecha_envio_paquete']
-				programa_obj.fecha_envio_resultados = programaJSON['fecha_envio_resultados']
-				programa_obj.save()
+				# obtenemos los campos
+				nombre = programaJSON['nombre']
+				fecha_inicio = programaJSON['fecha_inicio']
+				fecha_fin = programaJSON['fecha_fin']
+				fecha_envio_resultados = programaJSON['fecha_envio_resultados']
+				fecha_envio_paquete = programaJSON['fecha_envio_paquete']
+
+				programa_obj = Programa().crear(nombre, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete)
+				if programa_obj:
+					return JsonResponse({
+						'error': 0
+					})
+
+				else:
+					return JsonResponse({
+						'error': 1,
+						'msg': 'Hubo un error al crear el nuevo programa: ' + str(e)
+					})
 
 		except Exception as e:
 			return JsonResponse({

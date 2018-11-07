@@ -133,15 +133,18 @@ class Programa(models.Model):
 	estado = models.BooleanField(default=True)
 
 	def crear(self, nombre, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete):
-		p = Programa()
-		p.nombre = nombre
-		p.fecha_inicio = fecha_inicio
-		p.fecha_fin = fecha_fin
-		p.fecha_envio_paquete = fecha_envio_paquete
-		p.fecha_envio_resultados = fecha_envio_resultados
-		p.estado = True
-		p.save()
-		return p
+		try:
+			p = Programa()
+			p.nombre = nombre
+			p.fecha_inicio = fecha_inicio
+			p.fecha_fin = fecha_fin
+			p.fecha_envio_paquete = fecha_envio_paquete
+			p.fecha_envio_resultados = fecha_envio_resultados
+			p.estado = True
+			p.save()
+			return p
+		except:
+			return None
 
 	def to_dict(self):
 		return {

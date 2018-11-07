@@ -198,6 +198,24 @@ para correr el cliente se ejecuta el comando
 			"error": 0
 		}
 
+
+#### Crear un programa
+* URL: /api/programas/[programa_id]
+* Método: POST
+* Envio:
+		{
+			"nombre" : "Nombre del programa",
+			"fecha_inicio" : "12/12/2018",
+			"fecha_fin" : "12/12/2018",
+			"fecha_envio_paquete" : "12/12/2018",
+			"fecha_envio_resultados" : "12/12/2018"
+		}
+* Respuesta:
+
+		{
+			"error": 0
+		}
+
 #### Eliminar un programa
 * URL: /api/programas/[programa_id]
 * Método: DELETE
