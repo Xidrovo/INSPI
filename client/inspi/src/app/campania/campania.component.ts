@@ -15,8 +15,9 @@ import { PlantillasHomeComponent } from '../plantillas/plantillas-home/plantilla
 })
 export class CampaniaComponent implements OnInit {
 
-  campaniasArray: Campania[]
-  plantillasArray: Plantilla[]
+  campaniasArray: Campania[];
+
+  plantillasArray: Plantilla[];
 
   private campania: any;
   private nombre: string;

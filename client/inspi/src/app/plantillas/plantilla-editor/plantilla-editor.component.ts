@@ -52,7 +52,7 @@ export class PlantillaEditorComponent {
     this.refsArray.push(componentRef);
     this.validate();
     this.title = '';
-    $('#seccionModal').modal('hide');
+    //$('#seccionModal').modal('hide');
   }
 
   // Esta función elimina la última referencia de sección agregada.
