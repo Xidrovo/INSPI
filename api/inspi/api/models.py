@@ -133,8 +133,11 @@ class Programa(models.Model):
 	estado = models.BooleanField(default=True)
 
 	def crear(self, nombre, plantilla_id, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete):
-		try:
+		plantilla = None
+		if Plantilla.objects.filter(pk=plantilla_id) > 0:
 			plantilla = Plantilla.objects.get(pk=plantilla_id)
+
+		try:
 			p = Programa()
 			p.nombre = nombre
 			p.plantilla = plantilla

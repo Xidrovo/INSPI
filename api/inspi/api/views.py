@@ -181,7 +181,7 @@ class ProgramaView(View):
 
 				# obtenemos los campos
 				nombre = programaJSON['nombre']
-				plantilla_id = programaJSON['plantilla_id']
+				plantilla_id = programaJSON.get('plantilla_id', None)
 				fecha_inicio = programaJSON['fecha_inicio']
 				fecha_fin = programaJSON['fecha_fin']
 				fecha_envio_resultados = programaJSON['fecha_envio_resultados']
