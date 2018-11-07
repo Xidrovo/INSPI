@@ -171,7 +171,7 @@ class PlantillaView(View):
 			})
 
 class ProgramaView(View):
-	def post(self, request):
+	def post(self, request, programa_id):
 		try:
 			# extraer el JSON como un string
 				programa_str = request.body.decode('utf-8')
