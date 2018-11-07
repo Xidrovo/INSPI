@@ -9,6 +9,7 @@ import {
 import { AgregarSeccionComponent } from '../../agregar-seccion/agregar-seccion.component';
 import { ApiService } from '../../api.service';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-plantilla-editor',
