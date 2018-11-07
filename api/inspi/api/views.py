@@ -181,12 +181,13 @@ class ProgramaView(View):
 
 				# obtenemos los campos
 				nombre = programaJSON['nombre']
+				plantilla_id = programaJSON['plantilla_id']
 				fecha_inicio = programaJSON['fecha_inicio']
 				fecha_fin = programaJSON['fecha_fin']
 				fecha_envio_resultados = programaJSON['fecha_envio_resultados']
 				fecha_envio_paquete = programaJSON['fecha_envio_paquete']
 
-				programa_obj = Programa().crear(nombre, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete)
+				programa_obj = Programa().crear(nombre, plantilla_id, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete)
 				if programa_obj:
 					return JsonResponse({
 						'error': 0
