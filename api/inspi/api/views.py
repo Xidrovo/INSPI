@@ -171,6 +171,28 @@ class PlantillaView(View):
 			})
 
 class ProgramaView(View):
+	def post(self, request):
+		try:
+			# extraer el JSON como un string
+				programa_str = request.body.decode('utf-8')
+
+				# transformamos el string a un diccionario
+				programaJSON = json.loads(programa_str)
+
+				# creamos el programa 
+				programa_obj = Programa()
+				programa_obj.fecha_inicio = programaJSON['fecha_inicio']
+				programa_obj.fecha_fin = programaJSON['fecha_fin']
+				programa_obj.fecha_envio_paquete = programaJSON['fecha_envio_paquete']
+				programa_obj.fecha_envio_resultados = programaJSON['fecha_envio_resultados']
+				programa_obj.save()
+
+		except Exception as e:
+			return JsonResponse({
+				'error': 1,
+				'msg': 'Hubo un error al crear el nuevo programa: ' + str(e)
+			})
+
 	def put(self, request, programa_id):
 		if Programa.objects.filter(pk=programa_id).count() > 0:
 			try:
@@ -192,7 +214,7 @@ class ProgramaView(View):
 			except Exception as e:
 				return JsonResponse({
 					'error': 1,
-					'msg': 'Hubo un error al crear el nuevo programa: ' + str(e)
+					'msg': 'Hubo un error al editar el programa: ' + str(e)
 				})
 		else:
 			return JsonResponse({

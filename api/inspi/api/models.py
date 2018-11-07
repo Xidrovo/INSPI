@@ -126,10 +126,10 @@ class Plantilla(models.Model):
 class Programa(models.Model):
 	nombre = models.CharField(max_length=50)
 	plantilla = models.ForeignKey('Plantilla', on_delete=models.CASCADE, blank=True)
-	fecha_inicio = models.DateTimeField(auto_now_add=True)
-	fecha_fin = models.DateTimeField(auto_now_add=True)
-	fecha_envio_paquete = models.DateTimeField(auto_now_add=True)
-	fecha_envio_resultados = models.DateTimeField(auto_now_add=True)
+	fecha_inicio = models.DateField()
+	fecha_fin = models.DateField()
+	fecha_envio_paquete = models.DateField()
+	fecha_envio_resultados = models.DateField()
 	estado = models.BooleanField(default=True)
 
 	def crear(self, nombre, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete):
