@@ -21,7 +21,8 @@ export class PlantillaEditorComponent {
   private plantilla: any;
   private payload: any = [];
   private titulo: string;
-  private descripcion: string = '';
+  private descripcion: string;
+  private canPost = false;
   refsArray: any[] = [];
   @ViewChild('seccionContainer', { read: ViewContainerRef })
   container;
@@ -32,6 +33,10 @@ export class PlantillaEditorComponent {
   ) {}
   // Agrega una nueva sección, llamando al componente AgregarSeccionComponent
   addSeccion() {
+    // don't do anything if is empty
+    if (!!!this.title) {
+      return;
+    }
     // Creo una clase de tipo AgregarSeccionComponent
     const factory = this.resolver.resolveComponentFactory(
       AgregarSeccionComponent
@@ -45,13 +50,16 @@ export class PlantillaEditorComponent {
       this.eliminarAlgo(componentRef._component.index);
     });
     this.refsArray.push(componentRef);
+    this.validate();
     this.title = '';
+    $('#seccionModal').modal('hide');
   }
 
   // Esta función elimina la última referencia de sección agregada.
   deleteLastSeccion() {
     const componentRef = this.refsArray.pop();
     componentRef.destroy();
+    this.validate();
   }
   // Elimina el componente del DOM y del array de Ref dado un índice.
   eliminarAlgo(index) {
@@ -59,6 +67,7 @@ export class PlantillaEditorComponent {
     componentRef.destroy();
     this.refsArray.splice(index, 1);
     this.reCalculateIndex();
+    this.validate();
   }
   // resetea el índice de cada elemento
   reCalculateIndex() {
@@ -78,8 +87,18 @@ export class PlantillaEditorComponent {
       descripcion: this.descripcion,
       secciones: this.payload
     };
-    console.log(this.plantilla);
     await this.apiService.addPlantilla(this.plantilla);
     this._router.navigate(['/plantillas']);
   }
+  validate = () => {
+    const someSection = this.refsArray.length > 0;
+    let somethingsEmpty = false;
+    this.refsArray.forEach(x => {
+      if (x._component.isArrayEmpty()) {
+        somethingsEmpty = true;
+      }
+    });
+    this.canPost =
+      !!this.titulo && !!this.descripcion && someSection && !somethingsEmpty;
+  };
 }

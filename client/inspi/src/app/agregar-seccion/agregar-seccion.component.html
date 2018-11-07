@@ -53,14 +53,14 @@
         <div class="modal-body">
           <label for="tituloPregunta">Título</label>
           <input type="text" class="form-control" id="tituloPregunta" aria-describedby="emailHelp" placeholder="Ingrese título"
-            [(ngModel)]="titulo" autofocus>
+            [(ngModel)]="titulo" autofocus (keyup)="validate()">
           <div>
             <label for="description">Descripción</label>
-            <textarea class="form-control" id="description" rows="3" [(ngModel)]="descripcion"></textarea>
+            <textarea class="form-control" id="description" rows="3" [(ngModel)]="descripcion" (keyup)="validate()"></textarea>
           </div>
           <div *ngIf="tipo_dato == 2 || tipo_dato == 1 ">
             <label for="textArea">Opciones*</label>
-            <textarea class="form-control" id="textArea" rows="3" [(ngModel)]="detalle"></textarea>
+            <textarea class="form-control" id="textArea" rows="3" [(ngModel)]="detalle" (keyup)="validate()"></textarea>
             <h6><small>*Cada salto de linea es una opción</small></h6>
           </div>
           <div class="form-check pull-right">
@@ -70,7 +70,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancelAction()">Cancelar</button>
-          <button type="button" class="btn btn-primary" (click)="addInfo()">Guardar</button>
+          <button type="button" class="btn btn-primary" (click)="addInfo()" [disabled]="!filled">Guardar</button>
         </div>
       </div>
     </div>

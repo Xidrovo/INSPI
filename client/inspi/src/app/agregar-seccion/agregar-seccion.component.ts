@@ -33,6 +33,9 @@ export class AgregarSeccionComponent implements OnInit {
   private editIndex = 0;
   private onEdit: Boolean = false;
   private dato = '';
+
+  private filled: Boolean = false;
+
   @Output()
   deleteClick: EventEmitter<String> = new EventEmitter<String>();
 
@@ -65,26 +68,26 @@ export class AgregarSeccionComponent implements OnInit {
       descripcion: this.descripcion,
       dato: this.dato
     };
-    if (this.onEdit){
-      this.arrayPreguntas[this.editIndex] = info;      
+    if (this.onEdit) {
+      this.arrayPreguntas[this.editIndex] = info;
       this.onEdit = false;
-    } else{
-      this.arrayPreguntas.push(info);      
+    } else {
+      this.arrayPreguntas.push(info);
     }
     $('#preguntasModal' + this.index).modal('hide');
-    this.cleanModal()
+    this.cleanModal();
   }
   splitDetalle(detalle) {
-    if (this.tipo_dato!=1 && this.tipo_dato!=2){
+    if (this.tipo_dato !== 1 && this.tipo_dato !== 2) {
       return detalle;
     }
     var detail = Array();
     if (detalle !== null && detalle !== undefined) {
       detalle = detalle.split('\n');
       detalle.forEach((element, i) => {
-        detail.push({value: i, name:element});
+        detail.push({ value: i, name: element });
       });
-      console.log("Detalle generado: ");
+      console.log('Detalle generado: ');
       console.log(detail);
       console.log(detail.toString());
       return detail;
@@ -94,19 +97,22 @@ export class AgregarSeccionComponent implements OnInit {
   getInfo() {
     return { titulo: this.title, preguntas: this.arrayPreguntas };
   }
+  isArrayEmpty() {
+    return this.arrayPreguntas.length === 0;
+  }
   onSelectChange() {
     $('#preguntasModal' + this.index).modal('show');
-    this.dato = $('#sel'+this.index+' option:selected').text();
+    this.dato = $('#sel' + this.index + ' option:selected').text();
   }
 
   borrarPregunta(index) {
-    console.log("Indice a eliminar: ");
+    console.log('Indice a eliminar: ');
     console.log(index);
     this.arrayPreguntas.splice(index, 1);
   }
 
   editarPregunta(index) {
-    console.log("Indice a editar: ");
+    console.log('Indice a editar: ');
     console.log(index);
     this.editIndex = index;
     this.onEdit = true;
@@ -119,16 +125,26 @@ export class AgregarSeccionComponent implements OnInit {
     $('#preguntasModal' + this.index).modal('show');
   }
 
-  cancelAction(){
+  cancelAction() {
     this.onEdit = false;
     this.cleanModal();
   }
 
-  cleanModal(){
+  cleanModal() {
     this.titulo = '';
     this.tipo_dato = '-1';
     this.requerido = false;
     this.detalle = '';
     this.descripcion = '';
+  }
+
+  validate() {
+    if (this.tipo_dato === 2) {
+      this.filled = !!this.titulo && !!this.descripcion && !!this.detalle;
+    } else if (this.tipo_dato === 1) {
+      this.filled = !!this.titulo && !!this.descripcion && !!this.detalle;
+    } else {
+      this.filled = !!this.titulo && !!this.descripcion;
+    }
   }
 }
