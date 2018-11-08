@@ -244,6 +244,7 @@ class ProgramaView(View):
                             'id' : programa.id,
                             'nombre' : programa.nombre,
                             'plantilla_id' : programa.plantilla.id,
+                            'plantilla_nombre' : programa.plantilla.titulo,
                             'fecha_inicio' : programa.fecha_inicio,
                             'fecha_fin' : programa.fecha_fin,
                             'fecha_envio_paquete' : programa.fecha_envio_paquete,
