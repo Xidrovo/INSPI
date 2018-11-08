@@ -24,15 +24,7 @@ export class PlantillasHomeComponent implements OnInit {
   crearPlantilla() {
     console.log('Crear plantilla');
   }
-/*
-  obtenerPlantillas() {
-    this.plantillasArray = this.apiService
-      .getPlantillas()
-      .subscribe((data: Array<object>) => {
-        this.plantillasArray = data;
-      });
-  }
-*/
+
   obtenerPlantillas() {    
     this.apiService.getPlantillas()
       .subscribe(
@@ -40,8 +32,7 @@ export class PlantillasHomeComponent implements OnInit {
           this.plantillasArray = data['error']==0?
            data['plantillas'].map((p):Plantilla=>
            {return this.parsePlantilla(p)}) : 
-           [{id:-1,titulo:"",descripcion:data['msg'],
-           secciones:[]}];          
+           [{id:-1,titulo:"",descripcion:data['msg'],secciones:[]}];          
         }
       );
   }
