@@ -19,7 +19,7 @@
           [attr.data-target]="'#id'+campania.id">
             <div class="row-flex col-md-auto" data-toggle="tooltip" data-placement="top" title="Abrir Campaña">
               <h5 class="col-md-12">{{ campania.nombre }}</h5>
-              <h6 class="col-md-12">Del {{ campania.fecha_inicio}} al {{ campania.fecha_fin}}</h6>
+              <h6 class="col-md-12">Del {{ campania.fecha_inicio | date: shortDate }} al {{ campania.fecha_fin | date: shortDate }}</h6>
             </div>
             <div class="col-md-auto">            
               <button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla"><i class="fa fa-eye" aria-hidden="true"></i></button>           
@@ -52,11 +52,11 @@
                     <div class="row">
                       <div class="col">
                         <label for="recipient-name" class="col-form-label">Fecha de Inicio:</label>
-                        <input  class="form-control" type="text" value="{{ campania.fecha_inicio }}" id="example-date-input"  disabled> 
+                        <input  class="form-control" type="shortDate" value="{{ campania.fecha_inicio | date: 'dd/MM/yyyy'   }}" id="example-date-input"  disabled> 
                       </div>
                       <div class="col">
                         <label for="recipient-name" class="col-form-label">Fecha de Fin:</label>
-                        <input class="form-control" type="text" value="{{ campania.fecha_fin }}" id="example-date-input"  disabled> 
+                        <input class="form-control" type="shortDate" value="{{ campania.fecha_fin | date: 'dd/MM/yyyy' }}" id="example-date-input"  disabled> 
                       </div>
                     </div>
                   </div>
@@ -64,11 +64,11 @@
                     <div class="row">
                       <div class="col">
                         <label for="recipient-name" class="col-form-label">Fecha de Envio de Paquete:</label>
-                        <input class="form-control" type="text" value="{{ campania.fecha_envio_paquete }}" id="example-date-input"  disabled> 
+                        <input class="form-control" type="shortDate" value="{{ campania.fecha_envio_paquete | date: 'dd/MM/yyyy'  }}" id="example-date-input"  disabled> 
                       </div>
                       <div class="col">
                         <label for="recipient-name" class="col-form-label">Fecha de Envio de Resultados:</label>
-                        <input class="form-control" type="text" value="{{ campania.fecha_envio_resultados }}" id="example-date-input"  disabled> 
+                        <input class="form-control" type="shortDate" value="{{ campania.fecha_envio_resultados | date: 'dd/MM/yyyy'  }}" id="example-date-input"  disabled> 
                       </div>
                     </div>
                   </div>
