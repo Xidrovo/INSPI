@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { Campania } from './campania.model';
 import { Router } from '@angular/router';
 import { Plantilla } from '../plantillas/plantilla.model'
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-campania',
@@ -18,6 +19,7 @@ export class CampaniaComponent implements OnInit {
   private campania: any;
   private nombre: string = '';
   private plantilla_id: number = -1;
+  private plantilla_nombre: string = '';
 	private fecha_inicio: Date = null;
 	private fecha_fin: Date = null;
 	private fecha_envio_paquete: Date = null; 
@@ -31,7 +33,7 @@ export class CampaniaComponent implements OnInit {
 
   ngOnInit() {
     this.obtenerPlantillas();
-    this.obtenerCampanias();     
+    this.obtenerCampanias();  
   }
 
   obtenerCampanias(){
@@ -41,7 +43,7 @@ export class CampaniaComponent implements OnInit {
         this.campaniasArray = data['error']==0?
         data['programas'].map((p):Campania =>
         {return this.parseCampania(p)}):
-        [{id:-1, plantilla_id:-1,fecha_inicio: null,
+        [{id:-1, plantilla_id:-1, plantilla_nombre:null,fecha_inicio: null,
         fecha_fin: null, fecha_envio_paquete: null,
       fecha_envio_resultados: null}];
       }
@@ -49,7 +51,7 @@ export class CampaniaComponent implements OnInit {
   }
 
   private parseCampania(data: object): Campania{
-    return {nombre:data['nombre'],id:data['id'],plantilla_id:data['plantilla_id'],
+    return {nombre:data['nombre'],id:data['id'],plantilla_id:data['plantilla_id'],plantilla_nombre:data['plantilla_nombre'],
     fecha_inicio:data['fecha_inicio'],fecha_fin:data['fecha_fin'],
     fecha_envio_paquete:data['fecha_envio_paquete'],
     fecha_envio_resultados:data['fecha_envio_resultados']};

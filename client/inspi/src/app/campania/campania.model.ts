@@ -7,5 +7,6 @@ export interface Campania {
 	fecha_fin: Date;
 	fecha_envio_paquete: Date; 
 	fecha_envio_resultados: Date;
+	plantilla_nombre: string;
 
 }
