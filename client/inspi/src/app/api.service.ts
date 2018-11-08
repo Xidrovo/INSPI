@@ -29,6 +29,14 @@ export class ApiService {
       .then(res => console.log(res.toString()))
       .catch(err => console.log(err));
   }
+
+  deleteCampania(idCampania): any {
+    return this.httpClient
+      .delete(`${this.API_URL}/api/programas/` + idCampania)
+      .toPromise()
+      .then(res => console.log(res.toString()))
+      .catch(err => console.log(err));
+  }
   
   getPlantillas() {
     return this.httpClient.get(`${this.API_URL}/api/plantillas/`);

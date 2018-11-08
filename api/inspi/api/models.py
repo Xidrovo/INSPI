@@ -155,10 +155,10 @@ class Programa(models.Model):
 		return {
 			'id':self.pk,
 			'plantilla_id':self.plantilla.id,
-			'fecha_inicio':self.fecha_inicio,
-			'fecha_fin':self.fecha_fin,
-			'fecha_envio_paquete':self.fecha_envio_paquete,
-			'fecha_envio_resultados':self.fecha_envio_resultados
+			'fecha_inicio':str(self.fecha_inicio),
+			'fecha_fin':str(self.fecha_fin),
+			'fecha_envio_paquete':str(self.fecha_envio_paquete),
+			'fecha_envio_resultados':str(self.fecha_envio_resultados)
 		}
 
 	def __str__(self):

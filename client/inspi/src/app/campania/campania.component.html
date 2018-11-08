@@ -15,41 +15,84 @@
 </div>
 <div class="plantillas-container container">
   <div *ngFor="let campania of campaniasArray">
-          <div class="plantilla-box row align-items-center justify-content-between" data-toggle="modal">
+          <div class="plantilla-box row align-items-center justify-content-between" style="cursor: pointer;" data-toggle="modal"
+          [attr.data-target]="'#id'+campania.id">
             <div class="row-flex col-md-auto" data-toggle="tooltip" data-placement="top" title="Abrir Campaña">
               <h5 class="col-md-12">{{ campania.nombre }}</h5>
               <h6 class="col-md-12">Del {{ campania.fecha_inicio}} al {{ campania.fecha_fin}}</h6>
             </div>
             <div class="col-md-auto">            
               <button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla"><i class="fa fa-eye" aria-hidden="true"></i></button>           
-              <button type="button" class="btn btn-danger" (click)="deleteSwal.show(); $event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Eliminar plantilla"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-danger" (click)="eliminarCampania(campania); $event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Eliminar plantilla"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </div>
           </div>
-          <!-- Modal Vista Previa Plantilla 
-          <div class="modal fade" id="id{{plantilla.id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-            aria-hidden="true">
-            <div class="modal-dialog modal-container" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modelTitleId">Vista previa</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+  
+  <!-- Modal Vista Previa Campania -->
+        <div class="modal fade" id="id{{campania.id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+          aria-hidden="true">
+          <div class="modal-dialog modal-container" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modelTitleId">Vista previa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div sf-form class="col-sm-auto plantilla">
+                  <h3 style="text-align:center">{{ campania.nombre }}</h3>
+                  <json-schema-form [schema]="campania.schema" [form]="campania.form" [options]="options">
+                  </json-schema-form>
                 </div>
-                <div class="modal-body">
-                  <app-plantilla-viewer [plantilla]="plantilla"></app-plantilla-viewer>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                </div>
+
+
+                <form>
+                  
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col">
+                        <label for="recipient-name" class="col-form-label">Fecha de Inicio:</label>
+                        <input  class="form-control" type="text" value="{{ campania.fecha_inicio }}" id="example-date-input"  disabled> 
+                      </div>
+                      <div class="col">
+                        <label for="recipient-name" class="col-form-label">Fecha de Fin:</label>
+                        <input class="form-control" type="text" value="{{ campania.fecha_fin }}" id="example-date-input"  disabled> 
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col">
+                        <label for="recipient-name" class="col-form-label">Fecha de Envio de Paquete:</label>
+                        <input class="form-control" type="text" value="{{ campania.fecha_envio_paquete }}" id="example-date-input"  disabled> 
+                      </div>
+                      <div class="col">
+                        <label for="recipient-name" class="col-form-label">Fecha de Envio de Resultados:</label>
+                        <input class="form-control" type="text" value="{{ campania.fecha_envio_resultados }}" id="example-date-input"  disabled> 
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Plantilla Seleccionada:</label>
+                    <input value="{{ campania.plantilla_id }}" type="text" class="form-control" placeholder="Titulo" aria-label="Titulo"
+                  aria-describedby="basic-addon1"  disabled>
+                  </div>
+                  
+                </form>
+
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
-      
+  
+  
 
-
-  <!-- Modal -->
+  <!-- Modal de nuevo programa-->
   <div class="modal fade" id="campaniaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -60,15 +103,12 @@
           </button>
         </div>
         <div class="modal-body">
-
           <form>
-
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Título:</label>
               <input [(ngModel)]="nombre" type="text" class="form-control" placeholder="Titulo" aria-label="Titulo"
             aria-describedby="basic-addon1">
             </div>
-
             <div class="form-group">
               <div class="row">
                 <div class="col">
@@ -81,7 +121,6 @@
                 </div>
               </div>
             </div>
-
             <div class="form-group">
               <div class="row">
                 <div class="col">
@@ -94,7 +133,6 @@
                 </div>
               </div>
             </div>
-
             <div class="form-group">
               <label for="exampleFormControlSelect1">Seleccione una Plantilla:</label>
               <select [(ngModel)]="plantilla_id" class="selectpicker form-control"
@@ -104,34 +142,12 @@
               </select>
             </div>
           </form>
-
         </div>
-
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             <button type="button" class="btn btn-primary" routerLink="/campania" (click)="guardarCampania()" data-dismiss="modal">Crear</button>
-          </div>
-
-      </div>
-    </div>
-  </div>
-
-<!--
-  <div class="plantillas-container container">
-      <div *ngFor="let plantilla of plantillasArray">
-        <div class="plantilla-box row align-items-center justify-content-between" data-toggle="modal" [attr.data-target]="'#id'+plantilla.id">
-          <div ass="row-flex col-md-auto" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla">
-            <h5 class="col-md-12">{{ plantilla.titulo }}</h5>
-            <h6 class="col-md-12">{{ plantilla.descripcion }}</h6>
-          </div>
-          <div class="col-md-auto">            
-            <button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Previsualizar plantilla"><i class="fa fa-eye" aria-hidden="true"></i></button>           
-            <button type="button" class="btn btn-secondary" (click)="$event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Editar plantilla"><i class="fa fa-edit" aria-hidden="true"></i></button>           
-            <button type="button" class="btn btn-danger" (click)="eliminarPlantilla(plantilla); $event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Eliminar plantilla"><i class="fa fa-trash" aria-hidden="true"></i></button>
-          </div>
         </div>
       </div>
     </div>
--->
- 
+  </div>
 

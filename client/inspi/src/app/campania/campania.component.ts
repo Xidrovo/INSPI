@@ -44,7 +44,7 @@ export class CampaniaComponent implements OnInit {
     .subscribe(
       (data: object) => {
         this.campaniasArray = data['error']==0?
-        data['campanias'].map((p):Campania =>
+        data['programas'].map((p):Campania =>
         {return this.parseCampania(p)}):
         [{id:-1, plantilla_id:-1,fecha_inicio: null,
         fecha_fin: null, fecha_envio_paquete: null,
@@ -66,7 +66,7 @@ export class CampaniaComponent implements OnInit {
 
   async guardarCampania() {
     this.campania = {
-      plantilla_id: this.plantilla_id,
+      plantilla_id : this.plantilla_id,
       nombre: this.nombre,
       fecha_inicio: this.fecha_inicio,
       fecha_fin: this.fecha_fin,
@@ -76,6 +76,14 @@ export class CampaniaComponent implements OnInit {
     console.log(this.campania);
     await this.apiService.addCampania(this.campania);
     this._router.navigate(['/programas']);
+  }
+
+  async eliminarCampania(campania: Campania) {
+    await this.apiService.deleteCampania(campania.id);
+    const index = this.campaniasArray.findIndex(x => {
+      return x.id === campania.id;
+    });
+    this.campaniasArray.splice(index, 1);
   }
 
   obtenerPlantillas() {    
