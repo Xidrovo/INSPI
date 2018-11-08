@@ -134,7 +134,7 @@ class Programa(models.Model):
 
 	def crear(self, nombre, plantilla_id, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete):
 		plantilla = None
-		if Plantilla.objects.filter(pk=plantilla_id) > 0:
+		if len(Plantilla.objects.filter(pk=plantilla_id)) > 0:
 			plantilla = Plantilla.objects.get(pk=plantilla_id)
 
 		try:
