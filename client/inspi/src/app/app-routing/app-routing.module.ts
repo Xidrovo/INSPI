@@ -18,7 +18,7 @@ const routes: Routes = [
       component: PlantillasComponent,
       children: [            
           {path: '', component: PlantillasHomeComponent },
-          {path: 'plantilla-editor', component: PlantillaEditorComponent },
+          {path: 'plantilla-editor/:id', component: PlantillaEditorComponent },
           {path: 'plantilla-viewer', component: PlantillaViewerComponent },
           {path: '**', redirectTo: '', pathMatch: 'full'}
       ]
