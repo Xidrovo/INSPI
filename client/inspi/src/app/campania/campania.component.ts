@@ -16,12 +16,12 @@ export class CampaniaComponent implements OnInit {
   plantillasArray: Plantilla[];
 
   private campania: any;
-  private nombre: string;
-  private plantilla_id: number;
-	private fecha_inicio: Date;
-	private fecha_fin: Date;
-	private fecha_envio_paquete: Date; 
-	private fecha_envio_resultados: Date;
+  private nombre: string = '';
+  private plantilla_id: number = -1;
+	private fecha_inicio: Date = null;
+	private fecha_fin: Date = null;
+	private fecha_envio_paquete: Date = null; 
+	private fecha_envio_resultados: Date = null;
 
 
   constructor(

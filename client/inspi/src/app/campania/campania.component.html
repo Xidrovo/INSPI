@@ -106,18 +106,18 @@
           <form>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Título:</label>
-              <input [(ngModel)]="nombre" type="text" class="form-control" placeholder="Titulo" aria-label="Titulo"
+              <input [(ngModel)]="nombre" name="nombre" type="text" class="form-control" placeholder="Titulo" aria-label="Titulo"
             aria-describedby="basic-addon1">
             </div>
             <div class="form-group">
               <div class="row">
                 <div class="col">
                   <label for="recipient-name" class="col-form-label">Fecha de Inicio:</label>
-                  <input [(ngModel)]="fecha_inicio" class="form-control" type="date" value="aaaa-mm-dd" id="example-date-input"> 
+                  <input [(ngModel)]="fecha_inicio" name="fecha_inicio" class="form-control" type="date" value="aaaa-mm-dd" id="example-date-input"> 
                 </div>
                 <div class="col">
                   <label for="recipient-name" class="col-form-label">Fecha de Fin:</label>
-                  <input [(ngModel)]="fecha_fin" class="form-control" type="date" value="aaaa-mm-dd" id="example-date-input"> 
+                  <input [(ngModel)]="fecha_fin" name="fecha_fin" class="form-control" type="date" value="aaaa-mm-dd" id="example-date-input"> 
                 </div>
               </div>
             </div>
@@ -125,17 +125,17 @@
               <div class="row">
                 <div class="col">
                   <label for="recipient-name" class="col-form-label">Fecha de Envio de Paquete:</label>
-                  <input [(ngModel)]="fecha_envio_paquete" class="form-control" type="date" value="aaaa-mm-dd" id="example-date-input"> 
+                  <input [(ngModel)]="fecha_envio_paquete" name="fecha_envio_paquete" class="form-control" type="date" value="aaaa-mm-dd" id="example-date-input"> 
                 </div>
                 <div class="col">
                   <label for="recipient-name" class="col-form-label">Fecha de Envio de Resultados:</label>
-                  <input [(ngModel)]="fecha_envio_resultados" class="form-control" type="date" value="aaaa-mm-dd" id="example-date-input"> 
+                  <input [(ngModel)]="fecha_envio_resultados" name="fecha_envio_resultados" class="form-control" type="date" value="aaaa-mm-dd" id="example-date-input"> 
                 </div>
               </div>
             </div>
             <div class="form-group">
               <label for="exampleFormControlSelect1">Seleccione una Plantilla:</label>
-              <select [(ngModel)]="plantilla_id" class="selectpicker form-control"
+              <select [(ngModel)]="plantilla_id" name="plantilla_id" class="selectpicker form-control"
                 (change)="onSelectChange()">
                 <option value="-1" default>-- Escoja una Plantilla --</option>
                 <option *ngFor="let plantilla of plantillasArray" [attr.value]="plantilla.id">{{plantilla.titulo}}</option>

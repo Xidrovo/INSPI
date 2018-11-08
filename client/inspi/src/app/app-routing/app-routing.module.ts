@@ -12,7 +12,7 @@ import { CampaniaComponent } from '../campania/campania.component';
 const routes: Routes = [           
     { path: 'dashboard', component: DashboardComponent },
     { path: 'login', component: LoginComponent},
-    { path: 'campania', component: CampaniaComponent},
+    { path: 'programas', component: CampaniaComponent},
     {
       path: 'plantillas', 
       component: PlantillasComponent,
