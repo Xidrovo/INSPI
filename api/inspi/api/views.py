@@ -189,14 +189,12 @@ class ProgramaView(View):
 
                 programa_obj = Programa().crear(nombre, plantilla_id, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete)
                 if programa_obj:
-                    return JsonResponse({
-                        'error': 0
-                    })
+                    return JsonResponse({'error': 0})
 
                 else:
                     return JsonResponse({
                         'error': 1,
-                        'msg': 'Hubo un error al crear el nuevo programa: ' + str(e)
+                        'msg': 'Hubo un error al crear el nuevo programa'
                     })
 
         except Exception as e:
