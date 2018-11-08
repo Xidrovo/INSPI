@@ -46,7 +46,7 @@ export class PlantillasHomeComponent implements OnInit {
       );
   }
 
-  private parsePlantilla(data: object): Plantilla{          
+  public parsePlantilla(data: object): Plantilla{          
       // Parsear secciones...      
     var secciones = data['secciones'].map((s): Seccion=>{return this.parseSeccion(s)});
                     
@@ -72,7 +72,8 @@ export class PlantillasHomeComponent implements OnInit {
   'rango':{'schema':'number', 'form':'number'},
   'valor_exacto':{'schema':'number', 'form':'number'},
   'seleccion_unica':{'schema':'string', 'form':'radios'},
-  'seleccion_multiple':{'schema':'string', 'form':'checkboxes'}};
+  'seleccion_multiple':{'schema':'string', 'form':'checkboxes'},
+  'tabla_ram':{'form':'help', 'helpvalue':'<div id="tablaRam"></div>'}};
 
     schema['type'] = "object"; schema['title'] = plantilla.titulo; schema['required'] = [];
     form.push({
@@ -93,28 +94,39 @@ export class PlantillasHomeComponent implements OnInit {
       });
       
       seccion.preguntas_seccion.forEach((pregunta) => {
-        var flag = pregunta.tipo['nombre'].search('seleccion')!=-1;
-        var formpregunta = {
-          "key": "p"+pregunta.id+"-"+seccion.id,
-          "type": datatype[pregunta.tipo['nombre']]['form'],
-          "titleMap": flag?pregunta.detalle:[],
-          "feedback": true,
-          "labelHtmlClass": "col-md-12",
-          "fieldHtmlClass": flag?"":"col-md-6"
-        };
-        if (flag){
-          formpregunta['title'] = pregunta.titulo;
-          /*
-          properties["p"+pregunta.id+"-"+seccion.id] = {            
-            "description": pregunta.descripcion        
-          };*/
+        var data_type = pregunta.tipo['nombre'];       
+        var istable = data_type.search('tabla')!=-1; 
+        var flag = data_type.search('seleccion')!=-1;
+        var formpregunta = {}
+        if (istable){
+          formpregunta = {
+            "type": "section",
+            "htmlClass": "col-md-12 tablaRam"            
+          }
         } else{
-          properties["p"+pregunta.id+"-"+seccion.id] = {
-            "title": pregunta.titulo,
-            "description": pregunta.descripcion,
-            "type": datatype[pregunta.tipo['nombre']]['schema']          
+          formpregunta = {
+            "key": "p"+pregunta.id+"-"+seccion.id,
+            "type": datatype[data_type]['form'],
+            "titleMap": flag?pregunta.detalle:[],
+            "feedback": true,
+            "labelHtmlClass": "col-md-12",
+            "fieldHtmlClass": flag?"":"col-md-6"
           };
+          if (flag){
+            formpregunta['title'] = pregunta.titulo;
+            /*
+            properties["p"+pregunta.id+"-"+seccion.id] = {            
+              "description": pregunta.descripcion        
+            };*/
+          } else{
+            properties["p"+pregunta.id+"-"+seccion.id] = {
+              "title": pregunta.titulo,
+              "description": pregunta.descripcion,
+              "type": datatype[data_type]['schema']          
+            };
+          }
         }
+        
         
         if (pregunta.requerido) {
           schema['required'].push("p"+pregunta.id+"-"+seccion.id);

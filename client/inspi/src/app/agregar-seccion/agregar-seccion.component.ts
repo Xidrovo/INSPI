@@ -106,14 +106,10 @@ export class AgregarSeccionComponent implements OnInit {
   }
 
   borrarPregunta(index) {
-    console.log('Indice a eliminar: ');
-    console.log(index);
     this.arrayPreguntas.splice(index, 1);
   }
 
   editarPregunta(index) {
-    console.log('Indice a editar: ');
-    console.log(index);
     this.editIndex = index;
     this.onEdit = true;
     var info = this.arrayPreguntas[index];

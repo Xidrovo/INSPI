@@ -8,7 +8,10 @@ import {
 } from '@angular/core';
 import { AgregarSeccionComponent } from '../../agregar-seccion/agregar-seccion.component';
 import { ApiService } from '../../api.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PlantillasHomeComponent } from '../plantillas-home/plantillas-home.component';
+import { Plantilla } from '../plantilla.model';
+
 
 @Component({
   selector: 'app-plantilla-editor',
@@ -18,7 +21,7 @@ import { Router } from '@angular/router';
 })
 export class PlantillaEditorComponent {
   private title: string;
-  private plantilla: any;
+  plantilla: Plantilla;
   private payload: any = [];
   private titulo: string;
   private descripcion: string;
@@ -29,8 +32,27 @@ export class PlantillaEditorComponent {
   constructor(
     private resolver: ComponentFactoryResolver,
     private apiService: ApiService,
+    private route: ActivatedRoute,
     private _router: Router
   ) {}
+
+  ngOnInit(): void {    
+    this.route.paramMap.subscribe((params) => {      
+      this.plantilla = this.parsePlantilla(this.apiService.getPlantilla(params.get('id')));
+    })
+  }  
+
+  parsePlantilla(data: any): Plantilla{
+    if (data['error']==0){
+      this.titulo = data['titulo'];
+      this.descripcion = data['descripcion'];
+      console.log("Plantilla obtenida: ", this.titulo);
+      return {id:data['id'], titulo: data['titulo'], descripcion: data['descripcion'], secciones: data['secciones']};
+    } else {
+      return {id:0,titulo:"",descripcion:"",secciones:[]};
+    }    
+  }
+
   // Agrega una nueva sección, llamando al componente AgregarSeccionComponent
   addSeccion() {
     // don't do anything if is empty
@@ -52,7 +74,7 @@ export class PlantillaEditorComponent {
     this.refsArray.push(componentRef);
     this.validate();
     this.title = '';
-    $('#seccionModal').modal('hide');
+    //$('#seccionModal').modal('hide');
   }
 
   // Esta función elimina la última referencia de sección agregada.
@@ -83,6 +105,7 @@ export class PlantillaEditorComponent {
       this.payload.push(x._component.getInfo());
     });
     this.plantilla = {
+      id: 0,
       titulo: this.titulo,
       descripcion: this.descripcion,
       secciones: this.payload

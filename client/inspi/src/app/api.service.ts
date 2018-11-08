@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { throwError, of } from 'rxjs';
+import { throwError, of, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,7 @@ export class ApiService {
     return this.httpClient
       .get(`${this.API_URL}/api/plantillas/` + idPlantilla)
       .toPromise()
-      .then(res => console.log(res.toString()))
+      .then(res => console.log("GetPlantilla: ",res))
       .catch(err => console.log(err));
   }
   // This function must call the get /api/tipos_de_dato/

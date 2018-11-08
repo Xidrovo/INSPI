@@ -5,4 +5,8 @@ export interface Plantilla {
     titulo: string;
     descripcion: any;
     secciones: Seccion[];
+
 }
+
+
+

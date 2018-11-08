@@ -1,4 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import *  as $ from 'jquery';
+
+declare var $: any;
 
 @Component({
   selector: 'app-plantilla-viewer',
@@ -8,14 +11,20 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PlantillaViewerComponent implements OnInit {
 
   @Input() plantilla;
+  tablaRAM = "<app-tabla-ram></app-tabla-ram>"
 
   options = {
     addSubmit: false,    
   }
 
-  constructor() { }
+  constructor(private elementRef:ElementRef) { }
 
   ngOnInit() {
+    $('.tablaRam').val("Hola ram");
   }
 
+  ngAfterViewInit() {
+    var d1 = this.elementRef.nativeElement.querySelector('.tablaRAM');
+    //d1.insertAdjacentHTML('beforeend', '<div class="two">two</div>');
+  }
 }
