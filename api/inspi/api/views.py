@@ -239,12 +239,14 @@ class ProgramaView(View):
 			try:
 				# obtenemos todos los programas existentes
 				programas = Programa.objects.all()
-				# transformamos el QuerySet de programas a un string de JSON y lo retornamos
-				programas_str = serializers.serialize('json', programas)
+				# armamos el paquete de programas
+				paquete = []
+				for programa in programas:
+					paquete.append(programa.to_dict)
 
 				return JsonResponse({
 					'error': 0,
-					'programas': json.loads(programas_str)
+					'programas': paquete
 				})
 			except Exception as e:
 				return JsonResponse({

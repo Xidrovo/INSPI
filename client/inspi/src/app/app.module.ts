@@ -32,6 +32,7 @@ import { AppEffects } from './app.effects';
 // import { reducers, metaReducers } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CampaniaComponent } from './campania/campania.component';
+import { EditarPlantillaComponent } from './plantillas/editar-plantilla/editar-plantilla.component';
 // import { environment } from '../../environments/environment';
 // import { AppEffects } from './store/effects/app.effects';
 
@@ -48,14 +49,15 @@ import { CampaniaComponent } from './campania/campania.component';
     TablaPruebasbioquimicasComponent,
     TipoPreguntaComponent,
     AgregarSeccionComponent,
-    CampaniaComponent
+    CampaniaComponent,
+    EditarPlantillaComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    HttpClientModule,    
-    Bootstrap4FrameworkModule,    
+    HttpClientModule,
+    Bootstrap4FrameworkModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),

@@ -11,6 +11,7 @@ import { ApiService } from '../../api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlantillasHomeComponent } from '../plantillas-home/plantillas-home.component';
 import { Plantilla } from '../plantilla.model';
+import * as $ from 'jquery';
 
 
 @Component({
@@ -74,7 +75,7 @@ export class PlantillaEditorComponent {
     this.refsArray.push(componentRef);
     this.validate();
     this.title = '';
-    //$('#seccionModal').modal('hide');
+    $('#seccionModal').modal('hide');
   }
 
   // Esta función elimina la última referencia de sección agregada.
