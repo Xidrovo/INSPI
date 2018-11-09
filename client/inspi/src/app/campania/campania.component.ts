@@ -81,6 +81,12 @@ export class CampaniaComponent implements OnInit {
     this.campaniasArray.splice(index, 1);
   }
 
+  editarPrograma(campania){
+    console.log("Entra editar programa");
+    this.nombre = campania['nombre'];
+    $('#idE'+campania.id).modal().show();
+  }
+
   async editarCampania(campania) {
     //this.campania = await this.apiService.getCampania(id);
     console.log(campania);

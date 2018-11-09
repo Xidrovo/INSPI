@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-auto">            
               <button type="button" [attr.data-target]="'#id'+campania.id" class="btn btn-info" data-toggle="modal" data-placement="top" title="Previsualizar programa"><i class="fa fa-eye" aria-hidden="true"></i></button>
-              <button type="button" [attr.data-target]="'#idE'+campania.id" class="btn btn-info" data-toggle="modal" data-placement="top" title="Editar programa"><i class="fa fa-edit" aria-hidden="true"></i></button>           
+              <button type="button" [attr.data-target]="'#idE'+campania.id" class="btn btn-info" (click)="editarPrograma(campania);" data-toggle="modal" data-placement="top" title="Editar programa"><i class="fa fa-edit" aria-hidden="true"></i></button>           
               <button type="button" [attr.data-target]="'#id'+campania.id" class="btn btn-danger" (click)="eliminarCampania(campania); $event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Eliminar programa"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </div>
           </div>
@@ -107,7 +107,7 @@
                 <form>
                   <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Título:</label>
-                    <input [(ngModel)]="nombre" name="nombre" value="{{ campania.nombre }}" type="text" class="form-control" 
+                    <input [(ngModel)]="nombre" id="titulo" name="nombre" value="{{ campania.nombre }}" type="text" class="form-control" 
                   aria-describedby="basic-addon1">
                   </div>
                   
