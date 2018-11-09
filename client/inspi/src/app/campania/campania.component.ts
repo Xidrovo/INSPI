@@ -2,6 +2,7 @@ import { ComponentFactoryResolver, Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Campania } from './campania.model';
 import { Router } from '@angular/router';
+import { Globals } from '../globals';
 import { Plantilla } from '../plantillas/plantilla.model'
 import * as $ from 'jquery';
 
@@ -28,6 +29,7 @@ export class CampaniaComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
+    private globals: Globals,
     private resolver: ComponentFactoryResolver,
     private _router: Router) { }
 
@@ -77,6 +79,15 @@ export class CampaniaComponent implements OnInit {
       return x.id === campania.id;
     });
     this.campaniasArray.splice(index, 1);
+  }
+
+  async editarCampania(campania) {
+    //this.campania = await this.apiService.getCampania(id);
+    console.log(campania);
+    await this.apiService.setCampania(campania);
+    //this.globals.currentTemplate = this.campania;
+    this._router.navigate(['programas']);
+    
   }
 
   obtenerPlantillas() {    
