@@ -15,7 +15,7 @@ class PlantillaView(View):
             try:
                 # obtenemos todas las plantillas existentes
                 plantillas = []
-                for plantilla in Plantilla.objects.all():                   
+                for plantilla in Plantilla.objects.all().order_by('id'):                   
                     plantillas.append(plantilla.to_dict())
                 # transformamos el QuerySet de plantillas a un string de JSON y lo retornamos
                 #plantillas_str = serializers.serialize('json', plantillas)
@@ -131,7 +131,7 @@ class PlantillaView(View):
                         descripcion = pregunta['descripcion']
                         requerido = pregunta['requerido'] in ['True','true']
                         detalle = json.dumps(pregunta['detalle'])
-                        tipo_de_dato_id = pregunta['tipo_dato']
+                        tipo_de_dato_id = pregunta['tipo_data']['id']
 
                         # buscamos el tipo de dato enviado
                         try:

@@ -18,7 +18,7 @@
     <div class="col-md-auto">
       <div class="form-group" [attr.id]="'group' + index">
         <label [attr.for]="'sel' + index">Agregar preguntas: </label>
-        <select [attr.name]="'selectPreguntas' + index" [(ngModel)]="tipo_dato" class="selectpicker form-control"
+        <select [attr.name]="'selectPreguntas' + index" [(ngModel)]="tipo_data.id" class="selectpicker form-control"
           [attr.id]="'sel' + index" (change)="onSelectChange()">
           <option value="-1" default>--ESCOJA UN TIPO--</option>
           <option *ngFor="let tipo of tipoDatos.tipos_de_dato" [attr.value]="tipo.pk">{{tipo.fields.nombre}}</option>
@@ -31,7 +31,7 @@
       <div class="shadow-none p-1 mb-1 bg-light rounded row" *ngFor="let pregunta of arrayPreguntas;  let y = index"
         style="margin: 1%;">
         <div class="col">{{pregunta.titulo}}</div>
-        <div class="col">{{pregunta.dato}}</div>
+        <div class="col">{{pregunta.tipo_data.nombre}}</div>
         <div class="col">
           <!-- No creo que editar sea necesario aquí. -->
           <button type="button" class="btn btn-success" style="margin: 1%;" (click)="editarPregunta(y)" data-toggle="tooltip"
@@ -58,7 +58,7 @@
             <label for="description">Descripción</label>
             <textarea class="form-control" id="description" rows="3" [(ngModel)]="descripcion" (keyup)="validate()"></textarea>
           </div>
-          <div *ngIf="tipo_dato == 2 || tipo_dato == 1 ">
+          <div *ngIf="tipo_data.id == 2 || tipo_data.id == 1 ">
             <label for="textArea">Opciones*</label>
             <textarea class="form-control" id="textArea" rows="3" [(ngModel)]="detalle" (keyup)="validate()"></textarea>
             <h6><small>*Cada salto de linea es una opción</small></h6>

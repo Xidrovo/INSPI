@@ -97,7 +97,7 @@
           <div class="modal-dialog modal-container" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="modelTitleId">Vista previa</h5>
+                <h5 class="modal-title" id="modelTitleId">Editar programa</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -105,8 +105,6 @@
               <div class="modal-body">
                 <div sf-form class="col-sm-auto plantilla">
                   <h3 style="text-align:center">{{ campania.nombre }}</h3>
-                  <json-schema-form [schema]="campania.schema" [form]="campania.form" [options]="options">
-                  </json-schema-form>
                 </div>
                 <form>
                   
@@ -147,7 +145,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" routerLink="/campania"  data-dismiss="modal">Guardar</button>
+                <button type="button" class="btn btn-primary" [routerLink]="programas"  data-dismiss="modal">Guardar</button>
               </div>
             </div>
           </div>
@@ -208,7 +206,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" routerLink="/campania" (click)="guardarCampania()" data-dismiss="modal">Crear</button>
+            <button type="button" class="btn btn-primary" [routerLink]="programas" (click)="guardarCampania()" data-dismiss="modal">Crear</button>
         </div>
       </div>
     </div>

@@ -22,6 +22,7 @@ class TipoDeDato(models.Model):
 		else:
 			detalle = json.loads(self.detalle)
 		return {
+			"id": self.pk,
 			"nombre": self.nombre,
 			"detalle": detalle
 		}
