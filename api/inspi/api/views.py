@@ -79,7 +79,7 @@ class PlantillaView(View):
                     descripcion = pregunta['descripcion']
                     requerido = pregunta['requerido'] in ['True','true']
                     detalle = json.dumps(pregunta['detalle'])
-                    tipo_de_dato_id = pregunta['tipo_dato']
+                    tipo_de_dato_id = pregunta['tipo_data']['id']
 
                     # buscamos el tipo de dato enviado
                     try:
