@@ -54,13 +54,16 @@ export class AgregarSeccionComponent implements OnInit {
   setIndex(index) {
     this.index = index;
   }
-
+  setPreguntas(preguntas) {
+    this.arrayPreguntas = preguntas;
+  }
   eliminar(event, index) {
     this.deleteClick.emit(index);
   }
 
   addInfo(titulo, pregunta) {
-    var info = {
+    console.log('agregando info');
+    const info = {
       titulo: this.titulo,
       tipo_dato: this.tipo_dato,
       requerido: this.requerido,
@@ -78,18 +81,15 @@ export class AgregarSeccionComponent implements OnInit {
     this.cleanModal();
   }
   splitDetalle(detalle) {
-    if (this.tipo_dato !== 1 && this.tipo_dato !== 2) {
+    if (this.tipo_dato != 1 && this.tipo_dato != 2) {
       return detalle;
     }
-    var detail = Array();
+    let detail = Array();
     if (detalle !== null && detalle !== undefined) {
       detalle = detalle.split('\n');
       detalle.forEach((element, i) => {
         detail.push({ value: i, name: element });
       });
-      console.log('Detalle generado: ');
-      console.log(detail);
-      console.log(detail.toString());
       return detail;
     }
     return '';
@@ -135,9 +135,9 @@ export class AgregarSeccionComponent implements OnInit {
   }
 
   validate() {
-    if (this.tipo_dato === 2) {
+    if (this.tipo_dato == 2) {
       this.filled = !!this.titulo && !!this.descripcion && !!this.detalle;
-    } else if (this.tipo_dato === 1) {
+    } else if (this.tipo_dato == 1) {
       this.filled = !!this.titulo && !!this.descripcion && !!this.detalle;
     } else {
       this.filled = !!this.titulo && !!this.descripcion;

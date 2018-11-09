@@ -8,13 +8,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { Bootstrap4FrameworkModule } from 'angular6-json-schema-form';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 
-// Bootstrap modules, help to use bootstrap js without having jquery.
-// Ref: https://loiane.com/2017/08/how-to-add-bootstrap-to-an-angular-cli-project/#3-importing-the-css
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { Globals } from './globals';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { PlantillasComponent } from './plantillas/plantillas.component';
@@ -72,7 +70,7 @@ import { EditarPlantillaComponent } from './plantillas/editar-plantilla/editar-p
     })
     //    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [],
+  providers: [Globals],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

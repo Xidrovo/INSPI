@@ -37,7 +37,7 @@ export class ApiService {
       .then(res => console.log(res.toString()))
       .catch(err => console.log(err));
   }
-  
+
   getPlantillas() {
     return this.httpClient.get(`${this.API_URL}/api/plantillas/`);
   }
@@ -46,7 +46,9 @@ export class ApiService {
     return this.httpClient
       .get(`${this.API_URL}/api/plantillas/` + idPlantilla)
       .toPromise()
-      .then(res => console.log("GetPlantilla: ",res))
+      .then(res => {
+        return res;
+      })
       .catch(err => console.log(err));
   }
   // This function must call the get /api/tipos_de_dato/

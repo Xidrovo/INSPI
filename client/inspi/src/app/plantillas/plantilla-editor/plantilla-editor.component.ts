@@ -11,8 +11,9 @@ import { ApiService } from '../../api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlantillasHomeComponent } from '../plantillas-home/plantillas-home.component';
 import { Plantilla } from '../plantilla.model';
-import * as $ from 'jquery';
+import { Globals } from '../../globals';
 
+declare var $: any;
 
 @Component({
   selector: 'app-plantilla-editor',
@@ -28,30 +29,65 @@ export class PlantillaEditorComponent {
   private descripcion: string;
   private canPost = false;
   refsArray: any[] = [];
+  editMode = false;
   @ViewChild('seccionContainer', { read: ViewContainerRef })
   container;
   constructor(
     private resolver: ComponentFactoryResolver,
     private apiService: ApiService,
     private route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private globals: Globals
   ) {}
 
-  ngOnInit(): void {    
-    this.route.paramMap.subscribe((params) => {      
-      this.plantilla = this.parsePlantilla(this.apiService.getPlantilla(params.get('id')));
-    })
-  }  
-
-  parsePlantilla(data: any): Plantilla{
-    if (data['error']==0){
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      if (params.get('id') == '-1') {
+        this.editMode = true;
+        this.plantilla = this.globals.currentTemplate.plantilla;
+        this.titulo = this.plantilla.titulo;
+        this.descripcion = this.plantilla.descripcion;
+        this.plantilla.secciones.map(seccion => {
+          this.getSeccion(seccion);
+        });
+        console.log(' :P ');
+        console.log(this.plantilla);
+      }
+      console.log(params.get('id'));
+    });
+  }
+  parsePlantilla(data: any): Plantilla {
+    if (data['error'] == 0) {
       this.titulo = data['titulo'];
       this.descripcion = data['descripcion'];
-      console.log("Plantilla obtenida: ", this.titulo);
-      return {id:data['id'], titulo: data['titulo'], descripcion: data['descripcion'], secciones: data['secciones']};
+      console.log('Plantilla obtenida: ', this.titulo);
+      return {
+        id: data['id'],
+        titulo: data['titulo'],
+        descripcion: data['descripcion'],
+        secciones: data['secciones']
+      };
     } else {
-      return {id:0,titulo:"",descripcion:"",secciones:[]};
-    }    
+      return { id: 0, titulo: '', descripcion: '', secciones: [] };
+    }
+  }
+
+  getSeccion(seccion) {
+    const factory = this.resolver.resolveComponentFactory(
+      AgregarSeccionComponent
+    );
+    const componentRef = this.container.createComponent(factory);
+
+    componentRef._component.setIndex(this.refsArray.length);
+    componentRef._component.setTitle(seccion.titulo);
+    componentRef._component.setPreguntas(seccion.preguntas);
+    // De esta forma agregamos qué hacer cuando el evento 'deleteClick' sea disparado
+    componentRef.instance.deleteClick.subscribe(() => {
+      this.eliminarAlgo(componentRef._component.index);
+    });
+    this.refsArray.push(componentRef);
+    this.validate();
+    this.title = '';
   }
 
   // Agrega una nueva sección, llamando al componente AgregarSeccionComponent
@@ -111,18 +147,17 @@ export class PlantillaEditorComponent {
       descripcion: this.descripcion,
       secciones: this.payload
     };
-    await this.apiService.addPlantilla(this.plantilla);
+    if (this.editMode) {
+      this.plantilla.id = this.globals.currentTemplate.plantilla.id;
+      console.log(this.plantilla);
+      await this.apiService.setPlantilla(this.plantilla);
+    } else {
+      await this.apiService.addPlantilla(this.plantilla);
+    }
     this._router.navigate(['/plantillas']);
   }
   validate = () => {
     const someSection = this.refsArray.length > 0;
-    let somethingsEmpty = false;
-    this.refsArray.forEach(x => {
-      if (x._component.isArrayEmpty()) {
-        somethingsEmpty = true;
-      }
-    });
-    this.canPost =
-      !!this.titulo && !!this.descripcion && someSection && !somethingsEmpty;
+    this.canPost = !!this.titulo && !!this.descripcion && someSection;
   };
 }
