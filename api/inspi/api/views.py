@@ -214,6 +214,8 @@ class ProgramaView(View):
 
                 # traemos el programa que se desea editar y la actualizamos
                 programa_obj = Programa.objects.get(pk=programa_id)
+                programa_obj.nombre = programaJSON['nombre']
+                programa_obj.plantilla = Plantilla.objects.get(pk=programaJSON.get('plantilla_id', None))
                 programa_obj.fecha_inicio = programaJSON['fecha_inicio']
                 programa_obj.fecha_fin = programaJSON['fecha_fin']
                 programa_obj.fecha_envio_paquete = programaJSON['fecha_envio_paquete']
