@@ -1,217 +1,532 @@
-
-
 <div class="container">
-  <h2 class="title">Programa de Evaluación Externa de la Calidad</h2>
-  <h3 class="title">CRN</h3>
-  
-  <div class="row justify-content-left align-items-center"> 
-      <div class="col-md-auto">
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#campaniaModal">Nuevo</button>
-      </div>
-      <div class="col-md-auto">
-        <button type="button" routerLink="/plantillas/plantillas" class="btn btn-secondary btn-lg" >Ver Plantillas</button>
-      </div>
-  </div>
-</div>
-<div class="plantillas-container container">
-  <div *ngFor="let campania of campaniasArray">
-          <div class="plantilla-box row align-items-center justify-content-between" style="cursor: pointer;" 
-          >
-            <div class="row-flex col-md-auto" data-toggle="tooltip" data-placement="top" title="Abrir Campaña">
-              <h5 class="col-md-12">{{ campania.nombre }}</h5>
-              <h6 class="col-md-12">Del {{ campania.fecha_inicio | date: shortDate }} al {{ campania.fecha_fin | date: shortDate }}</h6>
-            </div>
-            <div class="col-md-auto">            
-              <button type="button" [attr.data-target]="'#id'+campania.id" class="btn btn-info" data-toggle="modal" data-placement="top" title="Previsualizar programa"><i class="fa fa-eye" aria-hidden="true"></i></button>
-              <button type="button" [attr.data-target]="'#idE'+campania.id" class="btn btn-info" (click)="editarPrograma(campania);" data-toggle="modal" data-placement="top" title="Editar programa"><i class="fa fa-edit" aria-hidden="true"></i></button>           
-              <button type="button" [attr.data-target]="'#id'+campania.id" class="btn btn-danger" (click)="eliminarCampania(campania); $event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Eliminar programa"><i class="fa fa-trash" aria-hidden="true"></i></button>
-            </div>
-          </div>
-  
-  <!-- Modal Vista Previa Campania -->
-        <div class="modal fade" id="id{{campania.id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-          aria-hidden="true">
-          <div class="modal-dialog modal-container" role="document">
+    <!-- Modal de nuevo programa -->
+    <div
+        class="modal face"
+        id="addModal"
+        tabindex="-1"
+        role="dialog"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="modelTitleId">Vista previa</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div sf-form class="col-sm-auto plantilla">
-                  <h3 style="text-align:center">{{ campania.nombre }}</h3>
-                  <json-schema-form [schema]="campania.schema" [form]="campania.form" [options]="options">
-                  </json-schema-form>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Nueva Campaña
+                    </h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-
-
-                <form>
-                  
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col">
-                        <label for="recipient-name" class="col-form-label">Fecha de Inicio:</label>
-                        <input  class="form-control" type="shortDate" value="{{ campania.fecha_inicio | date: 'dd/MM/yyyy'   }}" id="example-date-input"  disabled> 
-                      </div>
-                      <div class="col">
-                        <label for="recipient-name" class="col-form-label">Fecha de Fin:</label>
-                        <input class="form-control" type="shortDate" value="{{ campania.fecha_fin | date: 'dd/MM/yyyy' }}" id="example-date-input"  disabled> 
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col">
-                        <label for="recipient-name" class="col-form-label">Fecha de Envio de Paquete:</label>
-                        <input class="form-control" type="shortDate" value="{{ campania.fecha_envio_paquete | date: 'dd/MM/yyyy'  }}" id="example-date-input"  disabled> 
-                      </div>
-                      <div class="col">
-                        <label for="recipient-name" class="col-form-label">Fecha de Envio de Resultados:</label>
-                        <input class="form-control" type="shortDate" value="{{ campania.fecha_envio_resultados | date: 'dd/MM/yyyy'  }}" id="example-date-input"  disabled> 
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="recipient-name" name= "plantilla_nombre"class="col-form-label">Plantilla Seleccionada:</label>
-                    <input value="{{ campania.plantilla_nombre }}" type="text" class="form-control" placeholder="Titulo" aria-label="Titulo"
-                  aria-describedby="basic-addon1"  disabled>
-                  </div>
-                  
-                </form>
-
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-  <!-- Modal Edicion Campania -->
-        <div class="modal fade" id="idE{{campania.id}}"  tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-          aria-hidden="true">
-          <div class="modal-dialog modal-container" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="modelTitleId">Editar programa</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                
-                <form>
-                  <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Título:</label>
-                    <input [(ngModel)]="nombre" id="titulo" name="nombre" value="{{ campania.nombre }}" type="text" class="form-control" 
-                  aria-describedby="basic-addon1">
-                  </div>
-                  
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col">
-                        <label for="recipient-name" class="col-form-label">Fecha de Inicio:</label>
-                        <input  class="form-control" [(ngModel)]="fecha_inicio" name="fecha_inicio" type="date" value="{{ campania.fecha_inicio | date: 'yyyy-MM-dd'  }}" id="example-date-input" > 
-                      </div>
-                      <div class="col">
-                        <label for="recipient-name" class="col-form-label">Fecha de Fin:</label>
-                        <input class="form-control" [(ngModel)]="fecha_fin" name="fecha_fin" type="date" value="{{ campania.fecha_fin | date: 'yyyy-MM-dd' }}" id="example-date-input" > 
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col">
-                        <label for="recipient-name" class="col-form-label">Fecha de Envio de Paquete:</label>
-                        <input class="form-control" [(ngModel)]="fecha_envio_paquete" name="fecha_envio_paquete" type="date" value="{{ campania.fecha_envio_paquete | date: 'yyyy-MM-dd'  }}" id="example-date-input" > 
-                      </div>
-                      <div class="col">
-                        <label for="recipient-name" class="col-form-label">Fecha de Envio de Resultados:</label>
-                        <input class="form-control" [(ngModel)]="fecha_envio_resultados" name="fecha_envio_resultados" type="date" value="{{ campania.fecha_envio_resultados | date: 'yyyy-MM-dd' }}" id="example-date-input" > 
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="recipient-name" name= "plantilla_nombre"class="col-form-label">Plantilla Seleccionada:</label>
-                    <input value="{{ campania.plantilla_nombre }}" [(ngModel)]="campania.plantilla_id" type="text" class="form-control" placeholder="Titulo" aria-label="Titulo"
-                  aria-describedby="basic-addon1"  disabled>
-                  </div>
-                  
-                </form>
-
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" [routerLink]="programas" (click)="$event.stopPropagation(); editarCampania(campania)" data-dismiss="modal">Guardar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-  
-  
-
-  <!-- Modal de nuevo programa-->
-  <div class="modal fade" id="campaniaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Nueva Campaña</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Título:</label>
-              <input [(ngModel)]="nombre" name="nombre" type="text" class="form-control" placeholder="Titulo" aria-label="Titulo"
-            aria-describedby="basic-addon1">
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col">
-                  <label for="recipient-name" class="col-form-label">Fecha de Inicio:</label>
-                  <input [(ngModel)]="fecha_inicio" name="fecha_inicio" class="form-control" type="date" value="aaaa-mm-dd" id="example-date-input"> 
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label"
+                                >Título:</label
+                            >
+                            <input
+                                [(ngModel)]="nombre"
+                                name="nombre"
+                                type="text"
+                                class="form-control"
+                                placeholder="Titulo"
+                                aria-label="Titulo"
+                                aria-describedby="basic-addon1"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label
+                                        for="recipient-name"
+                                        class="col-form-label"
+                                        >Fecha de Inicio:</label
+                                    >
+                                    <input
+                                        [(ngModel)]="fecha_inicio"
+                                        name="fecha_inicio"
+                                        class="form-control"
+                                        type="date"
+                                        value="aaaa-mm-dd"
+                                        id="example-date-input"
+                                    />
+                                </div>
+                                <div class="col">
+                                    <label
+                                        for="recipient-name"
+                                        class="col-form-label"
+                                        >Fecha de Fin:</label
+                                    >
+                                    <input
+                                        [(ngModel)]="fecha_fin"
+                                        name="fecha_fin"
+                                        class="form-control"
+                                        type="date"
+                                        value="aaaa-mm-dd"
+                                        id="example-date-input"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label
+                                        for="recipient-name"
+                                        class="col-form-label"
+                                        >Fecha de Envio de Paquete:</label
+                                    >
+                                    <input
+                                        [(ngModel)]="fecha_envio_paquete"
+                                        name="fecha_envio_paquete"
+                                        class="form-control"
+                                        type="date"
+                                        value="aaaa-mm-dd"
+                                        id="example-date-input"
+                                    />
+                                </div>
+                                <div class="col">
+                                    <label
+                                        for="recipient-name"
+                                        class="col-form-label"
+                                        >Fecha de Envio de Resultados:</label
+                                    >
+                                    <input
+                                        [(ngModel)]="fecha_envio_resultados"
+                                        name="fecha_envio_resultados"
+                                        class="form-control"
+                                        type="date"
+                                        value="aaaa-mm-dd"
+                                        id="example-date-input"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1"
+                                >Seleccione una Plantilla:</label
+                            >
+                            <select
+                                [(ngModel)]="plantilla_id"
+                                name="plantilla_id"
+                                class="selectpicker form-control"
+                                (change)="onSelectChange()"
+                            >
+                                <option value="-1" default
+                                    >-- Escoja una Plantilla --</option
+                                >
+                                <option
+                                    *ngFor="let plantilla of plantillasArray"
+                                    [attr.value]="plantilla.id"
+                                    >{{ plantilla.titulo }}</option
+                                >
+                            </select>
+                        </div>
+                    </form>
                 </div>
-                <div class="col">
-                  <label for="recipient-name" class="col-form-label">Fecha de Fin:</label>
-                  <input [(ngModel)]="fecha_fin" name="fecha_fin" class="form-control" type="date" value="aaaa-mm-dd" id="example-date-input"> 
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                    >
+                        Cerrar
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        routerLink="programas"
+                        (click)="guardarCampania()"
+                        data-dismiss="modal"
+                    >
+                        Crear
+                    </button>
                 </div>
-              </div>
             </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col">
-                  <label for="recipient-name" class="col-form-label">Fecha de Envio de Paquete:</label>
-                  <input [(ngModel)]="fecha_envio_paquete" name="fecha_envio_paquete" class="form-control" type="date" value="aaaa-mm-dd" id="example-date-input"> 
-                </div>
-                <div class="col">
-                  <label for="recipient-name" class="col-form-label">Fecha de Envio de Resultados:</label>
-                  <input [(ngModel)]="fecha_envio_resultados" name="fecha_envio_resultados" class="form-control" type="date" value="aaaa-mm-dd" id="example-date-input"> 
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="exampleFormControlSelect1">Seleccione una Plantilla:</label>
-              <select [(ngModel)]="plantilla_id" name="plantilla_id" class="selectpicker form-control"
-                (change)="onSelectChange()">
-                <option value="-1" default>-- Escoja una Plantilla --</option>
-                <option *ngFor="let plantilla of plantillasArray" [attr.value]="plantilla.id">{{plantilla.titulo}}</option>
-              </select>
-            </div>
-          </form>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" routerLink="programas" (click)="guardarCampania()" data-dismiss="modal">Crear</button>
-        </div>
-      </div>
     </div>
-  </div>
+    <h2 class="title">Programa de Evaluación Externa de la Calidad</h2>
+    <h3 class="title">CRN</h3>
 
+    <div class="row justify-content-left align-items-center">
+        <div class="col-md-auto">
+            <button
+                class="btn btn-primary btn-lg"
+                (click)="modalCrear()"
+                data-toggle="addModal"
+                data-target="#addModal"
+            >
+                Nuevo
+            </button>
+        </div>
+        <div class="col-md-auto">
+            <button
+                type="button"
+                routerLink="/plantillas/plantillas"
+                class="btn btn-secondary btn-lg"
+            >
+                Ver Plantillas
+            </button>
+        </div>
+    </div>
+    <div class="plantillas-container container">
+        <div *ngFor="let campania of campaniasArray">
+            <div
+                class="plantilla-box row align-items-center justify-content-between"
+                style="cursor: pointer;"
+            >
+                <div
+                    class="row-flex col-md-auto"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Abrir Campaña"
+                >
+                    <h5 class="col-md-12">{{ campania.nombre }}</h5>
+                    <h6 class="col-md-12">
+                        Del {{ campania.fecha_inicio | date: shortDate }} al
+                        {{ campania.fecha_fin | date: shortDate }}
+                    </h6>
+                </div>
+                <div class="col-md-auto">
+                    <button
+                        type="button"
+                        [attr.data-target]="'#id' + campania.id"
+                        class="btn btn-info"
+                        data-toggle="modal"
+                        data-placement="top"
+                        title="Previsualizar programa"
+                    >
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </button>
+                    <button
+                        type="button"
+                        [attr.data-target]="'#idE' + campania.id"
+                        class="btn btn-info"
+                        (click)="editarPrograma(campania)"
+                        data-toggle="modal"
+                        data-placement="top"
+                        title="Editar programa"
+                    >
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                    </button>
+                    <button
+                        type="button"
+                        [attr.data-target]="'#id' + campania.id"
+                        class="btn btn-danger"
+                        (click)="
+                            eliminarCampania(campania); $event.stopPropagation()
+                        "
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Eliminar programa"
+                    >
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Vista Previa Campania -->
+            <div
+                class="modal fade"
+                id="id{{campania.id}}"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="modelTitleId"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-container" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modelTitleId">
+                                Vista previa
+                            </h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div sf-form class="col-sm-auto plantilla">
+                                <h3 style="text-align:center">
+                                    {{ campania.nombre }}
+                                </h3>
+                                <json-schema-form
+                                    [schema]="campania.schema"
+                                    [form]="campania.form"
+                                    [options]="options"
+                                >
+                                </json-schema-form>
+                            </div>
+
+                            <form>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label
+                                                for="recipient-name"
+                                                class="col-form-label"
+                                                >Fecha de Inicio:</label
+                                            >
+                                            <input
+                                                class="form-control"
+                                                type="shortDate"
+                                                value="{{ campania.fecha_inicio | date: 'dd/MM/yyyy'   }}"
+                                                id="example-date-input"
+                                                disabled
+                                            />
+                                        </div>
+                                        <div class="col">
+                                            <label
+                                                for="recipient-name"
+                                                class="col-form-label"
+                                                >Fecha de Fin:</label
+                                            >
+                                            <input
+                                                class="form-control"
+                                                type="shortDate"
+                                                value="{{ campania.fecha_fin | date: 'dd/MM/yyyy' }}"
+                                                id="example-date-input"
+                                                disabled
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label
+                                                for="recipient-name"
+                                                class="col-form-label"
+                                                >Fecha de Envio de
+                                                Paquete:</label
+                                            >
+                                            <input
+                                                class="form-control"
+                                                type="shortDate"
+                                                value="{{ campania.fecha_envio_paquete | date: 'dd/MM/yyyy'  }}"
+                                                id="example-date-input"
+                                                disabled
+                                            />
+                                        </div>
+                                        <div class="col">
+                                            <label
+                                                for="recipient-name"
+                                                class="col-form-label"
+                                                >Fecha de Envio de
+                                                Resultados:</label
+                                            >
+                                            <input
+                                                class="form-control"
+                                                type="shortDate"
+                                                value="{{ campania.fecha_envio_resultados | date: 'dd/MM/yyyy'  }}"
+                                                id="example-date-input"
+                                                disabled
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label
+                                        for="recipient-name"
+                                        name="plantilla_nombre"
+                                        class="col-form-label"
+                                        >Plantilla Seleccionada:</label
+                                    >
+                                    <input
+                                        value="{{ campania.plantilla_nombre }}"
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Titulo"
+                                        aria-label="Titulo"
+                                        aria-describedby="basic-addon1"
+                                        disabled
+                                    />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                            >
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Edicion Campania -->
+            <div
+                class="modal fade"
+                id="idE{{campania.id}}"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="modelTitleId"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-container" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modelTitleId">
+                                Editar programa
+                            </h5>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label
+                                        for="recipient-name"
+                                        class="col-form-label"
+                                        >Título:</label
+                                    >
+                                    <input
+                                        [(ngModel)]="campania.nombre"
+                                        id="titulo"
+                                        name="{campania.nombre}"
+                                        type="text"
+                                        class="form-control"
+                                        aria-describedby="basic-addon1"
+                                    />
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label
+                                                for="recipient-name"
+                                                class="col-form-label"
+                                                >Fecha de Inicio:</label
+                                            >
+                                            <input
+                                                class="form-control"
+                                                [(ngModel)]="fecha_inicio"
+                                                name="fecha_inicio"
+                                                type="date"
+                                                value="{{ campania.fecha_inicio | date: 'yyyy-MM-dd'  }}"
+                                                id="example-date-input"
+                                            />
+                                        </div>
+                                        <div class="col">
+                                            <label
+                                                for="recipient-name"
+                                                class="col-form-label"
+                                                >Fecha de Fin:</label
+                                            >
+                                            <input
+                                                class="form-control"
+                                                [(ngModel)]="fecha_fin"
+                                                name="fecha_fin"
+                                                type="date"
+                                                value="{{ campania.fecha_fin | date: 'yyyy-MM-dd' }}"
+                                                id="example-date-input"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label
+                                                for="recipient-name"
+                                                class="col-form-label"
+                                                >Fecha de Envio de
+                                                Paquete:</label
+                                            >
+                                            <input
+                                                class="form-control"
+                                                [(ngModel)]="
+                                                    fecha_envio_paquete
+                                                "
+                                                name="fecha_envio_paquete"
+                                                type="date"
+                                                value="{{ campania.fecha_envio_paquete | date: 'yyyy-MM-dd'  }}"
+                                                id="example-date-input"
+                                            />
+                                        </div>
+                                        <div class="col">
+                                            <label
+                                                for="recipient-name"
+                                                class="col-form-label"
+                                                >Fecha de Envio de
+                                                Resultados:</label
+                                            >
+                                            <input
+                                                class="form-control"
+                                                [(ngModel)]="
+                                                    fecha_envio_resultados
+                                                "
+                                                name="fecha_envio_resultados"
+                                                type="date"
+                                                value="{{ campania.fecha_envio_resultados | date: 'yyyy-MM-dd' }}"
+                                                id="example-date-input"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label
+                                        for="recipient-name"
+                                        name="plantilla_nombre"
+                                        class="col-form-label"
+                                        >Plantilla Seleccionada:</label
+                                    >
+                                    <input
+                                        value="{{ campania.plantilla_nombre }}"
+                                        [(ngModel)]="campania.plantilla_id"
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Titulo"
+                                        aria-label="Titulo"
+                                        aria-describedby="basic-addon1"
+                                        disabled
+                                    />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                            >
+                                Cerrar
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                [routerLink]="programas"
+                                (click)="
+                                    $event.stopPropagation();
+                                    editarCampania(campania)
+                                "
+                                data-dismiss="modal"
+                            >
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
