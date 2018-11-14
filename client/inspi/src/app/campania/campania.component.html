@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-auto">            
               <button type="button" [attr.data-target]="'#id'+campania.id" class="btn btn-info" data-toggle="modal" data-placement="top" title="Previsualizar programa"><i class="fa fa-eye" aria-hidden="true"></i></button>
-              <button type="button" [attr.data-target]="'#idE'+campania.id" class="btn btn-info" data-toggle="modal" data-placement="top" title="Editar programa"><i class="fa fa-edit" aria-hidden="true"></i></button>           
+              <button type="button" [attr.data-target]="'#idE'+campania.id" class="btn btn-info" (click)="editarPrograma(campania);" data-toggle="modal" data-placement="top" title="Editar programa"><i class="fa fa-edit" aria-hidden="true"></i></button>           
               <button type="button" [attr.data-target]="'#id'+campania.id" class="btn btn-danger" (click)="eliminarCampania(campania); $event.stopPropagation();" data-toggle="tooltip" data-placement="top" title="Eliminar programa"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </div>
           </div>
@@ -103,20 +103,23 @@
                 </button>
               </div>
               <div class="modal-body">
-                <div sf-form class="col-sm-auto plantilla">
-                  <h3 style="text-align:center">{{ campania.nombre }}</h3>
-                </div>
+                
                 <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Título:</label>
+                    <input [(ngModel)]="nombre" id="titulo" name="nombre" value="{{ campania.nombre }}" type="text" class="form-control" 
+                  aria-describedby="basic-addon1">
+                  </div>
                   
                   <div class="form-group">
                     <div class="row">
                       <div class="col">
                         <label for="recipient-name" class="col-form-label">Fecha de Inicio:</label>
-                        <input  class="form-control" type="shortDate" value="{{ campania.fecha_inicio | date: 'dd/MM/yyyy'   }}" id="example-date-input" > 
+                        <input  class="form-control" [(ngModel)]="fecha_inicio" name="fecha_inicio" type="date" value="{{ campania.fecha_inicio | date: 'yyyy-MM-dd'  }}" id="example-date-input" > 
                       </div>
                       <div class="col">
                         <label for="recipient-name" class="col-form-label">Fecha de Fin:</label>
-                        <input class="form-control" type="shortDate" value="{{ campania.fecha_fin | date: 'dd/MM/yyyy' }}" id="example-date-input" > 
+                        <input class="form-control" [(ngModel)]="fecha_fin" name="fecha_fin" type="date" value="{{ campania.fecha_fin | date: 'yyyy-MM-dd' }}" id="example-date-input" > 
                       </div>
                     </div>
                   </div>
@@ -124,18 +127,18 @@
                     <div class="row">
                       <div class="col">
                         <label for="recipient-name" class="col-form-label">Fecha de Envio de Paquete:</label>
-                        <input class="form-control" type="shortDate" value="{{ campania.fecha_envio_paquete | date: 'dd/MM/yyyy'  }}" id="example-date-input" > 
+                        <input class="form-control" [(ngModel)]="fecha_envio_paquete" name="fecha_envio_paquete" type="date" value="{{ campania.fecha_envio_paquete | date: 'yyyy-MM-dd'  }}" id="example-date-input" > 
                       </div>
                       <div class="col">
                         <label for="recipient-name" class="col-form-label">Fecha de Envio de Resultados:</label>
-                        <input class="form-control" type="shortDate" value="{{ campania.fecha_envio_resultados | date: 'dd/MM/yyyy'  }}" id="example-date-input" > 
+                        <input class="form-control" [(ngModel)]="fecha_envio_resultados" name="fecha_envio_resultados" type="date" value="{{ campania.fecha_envio_resultados | date: 'yyyy-MM-dd' }}" id="example-date-input" > 
                       </div>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label for="recipient-name" name= "plantilla_nombre"class="col-form-label">Plantilla Seleccionada:</label>
-                    <input value="{{ campania.plantilla_nombre }}" type="text" class="form-control" placeholder="Titulo" aria-label="Titulo"
+                    <input value="{{ campania.plantilla_nombre }}" [(ngModel)]="campania.plantilla_id" type="text" class="form-control" placeholder="Titulo" aria-label="Titulo"
                   aria-describedby="basic-addon1"  disabled>
                   </div>
                   
@@ -145,7 +148,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" [routerLink]="programas"  data-dismiss="modal">Guardar</button>
+                <button type="button" class="btn btn-primary" [routerLink]="programas" (click)="$event.stopPropagation(); editarCampania(campania)" data-dismiss="modal">Guardar</button>
               </div>
             </div>
           </div>
@@ -206,7 +209,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" [routerLink]="programas" (click)="guardarCampania()" data-dismiss="modal">Crear</button>
+            <button type="button" class="btn btn-primary" routerLink="programas" (click)="guardarCampania()" data-dismiss="modal">Crear</button>
         </div>
       </div>
     </div>
