@@ -106,10 +106,35 @@ export class CampaniaComponent implements OnInit {
 
     async editarCampania(campania) {
         //this.campania = await this.apiService.getCampania(id);
-        console.log(campania);
-        await this.apiService.setCampania(campania);
+        const editCampania = {
+            fecha_envio_paquete: campania.fecha_envio_paquete.substring(
+                0,
+                campania.fecha_envio_paquete.indexOf('T')
+            ),
+            fecha_envio_resultados: campania.fecha_envio_resultados.substring(
+                0,
+                campania.fecha_envio_resultados.indexOf('T')
+            ),
+            fecha_fin: campania.fecha_fin.substring(
+                0,
+                campania.fecha_fin.indexOf('T')
+            ),
+            fecha_inicio: campania.fecha_inicio.substring(
+                0,
+                campania.fecha_inicio.indexOf('T')
+            ),
+            id: campania.id,
+            nombre: campania.nombre,
+            plantilla_id: campania.plantilla_id,
+            plantilla_nombre: campania.plantilla_nombre
+        };
+        console.log(editCampania);
+        console.log('ended');
+        await this.apiService.setCampania(editCampania);
         //this.globals.currentTemplate = this.campania;
-        this._router.navigate(['programas']);
+        $('#idE' + campania.id)
+            .modal()
+            .hide();
     }
 
     obtenerPlantillas() {
