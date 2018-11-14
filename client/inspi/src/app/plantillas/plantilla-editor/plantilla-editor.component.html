@@ -1,119 +1,124 @@
 <div class="container">
-  <div class="row-flex">
-    <div class="row justify-content-between align-items-center">
-      <div class="col-md-auto">
-        <button
-          type="button"
-          class="btn btn-danger ml-4"
-          routerLink="plantillas"
-        >
-          Cancelar
-        </button>
-      </div>
-      <div class="col-md-auto">
-        <button
-          type="button"
-          class="btn btn-success mr-4"
-          (click)="guardarPlantilla()"
-          [disabled]="!canPost"
-        >
-          Guardar
-        </button>
-      </div>
+    <div class="row-flex">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-auto">
+                <button
+                    type="button"
+                    class="btn btn-danger ml-4"
+                    routerLink="plantillas"
+                >
+                    Cancelar
+                </button>
+            </div>
+            <div class="col-md-auto">
+                <button
+                    type="button"
+                    class="btn btn-success mr-4"
+                    (click)="guardarPlantilla()"
+                    [disabled]="!canPost"
+                >
+                    Guardar
+                </button>
+            </div>
+        </div>
+
+        <div class="plantillas-container col-md-12">
+            <div class="row justify-content-around">
+                <input
+                    class="col-md-8 form-control"
+                    type="text"
+                    name="nombrePlantilla"
+                    placeholder="Nombre de la plantilla"
+                    required="required"
+                    [(ngModel)]="titulo"
+                    (keyup)="validate()"
+                />
+                <div class="col-md-12"><br /></div>
+                <textarea
+                    class="col-md-8 form-control"
+                    type="text"
+                    name="descripcion"
+                    placeholder="Descripción de la plantilla"
+                    [(ngModel)]="descripcion"
+                    (keyup)="validate()"
+                ></textarea>
+            </div>
+            <ng-container #seccionContainer></ng-container>
+            <br />
+            <div
+                class="row justify-content-end col-md-12 mb-2 mt-2"
+                style="position: absolute; bottom: 1%;"
+            >
+                <div class="col-md-auto">
+                    <button
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#seccionModal"
+                    >
+                        <i class="fa fa-plus" aria-hidden="true"></i> Añadir
+                        sección
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="plantillas-container col-md-12">
-      <div class="row justify-content-around">
-        <input
-          class="col-md-8 form-control"
-          type="text"
-          name="nombrePlantilla"
-          placeholder="Nombre de la plantilla"
-          required="required"
-          [(ngModel)]="titulo"
-          (keyup)="validate()"
-        />
-        <div class="col-md-12"><br /></div>
-        <textarea
-          class="col-md-8 form-control"
-          type="text"
-          name="descripcion"
-          placeholder="Descripción de la plantilla"
-          [(ngModel)]="descripcion"
-          (keyup)="validate()"
-        ></textarea>
-      </div>
-      <ng-container #seccionContainer></ng-container>
-      <br />
-      <div
-        class="row justify-content-end col-md-12 mb-2 mt-2"
-        style="position: absolute; bottom: 1%;"
-      >
-        <div class="col-md-auto">
-          <button
-            class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#seccionModal"
-          >
-            <i class="fa fa-plus" aria-hidden="true"></i> Añadir sección
-          </button>
+    <!-- Modal -->
+    <div
+        class="modal fade"
+        id="seccionModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog" role="document" name="addSeccion">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Título de la nueva sección
+                    </h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input
+                        [(ngModel)]="title"
+                        type="text"
+                        class="form-control"
+                        placeholder="Titulo"
+                        aria-label="Titulo"
+                        aria-describedby="basic-addon1"
+                        required
+                        name="title"
+                        (keydown.enter)="addSeccion()"
+                    />
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                    >
+                        Cerrar
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="addSeccion()"
+                        data-dismiss="modal"
+                        [disabled]="!title"
+                    >
+                        Añadir
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-
-  <!-- Modal -->
-  <div
-    class="modal fade"
-    id="seccionModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog" role="document" name="addSeccion">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">
-            Título de la nueva sección
-          </h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <input
-            [(ngModel)]="title"
-            type="text"
-            class="form-control"
-            placeholder="Titulo"
-            aria-label="Titulo"
-            aria-describedby="basic-addon1"
-            required
-            name="title"
-            (keydown.enter)="addSeccion()"
-          />
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Cerrar
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            (click)="addSeccion()"
-            data-dismiss="modal"
-            [disabled]="!title"
-          >
-            Añadir
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
