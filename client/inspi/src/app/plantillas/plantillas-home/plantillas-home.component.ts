@@ -13,7 +13,7 @@ declare var $: any;
 @Component({
   selector: 'app-plantillas-home',
   templateUrl: './plantillas-home.component.html',
-  styleUrls: ['./plantillas-home.component.css']
+  styleUrls: ['./plantillas-home.component.css']  
 })
 export class PlantillasHomeComponent implements OnInit {
   plantillasArray: Plantilla[];
@@ -43,10 +43,10 @@ export class PlantillasHomeComponent implements OnInit {
               }
             )
           : [{ id: -1, titulo: '', descripcion: data['msg'], secciones: [] }];
-    });
+    });    
   }
 
-  public parsePlantilla(data: object): Plantilla {
+  public parsePlantilla(data: object): Plantilla {    
     // Parsear secciones...
     var secciones = data['secciones'].map(
       (s): Seccion => {
@@ -54,12 +54,12 @@ export class PlantillasHomeComponent implements OnInit {
       }
     );
 
-    return this.generateSchemaForm({
+    return {
       id: data['id'],
       titulo: data['titulo'],
       descripcion: data['descripcion'],
       secciones: secciones
-    });
+    };
   }
 
   private parseSeccion(data: object): Seccion {
@@ -87,7 +87,7 @@ export class PlantillasHomeComponent implements OnInit {
       tipo: data['tipo_data']
     };
   }
-
+/*
   private generateSchemaForm(plantilla: Plantilla): Plantilla {
     var schema = {};
     var form = [];
@@ -105,7 +105,7 @@ export class PlantillasHomeComponent implements OnInit {
     schema['title'] = plantilla.titulo;
     schema['required'] = [];
     form.push({
-      type: 'help',
+      type: 'help',      
       helpvalue:
         '<div class="alert alert-info">' + plantilla.descripcion + '</div>'
     });
@@ -146,7 +146,7 @@ export class PlantillasHomeComponent implements OnInit {
             /*
             properties["p"+pregunta.id+"-"+seccion.id] = {            
               "description": pregunta.descripcion        
-            };*/
+            };//
           } else {
             properties['p' + pregunta.id + '-' + seccion.id] = {
               title: pregunta.titulo,
@@ -171,7 +171,7 @@ export class PlantillasHomeComponent implements OnInit {
 
     return plantilla;
   }
-
+*/
   // Making it async, so we can show if there's a new error or not.
   async eliminarPlantilla(plantilla: Plantilla) {
     await this.apiService.deletePlantilla(plantilla.id);
