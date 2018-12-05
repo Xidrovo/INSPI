@@ -15,10 +15,9 @@ class PlantillaView(View):
             try:
                 # obtenemos todas las plantillas existentes
                 plantillas = []
-                for plantilla in Plantilla.objects.all().order_by('id'):                   
+                # for plantilla in Plantilla.objects.all().filter().order_by('id'):
+                for plantilla in Plantilla.objects.filter(deleted__exact=False).order_by('id'):
                     plantillas.append(plantilla.to_dict())
-                # transformamos el QuerySet de plantillas a un string de JSON y lo retornamos
-                #plantillas_str = serializers.serialize('json', plantillas)
 
                 return JsonResponse({
                     'error': 0,
@@ -30,7 +29,7 @@ class PlantillaView(View):
                     'msg': 'Hubo un error al consultar las plantillas: ' + str(e)
                 })
         else:
-            if Plantilla.objects.filter(pk=plantilla_id).count() > 0:
+            if Plantilla.objects.filter(pk=plantilla_id, deleted__exact=False).count() > 0:
                 try:
                     # obtenemos la plantilla consultada y la retornamos
                     plantilla = Plantilla.objects.get(pk=plantilla_id)
@@ -98,7 +97,7 @@ class PlantillaView(View):
             })
 
     def put(self, request, plantilla_id):
-        if Plantilla.objects.filter(pk=plantilla_id).count() > 0:
+        if Plantilla.objects.filter(pk=plantilla_id, deleted__exact=False).count() > 0:
             try:
                 # extraer el JSON como un string
                 plantilla_str = request.body.decode('utf-8')
@@ -155,7 +154,7 @@ class PlantillaView(View):
             })
 
     def delete(self, request, plantilla_id):
-        if Plantilla.objects.filter(pk=plantilla_id).count() > 0:
+        if Plantilla.objects.filter(pk=plantilla_id, deleted__exact=False).count() > 0:
             try:
                 Plantilla.objects.get(pk=plantilla_id).delete()
                 return JsonResponse({'error': 0})
@@ -204,7 +203,7 @@ class ProgramaView(View):
             })
 
     def put(self, request, programa_id):
-        if Programa.objects.filter(pk=programa_id).count() > 0:
+        if Programa.objects.filter(pk=programa_id, deleted__exact=False).count() > 0:
             try:
                 # extraer el JSON como un string
                 programa_str = request.body.decode('utf-8')
@@ -238,7 +237,7 @@ class ProgramaView(View):
         if (not programa_id):
             try:
                 # obtenemos todos los programas existentes
-                programas = Programa.objects.all()
+                programas = Programa.objects.filter(deleted__exact=False)
                 # armamos el paquete de programas
                 paquete = []
                 for programa in programas:
@@ -263,7 +262,7 @@ class ProgramaView(View):
                     'msg': 'Hubo un error al consultar los programas: ' + str(e)
                 })
         else:
-            if Programa.objects.filter(pk=programa_id).count() > 0:
+            if Programa.objects.filter(pk=programa_id, deleted__exact=False).count() > 0:
                 try:
                     # obtenemos el programa consultado y lo retornamos
                     programa = Programa.objects.get(pk=programa_id)
@@ -303,7 +302,7 @@ def get_tipos_de_dato(request):
     if request.method == "GET":
         try:
             # obtenemos todos los tipos de dato existentes
-            tipos_de_dato = TipoDeDato.objects.all()
+            tipos_de_dato = TipoDeDato.objects.filter(deleted__exact=False)
             # transformamos el QuerySet de tipos de dato a un string de JSON y lo retornamos
             tipos_de_dato_str = serializers.serialize('json', tipos_de_dato)
 

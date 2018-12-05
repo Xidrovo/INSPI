@@ -15,6 +15,11 @@ class Note(models.Model):
 class TipoDeDato(models.Model):
 	nombre = models.CharField(max_length=200)
 	detalle = models.TextField(blank=True)
+	deleted = models.BooleanField(default=False)
+
+	def delete(self):
+		self.deleted = True
+		self.save()
 
 	def to_dict(self):		
 		if not self.detalle:
@@ -37,6 +42,7 @@ class Pregunta(models.Model):
 	detalle = models.TextField()
 	seccion = models.ForeignKey('Seccion', on_delete=models.CASCADE)
 	tipo_de_dato = models.ForeignKey('TipoDeDato', on_delete=models.CASCADE)
+	deleted = models.BooleanField(default=False)
 
 	def crear(self, titulo, descripcion, requerido, detalle, seccion, tipo_de_dato):
 		p = Pregunta()
@@ -48,6 +54,10 @@ class Pregunta(models.Model):
 		p.tipo_de_dato = tipo_de_dato
 		p.save()
 		return p
+
+	def delete(self):
+		self.deleted = True
+		self.save()
 
 	def to_dict(self):
 		if not self.detalle:
@@ -70,6 +80,7 @@ class Pregunta(models.Model):
 class Seccion(models.Model):
 	titulo = models.CharField(max_length=200)
 	plantilla = models.ForeignKey('Plantilla', on_delete=models.CASCADE)
+	deleted = models.BooleanField(default=False)
 
 	@property
 	def preguntas(self):
@@ -80,7 +91,11 @@ class Seccion(models.Model):
 		s.titulo = titulo
 		s.plantilla = plantilla
 		s.save()
-		return s 
+		return s
+
+	def delete(self):
+		self.deleted = True
+		self.save()
 
 	def to_dict(self):
 		preguntas = []
@@ -98,6 +113,7 @@ class Seccion(models.Model):
 class Plantilla(models.Model):
 	titulo = models.CharField(max_length=200)
 	descripcion = models.TextField(default=None, blank=True, null=True)
+	deleted = models.BooleanField(default=False)
 
 	def crear(self, titulo, descripcion):
 		p = Plantilla()
@@ -109,6 +125,10 @@ class Plantilla(models.Model):
 	@property
 	def secciones(self):
 		return Seccion.objects.filter(plantilla=self.pk).order_by('id')
+
+	def delete(self):
+		self.deleted = True
+		self.save()
 
 	def to_dict(self):
 		secciones = []
@@ -132,6 +152,7 @@ class Programa(models.Model):
 	fecha_envio_paquete = models.DateField()
 	fecha_envio_resultados = models.DateField()
 	estado = models.BooleanField(default=True)
+	deleted = models.BooleanField(default=False)
 
 	def crear(self, nombre, plantilla_id, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete):
 		plantilla = None
@@ -152,6 +173,10 @@ class Programa(models.Model):
 		except:
 			return None
 
+	def delete(self):
+		self.deleted = True
+		self.save()
+
 	def to_dict(self):
 		return {
 			'id':self.pk,
@@ -164,8 +189,3 @@ class Programa(models.Model):
 
 	def __str__(self):
 		return '%s INICIO: %s' % (self.nombre, str(self.fecha_inicio))
-
-
-
-
-
