@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { Bootstrap4FrameworkModule } from 'angular6-json-schema-form';
+import { DataTablesModule } from 'angular-datatables';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -53,9 +53,9 @@ import { EditarPlantillaComponent } from './plantillas/editar-plantilla/editar-p
   imports: [
     BrowserModule,
     FormsModule,
+    DataTablesModule,
     HttpModule,
-    HttpClientModule,
-    Bootstrap4FrameworkModule,
+    HttpClientModule,    
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),

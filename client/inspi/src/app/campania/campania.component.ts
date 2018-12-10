@@ -1,5 +1,6 @@
 import { ComponentFactoryResolver, Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
+import { Subject } from 'rxjs';
 import { Campania } from './campania.model';
 import { Router } from '@angular/router';
 import { Globals } from '../globals';
@@ -14,7 +15,8 @@ declare var $: any;
 })
 export class CampaniaComponent implements OnInit {
     campaniasArray: Campania[];
-
+    dtOptions: DataTables.Settings = {};
+    dtTrigger: Subject<any> = new Subject();
     plantillasArray: Plantilla[];
 
     private campania: any;
@@ -34,6 +36,16 @@ export class CampaniaComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.dtOptions = {
+            pagingType: 'full_numbers',
+            pageLength: 10,
+            processing: true,
+            columnDefs: [
+                { orderable: false, targets: 0 },
+                { orderable: false, targets: 1 },
+                { orderable: false, targets: 2 }
+            ]
+        };
         this.obtenerPlantillas();
         this.obtenerCampanias();
     }
@@ -58,6 +70,7 @@ export class CampaniaComponent implements OnInit {
                               fecha_envio_resultados: null
                           }
                       ];
+            this.dtTrigger.next();
         });
     }
 
@@ -83,9 +96,14 @@ export class CampaniaComponent implements OnInit {
             fecha_envio_paquete: this.fecha_envio_paquete,
             fecha_envio_resultados: this.fecha_envio_resultados
         };
-        console.log(this.campania);
+
+        // HAY QUE HACER QUE RECARGUE LA PAGINA PARA QUE APAREZCA EL PROGRAMA CREADO
+        this.campaniasArray.push(this.campania);
+        $('#tblProgramas')
+            .DataTable()
+            .draw();
+
         await this.apiService.addCampania(this.campania);
-        this._router.navigate(['/programas']);
     }
 
     async eliminarCampania(campania: Campania) {
@@ -95,7 +113,6 @@ export class CampaniaComponent implements OnInit {
         });
         this.campaniasArray.splice(index, 1);
     }
-
     editarPrograma(campania) {
         this.fecha_inicio = campania.fecha_inicio;
         this.fecha_fin = campania.fecha_fin;
@@ -104,19 +121,30 @@ export class CampaniaComponent implements OnInit {
 
         this.nombre = campania['nombre'];
         $('#idE' + campania.id).modal('show');
+        // ELIMINAR EL ROW DEL DATATABLE #tblProgramas
+        $('#tblProgramas')
+            .DataTable()
+            .draw();
     }
 
     async editarCampania(campania) {
         //this.campania = await this.apiService.getCampania(id);
-        let editedCampania = campania;
-        editedCampania.fecha_inicio = this.fecha_inicio;
-        editedCampania.fecha_fin = this.fecha_fin;
-        editedCampania.fecha_envio_paquete = this.fecha_envio_paquete;
-        editedCampania.fecha_envio_resultados = this.fecha_envio_resultados;
-
-        await this.apiService.setCampania(editedCampania);
+        console.log(campania.fecha_envio_paquete);
+        const editCampania = {
+            fecha_envio_paquete: campania.fecha_envio_paquete,
+            fecha_envio_resultados: campania.fecha_envio_resultados,
+            fecha_fin: campania.fecha_fin,
+            fecha_inicio: campania.fecha_inicio,
+            id: campania.id,
+            nombre: campania.nombre,
+            plantilla_id: campania.plantilla_id,
+            plantilla_nombre: campania.plantilla_nombre
+        };
+        console.log('new fecha', campania.fecha_inicio);
+        console.log('===editCampania', editCampania);
+        await this.apiService.setCampania(editCampania);
         //this.globals.currentTemplate = this.campania;
-        $('#idE' + campania.id).modal('hide');
+        //$('#idE' + campania.id).modal().hide();
     }
     obtenerPlantillas() {
         this.apiService.getPlantillas().subscribe((data: object) => {
@@ -146,9 +174,4 @@ export class CampaniaComponent implements OnInit {
             secciones: data['secciones']
         };
     }
-
-    modalCrear = () => {
-        console.log('???');
-        $('#addModal').modal('show');
-    };
 }

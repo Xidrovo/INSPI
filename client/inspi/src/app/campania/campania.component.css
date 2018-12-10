@@ -42,3 +42,8 @@
     border-radius: 100px !important;
     font-weight: bold !important;
 }
+
+th {
+    background-color: darkcyan;
+    color: antiquewhite;
+}

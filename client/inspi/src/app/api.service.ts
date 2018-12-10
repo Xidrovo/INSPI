@@ -37,7 +37,6 @@ export class ApiService {
     }
 
     setCampania(payload): any {
-        console.log('===new campania', payload);
         return this.httpClient
             .put(`${this.API_URL}programas/` + payload.id, payload)
             .toPromise()

@@ -1,5 +1,5 @@
 .plantillas-container {
-  border: 1px solid gray;
+  /*border: 1px solid gray;*/
   padding: 1%;
   min-height: 400px;
   margin-top: 1%;
@@ -27,4 +27,9 @@
   margin-right: 4%;
   border-radius: 100px;
   font-weight: bold;
+}
+
+th {
+  background-color: darkcyan;
+  color: antiquewhite;
 }
