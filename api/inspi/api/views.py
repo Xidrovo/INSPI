@@ -16,7 +16,7 @@ class PlantillaView(View):
                 # obtenemos todas las plantillas existentes
                 plantillas = []
                 # for plantilla in Plantilla.objects.all().filter().order_by('id'):
-                for plantilla in Plantilla.objects.filter(deleted__exact=False).order_by('id'):
+                for plantilla in Plantilla.objects.filter(deleted__exact=False).order_by('-id'):
                     plantillas.append(plantilla.to_dict())
 
                 return JsonResponse({
@@ -237,7 +237,7 @@ class ProgramaView(View):
         if (not programa_id):
             try:
                 # obtenemos todos los programas existentes
-                programas = Programa.objects.filter(deleted__exact=False)
+                programas = Programa.objects.filter(deleted__exact=False).order_by('-id')
                 # armamos el paquete de programas
                 paquete = []
                 for programa in programas:

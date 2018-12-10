@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, ViewContainerRef, ViewChild, ComponentFactoryResolver } from '@angular/core';
-import * as $ from 'jquery';
 import { TablaRamComponent } from '../../tabla-ram/tabla-ram.component';
 
 declare var $: any;
@@ -12,7 +11,6 @@ declare var $: any;
 export class PlantillaViewerComponent implements OnInit {
 
   @Input() plantilla;
-  tablaRAM = "<app-tabla-ram></app-tabla-ram>"
   @ViewChild('RAMTable', { read: ViewContainerRef })
   container;
 
@@ -23,16 +21,6 @@ export class PlantillaViewerComponent implements OnInit {
   constructor(private resolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
-    if ($('.tablaRam').length > 0){
-      console.log("Plantillas Viewer...:",$('.tablaRam'))
-      //if ($('.tablaRam')[0].innerHTML != '<ng-container #RAMTable></ng-container>')
-        //$('.tablaRam')[0].innerHTML = '<ng-container #RAMTable></ng-container>'//this.tablaRAM//'<h4>Hola mundo...</h4>'    
-      const factory = this.resolver.resolveComponentFactory(
-        TablaRamComponent
-      );
-      const componentRef = this.container.createComponent(factory);
-    }
-
     
   }
 

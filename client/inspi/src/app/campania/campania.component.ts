@@ -1,5 +1,6 @@
 import { ComponentFactoryResolver, Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
+import { Subject } from 'rxjs';
 import { Campania } from './campania.model';
 import { Router } from '@angular/router';
 import { Globals } from '../globals';
@@ -14,7 +15,8 @@ declare var $: any;
 })
 export class CampaniaComponent implements OnInit {
     campaniasArray: Campania[];
-
+    dtOptions: DataTables.Settings = {};
+    dtTrigger: Subject<any> = new Subject();
     plantillasArray: Plantilla[];
 
     private campania: any;
@@ -25,6 +27,7 @@ export class CampaniaComponent implements OnInit {
     private fecha_fin: Date = null;
     private fecha_envio_paquete: Date = null;
     private fecha_envio_resultados: Date = null;
+    
 
     constructor(
         private apiService: ApiService,
@@ -34,6 +37,12 @@ export class CampaniaComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.dtOptions = {
+            pagingType: 'full_numbers',
+            pageLength: 10,
+            processing: true,
+            columnDefs: [{orderable: false, targets: 0},{orderable: false, targets: 1},{orderable: false, targets: 2}]
+        };
         this.obtenerPlantillas();
         this.obtenerCampanias();
     }
@@ -42,8 +51,7 @@ export class CampaniaComponent implements OnInit {
         this.apiService.getCampanias().subscribe((data: object) => {
             this.campaniasArray =
                 data['error'] == 0
-                    ? data['programas'].map(
-                          (p): Campania => {
+                    ? data['programas'].map((p): Campania => {
                               return this.parseCampania(p);
                           }
                       )
@@ -58,6 +66,7 @@ export class CampaniaComponent implements OnInit {
                               fecha_envio_resultados: null
                           }
                       ];
+            this.dtTrigger.next();
         });
     }
 
@@ -82,10 +91,14 @@ export class CampaniaComponent implements OnInit {
             fecha_fin: this.fecha_fin,
             fecha_envio_paquete: this.fecha_envio_paquete,
             fecha_envio_resultados: this.fecha_envio_resultados
-        };
-        console.log(this.campania);
-        await this.apiService.addCampania(this.campania);
-        this._router.navigate(['/programas']);
+        };        
+
+        // HAY QUE HACER QUE RECARGUE LA PAGINA PARA QUE APAREZCA EL PROGRAMA CREADO
+        this.campaniasArray.push(this.campania);
+        $('#tblProgramas').DataTable().draw();
+        
+        await this.apiService.addCampania(this.campania); 
+        
     }
 
     async eliminarCampania(campania: Campania) {
@@ -94,47 +107,28 @@ export class CampaniaComponent implements OnInit {
             return x.id === campania.id;
         });
         this.campaniasArray.splice(index, 1);
-    }
 
-    editarPrograma(campania) {
-        console.log('Entra editar programa');
-        this.nombre = campania['nombre'];
-        $('#idE' + campania.id)
-            .modal()
-            .show();
+        // ELIMINAR EL ROW DEL DATATABLE #tblProgramas
+        $('#tblProgramas').DataTable().draw();
     }
 
     async editarCampania(campania) {
         //this.campania = await this.apiService.getCampania(id);
+        console.log(campania.fecha_envio_paquete);
         const editCampania = {
-            fecha_envio_paquete: campania.fecha_envio_paquete.substring(
-                0,
-                campania.fecha_envio_paquete.indexOf('T')
-            ),
-            fecha_envio_resultados: campania.fecha_envio_resultados.substring(
-                0,
-                campania.fecha_envio_resultados.indexOf('T')
-            ),
-            fecha_fin: campania.fecha_fin.substring(
-                0,
-                campania.fecha_fin.indexOf('T')
-            ),
-            fecha_inicio: campania.fecha_inicio.substring(
-                0,
-                campania.fecha_inicio.indexOf('T')
-            ),
+            fecha_envio_paquete: campania.fecha_envio_paquete,
+            fecha_envio_resultados: campania.fecha_envio_resultados,
+            fecha_fin: campania.fecha_fin,
+            fecha_inicio: campania.fecha_inicio,
             id: campania.id,
             nombre: campania.nombre,
             plantilla_id: campania.plantilla_id,
             plantilla_nombre: campania.plantilla_nombre
         };
-        console.log(editCampania);
-        console.log('ended');
+
         await this.apiService.setCampania(editCampania);
         //this.globals.currentTemplate = this.campania;
-        $('#idE' + campania.id)
-            .modal()
-            .hide();
+        //$('#idE' + campania.id).modal().hide();
     }
 
     obtenerPlantillas() {
@@ -166,8 +160,4 @@ export class CampaniaComponent implements OnInit {
         };
     }
 
-    modalCrear = () => {
-        console.log('???');
-        $('#addModal').modal('show');
-    };
 }

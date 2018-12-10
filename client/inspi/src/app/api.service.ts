@@ -30,8 +30,7 @@ export class ApiService {
       .catch(err => console.log(err));
   }
 
-  setCampania(payload): any {
-    console.log("aqui");
+  setCampania(payload): any {    
     return this.httpClient
       .put(`${this.API_URL}/api/programas/` + payload.id, payload)
       .toPromise()
