@@ -1,4 +1,16 @@
 <div class="container">
+    <div class="row justify-content-between align-items-center fixed">
+        <div class="col-md-auto">
+            <button
+                class="btn btn-primary btn-create btn-lg shadow mb-5"
+                (click)="modalCrear()"
+                data-toggle="addModal"
+                data-target="#addModal"
+            >
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
     <!-- Modal de nuevo programa -->
     <div
         class="modal face"
@@ -151,18 +163,7 @@
     </div>
     <h2 class="title">Programa de Evaluación Externa de la Calidad</h2>
     <h3 class="title">CRN</h3>
-
     <div class="row justify-content-left align-items-center">
-        <div class="col-md-auto">
-            <button
-                class="btn btn-primary btn-lg"
-                (click)="modalCrear()"
-                data-toggle="addModal"
-                data-target="#addModal"
-            >
-                Nuevo
-            </button>
-        </div>
         <div class="col-md-auto">
             <button
                 type="button"
