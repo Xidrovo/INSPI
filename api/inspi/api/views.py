@@ -188,7 +188,7 @@ class ProgramaView(View):
 
                 programa_obj = Programa().crear(nombre, plantilla_id, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete)
                 if programa_obj:
-                    return JsonResponse({'error': 0})
+                    return JsonResponse({'error': 0, 'programa_id': programa_obj.id})
 
                 else:
                     return JsonResponse({
@@ -221,7 +221,7 @@ class ProgramaView(View):
                 programa_obj.fecha_envio_resultados = programaJSON['fecha_envio_resultados']
                 programa_obj.save()
 
-                return JsonResponse({'error': 0})
+                return JsonResponse({'error': 0, 'programa_id': programa_obj.id})
             except Exception as e:
                 return JsonResponse({
                     'error': 1,
