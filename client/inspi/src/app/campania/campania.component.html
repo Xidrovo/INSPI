@@ -286,6 +286,9 @@
                                                         type="date"
                                                         value="{{ campania.fecha_inicio | date: 'yyyy-MM-dd'  }}"
                                                         id="fecha_inicio"
+                                                        
+                                     
+                                                        min="{{ campania.fecha_inicio | date:'yyyy-MM-dd' }}"
                                                     />
                                                 </div>
                                                 <div class="col">
@@ -303,6 +306,7 @@
                                                         type="date"
                                                         value="{{ campania.fecha_fin | date: 'yyyy-MM-dd' }}"
                                                         id="fecha_fin"
+                                                        min="{{ campania.fecha_inicio | date:'yyyy-MM-dd' }}"
                                                     />
                                                 </div>
                                             </div>
@@ -325,6 +329,9 @@
                                                         type="date"
                                                         value="{{ campania.fecha_envio_paquete | date: 'yyyy-MM-dd'  }}"
                                                         id="fecha_envio_paquete"
+
+                                                        min="{{ campania.fecha_inicio | date:'yyyy-MM-dd'}}"
+                                                        max="{{ campania.fecha_fin | date:'yyyy-MM-dd'}}"
                                                     />
                                                 </div>
                                                 <div class="col">
@@ -343,6 +350,8 @@
                                                         type="date"
                                                         value="{{ campania.fecha_envio_resultados | date: 'yyyy-MM-dd' }}"
                                                         id="fecha_envio_resultados"
+                                                        min="{{ campania.fecha_envio_paquete | date:'yyyy-MM-dd'}}"
+                                                        max="{{ campania.fecha_fin | date:'yyyy-MM-dd'}}"
                                                     />
                                                 </div>
                                             </div>
@@ -379,6 +388,7 @@
                                         class="btn btn-primary"
                                         (click)="editarCampania(campania)"
                                         data-dismiss="modal"
+                                        
                                     >
                                         Guardar
                                     </button>
@@ -389,6 +399,8 @@
                 </tr>
             </tbody>
         </table>
+
+        
 
         <!-- Modal de nuevo programa -->
         <div
@@ -429,6 +441,7 @@
                                     placeholder="Titulo"
                                     aria-label="Titulo"
                                     aria-describedby="basic-addon1"
+                                    required
                                 />
                             </div>
                             <div class="form-group">
@@ -437,15 +450,19 @@
                                         <label
                                             for="recipient-name"
                                             class="col-form-label"
-                                            >Fecha de Inicio:</label
-                                        >
+                                            >Fecha de Inicio:</label>
+
                                         <input
                                             [(ngModel)]="fecha_inicio"
                                             name="fecha_inicio"
                                             class="form-control"
                                             type="date"
                                             value="aaaa-mm-dd"
-                                            id="example-date-input"
+                                            id="inicio"
+                                     
+                                            min="{{ today | date:'yyyy-MM-dd' }}"
+
+                                            
                                         />
                                     </div>
                                     <div class="col">
@@ -460,7 +477,10 @@
                                             class="form-control"
                                             type="date"
                                             value="aaaa-mm-dd"
-                                            id="example-date-input"
+                                            id="fecha_fin"
+                                            [disabled]="isActive1()"
+                                          
+                                            min="{{ fecha_inicio | date:'yyyy-MM-dd' }}"
                                         />
                                     </div>
                                 </div>
@@ -480,6 +500,11 @@
                                             type="date"
                                             value="aaaa-mm-dd"
                                             id="example-date-input"
+                                            [disabled]="isActive2()"
+                                            
+                                            
+                                            min="{{fecha_inicio | date:'yyyy-MM-dd'}}"
+                                            max="{{fecha_fin | date:'yyyy-MM-dd'}}"
                                         />
                                     </div>
                                     <div class="col">
@@ -496,6 +521,9 @@
                                             type="date"
                                             value="aaaa-mm-dd"
                                             id="example-date-input"
+                                            min="{{fecha_envio_paquete | date:'yyyy-MM-dd'}}"
+                                            max="{{fecha_fin | date:'yyyy-MM-dd'}}"
+                                            
                                         />
                                     </div>
                                 </div>
@@ -540,6 +568,8 @@
                             class="btn btn-primary"
                             (click)="guardarCampania()"
                             data-dismiss="modal"
+                            [disabled]="isInvalid()"
+                            id = "guardar"
                             name="guardar"
                         >
                             Crear

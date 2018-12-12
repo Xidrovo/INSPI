@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, Component, OnInit } from '@angular/core';
+import { ComponentFactoryResolver, Component, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Subject } from 'rxjs';
 import { Campania } from './campania.model';
@@ -6,18 +6,24 @@ import { Router } from '@angular/router';
 import { Globals } from '../globals';
 import { Plantilla } from '../plantillas/plantilla.model';
 
+
 declare var $: any;
 
 @Component({
     selector: 'app-campania',
     templateUrl: './campania.component.html',
     styleUrls: ['./campania.component.css']
+
 })
+
+
 export class CampaniaComponent implements OnInit {
     campaniasArray: Campania[];
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
     plantillasArray: Plantilla[];
+
+    
 
     private campania: any;
     private nombre: string = '';
@@ -28,12 +34,16 @@ export class CampaniaComponent implements OnInit {
     private fecha_envio_paquete: Date = null;
     private fecha_envio_resultados: Date = null;
 
+    public today: number = Date.now();
+
     constructor(
         private apiService: ApiService,
         private globals: Globals,
         private resolver: ComponentFactoryResolver,
         private _router: Router
     ) {}
+
+
 
     ngOnInit() {
         this.dtOptions = {
@@ -48,6 +58,7 @@ export class CampaniaComponent implements OnInit {
         };
         this.obtenerPlantillas();
         this.obtenerCampanias();
+        
     }
 
     obtenerCampanias() {
@@ -174,4 +185,38 @@ export class CampaniaComponent implements OnInit {
             secciones: data['secciones']
         };
     }
+
+    isInvalid() {
+        if (this.nombre == "" || this.nombre.length < 8 || this.nombre.length > 25 || this.plantilla_id == null ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    
+  
+
+    isActive1() {
+        if (this.fecha_inicio) {
+            return false;
+        } else {
+            
+            return true;
+        }
+    }
+
+    isActive2() {
+        if (this.fecha_inicio == null || this.fecha_fin == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+  
+
+
+
+    
 }
