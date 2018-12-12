@@ -18,6 +18,7 @@ declare var $: any;
 export class PlantillasHomeComponent implements OnInit {
   plantillasArray: Plantilla[];
   plantilla: any;
+  plantillaShowed: Plantilla = { id: -1, titulo: '', descripcion: '', secciones: [] };  
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   constructor(
@@ -113,7 +114,12 @@ export class PlantillasHomeComponent implements OnInit {
   async editarPlantilla(id) {
     this.plantilla = await this.apiService.getPlantilla(id);
     this.globals.currentTemplate = this.plantilla;
-    this._router.navigate(['/plantillas/plantilla-editor/-1']);
-    // $('#editTemplate').modal('show');
+    this._router.navigate(['/plantillas/plantilla-editor/-1']);    
+  }
+
+  public verPlantilla(plantilla: Plantilla){
+      this.plantillaShowed = plantilla;
+      $('#vistaprevia').modal().show();
+
   }
 }

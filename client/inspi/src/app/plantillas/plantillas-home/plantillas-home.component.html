@@ -32,9 +32,8 @@
                     class="btn btn-info"
                     data-toggle="tooltip"
                     data-placement="top"
-                    title="Previsualizar plantilla"
-                    data-toggle="modal"
-                    [attr.data-target]="'#id' + plantilla.id"
+                    title="Previsualizar plantilla" 
+                    (click)="verPlantilla(plantilla)"
                   >
                     <i class="fa fa-eye" aria-hidden="true"></i>
                   </button>
@@ -42,9 +41,7 @@
                     type="button"
                     class="btn btn-secondary"
                     (click)="$event.stopPropagation(); editarPlantilla(plantilla.id)"
-                    data-placement="top"
-                    data-toggle="modal"
-                    data-target="#exampleModal"
+                    data-placement="top"    
                     title="Editar plantilla"
                   >
                     <i class="fa fa-edit" aria-hidden="true"></i>
@@ -71,211 +68,50 @@
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   </button>
                 </div>
-            </td>
-            <!-- Modal Editar plantilla -->
-            <div class="modal" tabindex="-1" role="dialog" id="editTemplate">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body"><p>Modal body text goes here.</p></div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">
-                      Save changes
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      data-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Modal Vista Previa Plantilla -->
-            <div
-              class="modal fade"
-              id="id{{plantilla.id}}"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="modelTitleId"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog modal-container" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="modelTitleId">Vista previa</h5>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <app-plantilla-viewer
-                      [plantilla]="plantilla"
-                    ></app-plantilla-viewer>
-                  </div>
-                  <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      data-dismiss="modal"
-                    >
-                      Cerrar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </td>                        
           </tr>
         </tbody>
-      </table>
-      <!--div *ngFor="let plantilla of plantillasArray">
-        <div
-          class="plantilla-box row align-items-center justify-content-between"
-          style="cursor: pointer;"
-          data-toggle="modal"
-          [attr.data-target]="'#id' + plantilla.id"
-        >
-          <div
-            class="row-flex col-md-auto"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Previsualizar plantilla"
-          >
-            <h5 class="col-md-12">{{ plantilla.titulo }}</h5>
-            <h6 class="col-md-12">{{ plantilla.descripcion }}</h6>
-          </div>
-          <div class="col-md-auto">
+      </table>      
+    </div>
+
+    <!-- Modal Vista Previa Plantilla -->
+    <div
+      class="modal fade"
+      id="vistaprevia"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="modelTitleId"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-container" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modelTitleId">Vista previa</h5>
             <button
               type="button"
-              class="btn btn-info"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="Previsualizar plantilla"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
             >
-              <i class="fa fa-eye" aria-hidden="true"></i>
+              <span aria-hidden="true">&times;</span>
             </button>
+          </div>
+          <div class="modal-body">
+            <app-plantilla-viewer
+              [plantilla]="plantillaShowed"
+            ></app-plantilla-viewer>
+          </div>
+          <div class="modal-footer">
             <button
               type="button"
               class="btn btn-secondary"
-              (click)="$event.stopPropagation(); editarPlantilla(plantilla.id)"
-              data-placement="top"
-              data-toggle="modal"
-              data-target="#exampleModal"
-              title="Editar plantilla"
+              data-dismiss="modal"
             >
-              <i class="fa fa-edit" aria-hidden="true"></i>
-            </button>
-            <swal
-              #deleteSwal
-              [options]="{ confirmButtonText: 'Sí', cancelButtonText: 'No' }"
-              [showCancelButton]="true"
-              [focusCancel]="true"
-              title="¿Está seguro que desea eliminar la plantilla?"
-              text="La plantilla {{plantilla.titulo}} se eliminará de manera permanente"
-              type="warning"
-              (confirm)="eliminarPlantilla(plantilla)"
-            >
-            </swal>
-            <button
-              type="button"
-              class="btn btn-danger"
-              (click)="deleteSwal.show(); $event.stopPropagation()"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="Eliminar plantilla"
-            >
-              <i class="fa fa-trash" aria-hidden="true"></i>
+              Cerrar
             </button>
           </div>
         </div>
-        <!- Modal Editar plantilla ->
-        <div class="modal" tabindex="-1" role="dialog" id="editTemplate">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body"><p>Modal body text goes here.</p></div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary">
-                  Save changes
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!- Modal Vista Previa Plantilla ->
-        <div
-          class="modal fade"
-          id="id{{plantilla.id}}"
-          tabindex="-1"
-          role="dialog"
-          aria-labelledby="modelTitleId"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-container" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="modelTitleId">Vista previa</h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <app-plantilla-viewer
-                  [plantilla]="plantilla"
-                ></app-plantilla-viewer>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Cerrar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div-->
+      </div>
     </div>
   </div>
 </div>
