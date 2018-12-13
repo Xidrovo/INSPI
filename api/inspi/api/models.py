@@ -155,6 +155,10 @@ class Programa(models.Model):
 	fecha_envio_resultados = models.DateField()
 	estado = models.BooleanField(default=True)
 	deleted = models.BooleanField(default=False)
+	
+	@property
+	def viales(self):
+		return Vial.objects.filter(programa=self.pk).order_by('id')
 
 	def crear(self, nombre, plantilla_id, fecha_inicio, fecha_fin, fecha_envio_resultados, fecha_envio_paquete):
 		plantilla = None
@@ -191,3 +195,35 @@ class Programa(models.Model):
 
 	def __str__(self):
 		return '%s INICIO: %s' % (self.nombre, str(self.fecha_inicio))
+ 
+class Vial(models.Model):
+	codigo = models.CharField(max_length=50, unique=True)
+	respuestas = models.TextField(default=None)
+	programa = models.ForeignKey('Programa', on_delete=models.CASCADE)
+	# plantilla = models.ForeignKey('Plantilla', on_delete=models.CASCADE)
+	deleted = models.BooleanField(default=False)
+
+	def crear(self, codigo, respuestas, programa, plantilla):
+		v = Vial()
+		v.codigo = codigo
+		v.respuestas = respuestas
+		v.programa = programa
+		v.plantilla = plantilla
+		v.save()
+		return v
+
+	def delete(self):
+		self.deleted = True
+		self.save()
+
+	def to_dict(self):
+		if not self.respuestas:
+			respuestas = ""
+		else:
+			respuestas = json.loads(self.respuestas)
+
+		return {
+			'id':self.pk,
+			'codigo':self.codigo,
+			'respuestas':self.respuestas
+		}

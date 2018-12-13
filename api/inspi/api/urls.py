@@ -22,4 +22,7 @@ urlpatterns = [
    re_path(r'^plantillas/(?P<plantilla_id>[0-9]*|)$', PlantillaView.as_view(), name='plantillas'),
    path('tipos_de_dato/', views.get_tipos_de_dato, name='tipos_de_dato'),
    re_path(r'^programas/(?P<programa_id>[0-9]*|)$', ProgramaView.as_view(), name='programas'),
+   re_path(r'^programas/viales/(?P<programa_id>[0-9]*|)$', views.get_viales, name='viales'),
+   re_path(r'^programas/plantilla/(?P<programa_id>[0-9]*|)$', views.get_programa_plantilla, name='programa_plantilla'),
+   re_path(r'^views/(?P<programa_id>[0-9]*|)$', ProgramaView.as_view(), name='programas'),
 ]
