@@ -302,13 +302,13 @@ def get_tipos_de_dato(request):
     if request.method == "GET":
         try:
             # obtenemos todos los tipos de dato existentes
-            tipos_de_dato = TipoDeDato.objects.filter(deleted__exact=False)
-            # transformamos el QuerySet de tipos de dato a un string de JSON y lo retornamos
-            tipos_de_dato_str = serializers.serialize('json', tipos_de_dato)
+            tipos_de_dato = []
+            for tipo_de_dato in TipoDeDato.objects.filter(deleted__exact=False):
+                tipos_de_dato.append(tipo_de_dato.to_dict())
 
             return JsonResponse({
                 'error': 0,
-                'tipos_de_dato': json.loads(tipos_de_dato_str)
+                'tipos_de_dato': tipos_de_dato
             })
         except Exception as e:
             return JsonResponse({
