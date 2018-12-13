@@ -13,6 +13,7 @@ class Note(models.Model):
     	return '%s %s' % (self.title, self.body)
 
 class TipoDeDato(models.Model):
+	tipo_de_dato_id = models.CharField(primary_key=True, max_length=50, default="")
 	nombre = models.CharField(max_length=200)
 	detalle = models.TextField(blank=True)
 	deleted = models.BooleanField(default=False)
@@ -26,6 +27,7 @@ class TipoDeDato(models.Model):
 			detalle = ""
 		else:
 			detalle = json.loads(self.detalle)
+
 		return {
 			"id": self.pk,
 			"nombre": self.nombre,
