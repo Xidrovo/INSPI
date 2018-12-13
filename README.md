@@ -63,17 +63,18 @@ para correr el cliente se ejecuta el comando
 							"descripcion": "En esta pregunta debe ingresar un párrafo.",
 							"requerido": "True",
 							"detalle": "",
-							"tipo_dato": 5
+							"tipo_data": {
+								"id": <<id de tipo de dato>>
+							}
 						},
 						{
 							"titulo": "Pregunta A.2",
 							"descripcion": "En esta pregunta el valor ingresado debe estar dentro del rango.",
 							"requerido": "True",
-							"detalle": {
-								"inicio": 1,
-								"fin": 9
-							},
-							"tipo_dato": 4
+							"detalle": "",
+							"tipo_data": {
+								"id": <<id de tipo de dato>>
+							}
 						}
 					]
 				},
@@ -104,17 +105,18 @@ para correr el cliente se ejecuta el comando
 							"descripcion": "En esta pregunta debe ingresar un párrafo.",
 							"requerido": "True",
 							"detalle": "",
-							"tipo_dato": 5
+							"tipo_data": {
+								"id": <<id de tipo de dato>>
+							}
 						},
 						{
 							"titulo": "Pregunta B.2",
 							"descripcion": "En esta pregunta el valor ingresado debe estar dentro del rango.",
 							"requerido": "True",
-							"detalle": {
-								"inicio": 1,
-								"fin": 9
-							},
-							"tipo_dato": 4
+							"detalle": "",
+							"tipo_data": {
+								"id": <<id de tipo de dato>>
+							}
 						}
 					]
 				},
@@ -167,22 +169,15 @@ para correr el cliente se ejecuta el comando
 			                {
 			                    "requerido": true,
 			                    "descripcion": "En esta pregunta el valor ingresado debe estar dentro del rango.",
-			                    "detalle": {
-			                        "inicio": 1,
-			                        "fin": 9
-			                    },
+			                    "detalle": "",
 			                    "id": 6,
-			                    "tipo_data": 15,
+			                    "tipo_data": {
+			                    	"id": "valor_exacto",
+	                                "nombre": "Valor exacto",
+	                                "detalle": ""
+			                    },
 			                    "titulo": "Pregunta A.2"
 			                },
-			                {
-			                    "requerido": true,
-			                    "descripcion": "En esta pregunta debe ingresar un párrafo.",
-			                    "detalle": "",
-			                    "id": 5,
-			                    "tipo_data": 15,
-			                    "titulo": "Pregunta A.1"
-			                }
 			            ]
 			        }
 			    ]
@@ -198,7 +193,21 @@ para correr el cliente se ejecuta el comando
 			"error": 0
 		}
 
+#### Estructura del campo detalle para preguntas de opción múltiple:
 
+		[
+			{
+				"value": "",
+				"name": "Opción_1"
+			},
+			{
+				"value": "",
+				"name": "Opción_2"
+			},
+			...
+		]
+
+### Programas
 #### Crear un programa
 * URL: /api/programas/[programa_id]
 * Método: POST
@@ -226,6 +235,7 @@ para correr el cliente se ejecuta el comando
 			"error": 0
 		}
 
+### Tipos de dato
 #### Obtener todos los tipos de dato
 * URL: /api/tipos_de_dato/
 * Método: GET
@@ -234,64 +244,25 @@ para correr el cliente se ejecuta el comando
 		{
 		    "tipos_de_dato": [
 		        {
-		            "pk": 8,
-		            "fields": {
-		                "nombre": "seleccion_unica",
-		                "detalle": {
-							{
-								"value": "",
-								"name": "Opción_1"
-							},
-							{
-								"value": "",
-								"name": "Opción_2"
-							},
-							...
-						}
-		            },
-		            "model": "api.tipodedato"
+	                "id": "seleccion_unica",
+	                "nombre": "Selección única",
+	                "detalle": "",
 		        },
 		        {
-		            "pk": 9,
-		            "fields": {
-		                "nombre": "seleccion_multiple",
-		                "detalle": {
-							{
-								"value": "",
-								"name": "Opción_1"
-							},
-							{
-								"value": "",
-								"name": "Opción_2"
-							},
-							...
-						}
-		            },
-		            "model": "api.tipodedato"
+	                "id": "valor_exacto",
+	                "nombre": "Valor exacto",
+	                "detalle": "",
 		        },
 		        ...
 		    ],
 		    "error": 0
 		}
 
-#### Estructura del campo detalle (Aplicada para preguntas de selección de opciones)
+(El campo "detalle" es utilizado únicamente para la definición de tablas RAM y Micobacterias)
 
-	[
-		{
-			"value": "",
-			"name": "Opción_1"
-		},
-		{
-			"value": "",
-			"name": "Opción_2"
-		},
-		...
-	]
-
-**Recordar:** si hubo algún error al momento de procesar el requerimiento, la API responderá con el siguiente mensaje:
+**Recordar:** si hubo algún error al momento de procesar un requerimiento, la API responderá con el siguiente mensaje:
 
 		{
 			"error": 1,
 			"msg:": "mensaje_de_error"
 		}
-
