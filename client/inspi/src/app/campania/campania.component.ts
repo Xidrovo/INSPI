@@ -3,8 +3,8 @@ import { ApiService } from '../api.service';
 import { Subject } from 'rxjs';
 import { Campania } from './campania.model';
 import { Router } from '@angular/router';
-import { Globals } from '../globals';
 import { Plantilla } from '../plantillas/plantilla.model';
+import { formatDate } from '@angular/common';
 
 
 declare var $: any;
@@ -18,17 +18,17 @@ declare var $: any;
 
 
 export class CampaniaComponent implements OnInit {
+    programaSelected: Campania = {id: -1, nombre: "",plantilla_id: -1,plantilla_nombre: null,
+        fecha_inicio: null,fecha_fin: null,fecha_envio_paquete: null,fecha_envio_resultados: null};
     campaniasArray: Campania[];
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
     plantillasArray: Plantilla[];
 
     
-
     private campania: any;
     private nombre: string = '';
-    private plantilla_id: number = -1;
-    private plantilla_nombre: string = '';
+    private plantilla_id: number = -1;    
     private fecha_inicio: Date = null;
     private fecha_fin: Date = null;
     private fecha_envio_paquete: Date = null;
@@ -38,11 +38,8 @@ export class CampaniaComponent implements OnInit {
 
     constructor(
         private apiService: ApiService,
-        private globals: Globals,
-        private resolver: ComponentFactoryResolver,
         private _router: Router
     ) {}
-
 
 
     ngOnInit() {
@@ -72,6 +69,7 @@ export class CampaniaComponent implements OnInit {
                       )
                     : [
                           {
+                              nombre: "Error",
                               id: -1,
                               plantilla_id: -1,
                               plantilla_nombre: null,
@@ -99,7 +97,7 @@ export class CampaniaComponent implements OnInit {
     }
 
     async guardarCampania() {
-        this.campania = {
+        var newProgram:any = {
             plantilla_id: this.plantilla_id,
             nombre: this.nombre,
             fecha_inicio: this.fecha_inicio,
@@ -108,13 +106,18 @@ export class CampaniaComponent implements OnInit {
             fecha_envio_resultados: this.fecha_envio_resultados
         };
 
-        // HAY QUE HACER QUE RECARGUE LA PAGINA PARA QUE APAREZCA EL PROGRAMA CREADO
-        this.campaniasArray.push(this.campania);
-        $('#tblProgramas')
-            .DataTable()
-            .draw();
+        var result = await this.apiService.addCampania(newProgram);
+        if (result.error == 0){
+            newProgram['id'] = result.programa_id;
+        }
 
-        await this.apiService.addCampania(this.campania);
+        // HAY QUE HACER QUE RECARGUE LA PAGINA PARA QUE APAREZCA EL PROGRAMA CREADO
+        //this.campaniasArray.push(newProgram);
+        $('#tblProgramas').DataTable().row.add([
+            newProgram.nombre, "Del "+formatDate(newProgram.fecha_inicio, 'MMM d, yyyy', 'en-US')+" al "+formatDate(newProgram.fecha_fin, 'MMM d, yyyy', 'en-US'), "botones :v"
+        ]).draw();
+            
+        
     }
 
     async eliminarCampania(campania: Campania) {
@@ -124,6 +127,19 @@ export class CampaniaComponent implements OnInit {
         });
         this.campaniasArray.splice(index, 1);
     }
+
+
+    verPrograma(programa) {
+        this.programaSelected = programa;
+        $('#vistaprevia').modal().show();
+    }
+
+    editarPrograma(programa) {
+        this.programaSelected = programa;
+        $('#modaleditar').modal().show();
+    }
+
+    /*
     editarPrograma(campania) {
         this.fecha_inicio = campania.fecha_inicio;
         this.fecha_fin = campania.fecha_fin;
@@ -137,26 +153,26 @@ export class CampaniaComponent implements OnInit {
             .DataTable()
             .draw();
     }
+    */
 
-    async editarCampania(campania) {
-        //this.campania = await this.apiService.getCampania(id);
-        console.log(campania.fecha_envio_paquete);
+    async setPrograma(programa) {
+                
         const editCampania = {
-            fecha_envio_paquete: campania.fecha_envio_paquete,
-            fecha_envio_resultados: campania.fecha_envio_resultados,
-            fecha_fin: campania.fecha_fin,
-            fecha_inicio: campania.fecha_inicio,
-            id: campania.id,
-            nombre: campania.nombre,
-            plantilla_id: campania.plantilla_id,
-            plantilla_nombre: campania.plantilla_nombre
+            fecha_envio_paquete: programa.fecha_envio_paquete,
+            fecha_envio_resultados: programa.fecha_envio_resultados,
+            fecha_fin: programa.fecha_fin,
+            fecha_inicio: programa.fecha_inicio,
+            id: programa.id,
+            nombre: programa.nombre,
+            plantilla_id: programa.plantilla_id,
+            plantilla_nombre: programa.plantilla_nombre
         };
-        console.log('new fecha', campania.fecha_inicio);
-        console.log('===editCampania', editCampania);
+                
         await this.apiService.setCampania(editCampania);
         //this.globals.currentTemplate = this.campania;
         //$('#idE' + campania.id).modal().hide();
     }
+
     obtenerPlantillas() {
         this.apiService.getPlantillas().subscribe((data: object) => {
             this.plantillasArray =
@@ -166,14 +182,7 @@ export class CampaniaComponent implements OnInit {
                               return this.parsePlantilla(p);
                           }
                       )
-                    : [
-                          {
-                              id: -1,
-                              titulo: '',
-                              descripcion: data['msg'],
-                              secciones: []
-                          }
-                      ];
+                    : [];
         });
     }
 
@@ -193,9 +202,6 @@ export class CampaniaComponent implements OnInit {
             return false;
         }
     }
-
-    
-  
 
     isActive1() {
         if (this.fecha_inicio) {
