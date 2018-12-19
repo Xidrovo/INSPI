@@ -31,47 +31,51 @@ import { AppEffects } from './app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CampaniaComponent } from './campania/campania.component';
 import { EditarPlantillaComponent } from './plantillas/editar-plantilla/editar-plantilla.component';
+import { CrearRespuestaComponent } from './crear-respuesta/crear-respuesta.component';
+import { MatSliderModule } from '@angular/material/slider';
 // import { environment } from '../../environments/environment';
 // import { AppEffects } from './store/effects/app.effects';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DashboardComponent,
-    LoginComponent,
-    PlantillasComponent,
-    PlantillaEditorComponent,
-    PlantillaViewerComponent,
-    PlantillasHomeComponent,
-    TablaRamComponent,
-    TablaPruebasbioquimicasComponent,
-    TipoPreguntaComponent,
-    AgregarSeccionComponent,
-    CampaniaComponent,
-    EditarPlantillaComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    DataTablesModule,
-    HttpModule,
-    HttpClientModule,    
-    AppRoutingModule,
-    BsDropdownModule.forRoot(),
-    TooltipModule.forRoot(),
-    ModalModule.forRoot(),
-    StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([AppEffects]),
-    SweetAlert2Module.forRoot({
-      buttonsStyling: true,
-      customClass: 'modal-content',
-      confirmButtonClass: 'btn btn-primary',
-      cancelButtonClass: 'btn btn-secondary'
-    })
-    //    !environment.production ? StoreDevtoolsModule.instrument() : []
-  ],
-  providers: [Globals],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        DashboardComponent,
+        LoginComponent,
+        PlantillasComponent,
+        PlantillaEditorComponent,
+        PlantillaViewerComponent,
+        PlantillasHomeComponent,
+        TablaRamComponent,
+        TablaPruebasbioquimicasComponent,
+        TipoPreguntaComponent,
+        AgregarSeccionComponent,
+        CampaniaComponent,
+        EditarPlantillaComponent,
+        CrearRespuestaComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        DataTablesModule,
+        HttpModule,
+        HttpClientModule,
+        AppRoutingModule,
+        MatSliderModule,
+        BsDropdownModule.forRoot(),
+        TooltipModule.forRoot(),
+        ModalModule.forRoot(),
+        StoreModule.forRoot(reducers, { metaReducers }),
+        EffectsModule.forRoot([AppEffects]),
+        SweetAlert2Module.forRoot({
+            buttonsStyling: true,
+            customClass: 'modal-content',
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-secondary'
+        })
+        //    !environment.production ? StoreDevtoolsModule.instrument() : []
+    ],
+    providers: [Globals],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}
 export class AppBootstrapModule {}

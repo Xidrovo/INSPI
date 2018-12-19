@@ -11,115 +11,132 @@ import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
 
 @Component({
-  selector: 'app-plantillas-home',
-  templateUrl: './plantillas-home.component.html',
-  styleUrls: ['./plantillas-home.component.css']  
+    selector: 'app-plantillas-home',
+    templateUrl: './plantillas-home.component.html',
+    styleUrls: ['./plantillas-home.component.css']
 })
 export class PlantillasHomeComponent implements OnInit {
-  plantillasArray: Plantilla[];
-  plantilla: any;
-  plantillaShowed: Plantilla = { id: -1, titulo: '', descripcion: '', secciones: [] };  
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
-  constructor(
-    private apiService: ApiService,
-    private globals: Globals,
-    private route: ActivatedRoute,
-    private _router: Router
-  ) {}
-
-  ngOnInit() {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      processing: true,
-      columnDefs: [{orderable: false, targets: 0},{orderable: false, targets: 1},{orderable: false, targets: 2}]
+    plantillasArray: Plantilla[];
+    plantilla: any;
+    plantillaShowed: Plantilla = {
+        id: -1,
+        titulo: '',
+        descripcion: '',
+        secciones: []
     };
-    this.obtenerPlantillas();
-  }
+    dtOptions: DataTables.Settings = {};
+    dtTrigger: Subject<any> = new Subject();
+    constructor(
+        private apiService: ApiService,
+        private globals: Globals,
+        private route: ActivatedRoute,
+        private _router: Router
+    ) {}
 
-  ngOnDestroy() {
-    this.dtTrigger.unsubscribe();    
-  }
+    ngOnInit() {
+        this.dtOptions = {
+            pagingType: 'full_numbers',
+            pageLength: 10,
+            processing: true,
+            columnDefs: [
+                { orderable: false, targets: 0 },
+                { orderable: false, targets: 1 },
+                { orderable: false, targets: 2 }
+            ]
+        };
+        this.obtenerPlantillas();
+    }
 
-  crearPlantilla() {
-    console.log('Crear plantilla');
-  }
+    ngOnDestroy() {
+        this.dtTrigger.unsubscribe();
+    }
 
-  obtenerPlantillas() {
-    this.apiService.getPlantillas().subscribe((data: object) => {
-      this.plantillasArray =
-        data['error'] == 0
-          ? data['plantillas'].map(
-              (p): Plantilla => {
-                return this.parsePlantilla(p);
-              }
-            )
-          : [{ id: -1, titulo: '', descripcion: data['msg'], secciones: [] }];
-      this.dtTrigger.next();
-    });    
-  }
+    crearPlantilla() {
+        console.log('Crear plantilla');
+    }
 
-  public parsePlantilla(data: object): Plantilla {    
-    // Parsear secciones...
-    var secciones = data['secciones'].map(
-      (s): Seccion => {
-        return this.parseSeccion(s);
-      }
-    );
+    obtenerPlantillas() {
+        this.apiService.getPlantillas().subscribe((data: object) => {
+            this.plantillasArray =
+                data['error'] == 0
+                    ? data['plantillas'].map(
+                          (p): Plantilla => {
+                              return this.parsePlantilla(p);
+                          }
+                      )
+                    : [
+                          {
+                              id: -1,
+                              titulo: '',
+                              descripcion: data['msg'],
+                              secciones: []
+                          }
+                      ];
+            this.dtTrigger.next();
+        });
+    }
 
-    return {
-      id: data['id'],
-      titulo: data['titulo'],
-      descripcion: data['descripcion'],
-      secciones: secciones
-    };
-  }
+    public parsePlantilla(data: object): Plantilla {
+        // Parsear secciones...
+        var secciones = data['secciones'].map(
+            (s): Seccion => {
+                return this.parseSeccion(s);
+            }
+        );
 
-  private parseSeccion(data: object): Seccion {
-    // Parsear preguntas...
-    var preguntas = data['preguntas'].map(
-      (pr): Pregunta => {
-        return this.parsePregunta(pr);
-      }
-    );
+        return {
+            id: data['id'],
+            titulo: data['titulo'],
+            descripcion: data['descripcion'],
+            secciones: secciones
+        };
+    }
 
-    return {
-      id: data['id'],
-      titulo: data['titulo'],
-      preguntas_seccion: preguntas
-    };
-  }
+    private parseSeccion(data: object): Seccion {
+        // Parsear preguntas...
+        var preguntas = data['preguntas'].map(
+            (pr): Pregunta => {
+                return this.parsePregunta(pr);
+            }
+        );
 
-  private parsePregunta(data: object): Pregunta {
-    return {
-      id: data['id'],
-      titulo: data['titulo'],
-      requerido: data['requerido'],
-      descripcion: data['descripcion'],
-      detalle: data['detalle'],
-      tipo: data['tipo_data']
-    };
-  }
+        return {
+            id: data['id'],
+            titulo: data['titulo'],
+            preguntas_seccion: preguntas
+        };
+    }
 
-  // Making it async, so we can show if there's a new error or not.
-  async eliminarPlantilla(plantilla: Plantilla) {
-    await this.apiService.deletePlantilla(plantilla.id);
-    const index = this.plantillasArray.findIndex(x => {
-      return x.id === plantilla.id;
-    });
-    this.plantillasArray.splice(index, 1);
-  }
+    private parsePregunta(data: object): Pregunta {
+        return {
+            id: data['id'],
+            titulo: data['titulo'],
+            requerido: data['requerido'],
+            descripcion: data['descripcion'],
+            detalle: data['detalle'],
+            tipo: data['tipo_data']
+        };
+    }
 
-  async editarPlantilla(id) {
-    this.plantilla = await this.apiService.getPlantilla(id);
-    this.globals.currentTemplate = this.plantilla;
-    this._router.navigate(['/plantillas/plantilla-editor/-1']);    
-  }
+    // Making it async, so we can show if there's a new error or not.
+    async eliminarPlantilla(plantilla: Plantilla) {
+        await this.apiService.deletePlantilla(plantilla.id);
+        const index = this.plantillasArray.findIndex(x => {
+            return x.id === plantilla.id;
+        });
+        this.plantillasArray.splice(index, 1);
+    }
 
-  public verPlantilla(plantilla: Plantilla){
-      this.plantillaShowed = plantilla;
-      $('#vistaprevia').modal().show();
+    async editarPlantilla(id) {
+        this.plantilla = await this.apiService.getPlantilla(id);
+        this.globals.currentTemplate = this.plantilla;
+        this._router.navigate(['/plantillas/plantilla-editor/-1']);
+    }
 
-  }
+    public verPlantilla(plantilla: Plantilla) {
+        this.plantillaShowed = plantilla;
+        $('#vistaprevia')
+            .modal()
+            .show();
+    }
 }

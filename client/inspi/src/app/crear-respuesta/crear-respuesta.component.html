@@ -1,0 +1,143 @@
+<div class="container pt-4 mx-auto">
+    <h2>Crear respuestas</h2>
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre plantilla</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                *ngFor="
+                    let plantilla of plantillasArray.plantillas;
+                    let index = index
+                "
+            >
+                <td>{{ index + 1 }}</td>
+                <td>{{ plantilla.titulo }}</td>
+                <td>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        (click)="verPlantilla(plantilla)"
+                    >
+                        Editar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Modal -->
+    <div class="modal fade" id="respuestaModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        {{ currentPlantilla.titulo }}
+                    </h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div *ngFor="let seccion of currentPlantilla.secciones">
+                        <hr />
+                        <h4>{{ seccion.titulo }}</h4>
+                        <div
+                            *ngFor="let pregunta of seccion.preguntas"
+                            class="mt-2"
+                        >
+                            <div
+                                class="d-flex justify-content-between mt-1 mb-1"
+                            >
+                                <p style="width: 66.6666%;">
+                                    {{ pregunta.titulo }}
+                                </p>
+                                <input
+                                    *ngIf="
+                                        pregunta.tipo_data.id ==
+                                            'valor_exacto' ||
+                                        pregunta.tipo_data.id == 'texto'
+                                    "
+                                    style="width: 33.3333%; height: 35px; margin-top: auto; margin-bottom: auto;"
+                                />
+                                <select
+                                    class="form-control"
+                                    *ngIf="
+                                        pregunta.tipo_data.id ==
+                                        'seleccion_unica'
+                                    "
+                                    style="width: 33.3333%;"
+                                >
+                                    <option
+                                        *ngFor="let opcion of pregunta.detalle"
+                                        [value]="opcion.value"
+                                        >{{ opcion.name }}</option
+                                    >
+                                </select>
+                                <select
+                                    class="form-control"
+                                    multiple="multiple"
+                                    *ngIf="
+                                        pregunta.tipo_data.id ==
+                                        'seleccion_multiple'
+                                    "
+                                    style="width: 33.333%"
+                                >
+                                    <option
+                                        *ngFor="let opcion of pregunta.detalle"
+                                        [value]="opcion.value"
+                                        >{{ opcion.name }}</option
+                                    >
+                                </select>
+                                <div
+                                    *ngIf="pregunta.tipo_data.id == 'rango'"
+                                    style="width: 33.3333%; height: 35px; margin-top: auto; margin-bottom: auto;"
+                                    class="d-flex justify-content-between"
+                                >
+                                    <input
+                                        placeholder="Valor mínimo"
+                                        class="relative"
+                                        style="width: 45%;"
+                                    />
+                                    <input
+                                        placeholder="Valor máximo"
+                                        class="relative"
+                                        style="width: 45%;"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                    >
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+    <tr *ngFor="let plantilla of plantillasArray">
+    <td>{{ plantilla.titulo }}</td>
+    <td>{{ plantilla.descripcion }}</td>
+    <td>
+-->

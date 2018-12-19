@@ -1,18 +1,29 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" routerLink="dashboard">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="dashboard">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" routerLink="plantillas">Plantillas</a>
-      <a class="nav-item nav-link" routerLink="programas">Programas</a>
-      <a class="nav-item nav-link" routerLink="login">Iniciar sesión</a>
+    <a class="navbar-brand" routerLink="dashboard">Navbar</a>
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" routerLink="dashboard"
+                >Home <span class="sr-only">(current)</span></a
+            >
+            <a class="nav-item nav-link" routerLink="plantillas">Plantillas</a>
+            <a class="nav-item nav-link" routerLink="programas">Programas</a>
+            <a class="nav-item nav-link" routerLink="crearRespuesta"
+                >Crear respuesta</a
+            >
+            <a class="nav-item nav-link" routerLink="login">Iniciar sesión</a>
+        </div>
     </div>
-  </div>
 </nav>
 
-<div class="page-content">
-  <router-outlet></router-outlet>    
-</div>
+<div class="page-content"><router-outlet></router-outlet></div>
