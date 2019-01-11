@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views import View
-from api.models import Programa, Plantilla, Seccion, TipoDeDato, Pregunta
+from api.models import Programa, Plantilla, Seccion, TipoDeDato, Pregunta, Vial
 from django.core import serializers
 import ast
 import json
@@ -299,26 +299,31 @@ class ProgramaView(View):
                 })
 
 class VialView(View):
-    def get(self, request, programa_id):
+    def post(self, request, programa_id):
         if Programa.objects.filter(pk=programa_id, deleted__exact=False).count() > 0:
             try:
-                # obtenemos la plantilla consultada y la retornamos
-                plantilla = Plantilla.objects.get(pk=plantilla_id)
+                # extraer el JSON como un string
+                vial_str = request.body.decode('utf-8')
 
-                return JsonResponse({
-                    'error': 0,
-                    'plantilla': plantilla.to_dict()
-                })
+                # transformamos el string a un diccionario
+                vial_json = json.loads(vial_str)
+
+                # traemos el programa al que se desea anadir un vial
+                programa_obj = Programa.objects.get(pk=programa_id)
+
+                # obtenemos los campos
+                codigo = vial_json['codigo']
+                respuestas = json.dumps(vial_json['respuestas'])
+
+                # creamos el nuevo vial
+                vial_obj = Vial().crear(codigo, respuestas, programa_obj)
+
+                return JsonResponse({'error': 0})
             except Exception as e:
                 return JsonResponse({
                     'error': 1,
-                    'msg': 'Hubo un error al consultar las plantillas: ' + str(e)
+                    'msg': 'Hubo un error al crear el nuevo vial: ' + str(e)
                 })
-        else:
-            return JsonResponse({
-                'error': 1,
-                'msg': 'El programa que desea consultar no existe.'
-            })
 
 def get_tipos_de_dato(request):
     if request.method == "GET":
@@ -340,33 +345,35 @@ def get_tipos_de_dato(request):
 
 def get_viales(request, programa_id):
     if request.method == "GET":
-        try:
-            viales = []
-            programa = Programa.objects.get(pk=programa_id)
-            for vial in programa.viales:
-                viales.append(vial.to_dict())
+        if Programa.objects.filter(pk=programa_id, deleted__exact=False).count() > 0:
+            try:
+                viales = []
+                programa = Programa.objects.get(pk=programa_id)
+                for vial in programa.viales:
+                    viales.append(vial.to_dict())
 
-            return JsonResponse({
-                'error': 0,
-                'viales': viales
-            })
-        except Exception as e:
-            return JsonResponse({
-                'error': 1,
-                'msg': 'Hubo un error al consultar los viales: ' + str(e)
-            })
+                return JsonResponse({
+                    'error': 0,
+                    'viales': viales
+                })
+            except Exception as e:
+                return JsonResponse({
+                    'error': 1,
+                    'msg': 'Hubo un error al consultar los viales: ' + str(e)
+                })
 
 def get_programa_plantilla(request, programa_id):
     if request.method == "GET":
-        try:
-            programa = Programa.objects.get(pk=programa_id)
+        if Programa.objects.filter(pk=programa_id, deleted__exact=False).count() > 0:
+            try:
+                programa = Programa.objects.get(pk=programa_id)
 
-            return JsonResponse({
-                'error': 0,
-                'plantilla': programa.plantilla.to_dict()
-            })
-        except Exception as e:
-            return JsonResponse({
-                'error': 1,
-                'msg': 'Hubo un error al consultar la plantilla: ' + str(e)
-            })
+                return JsonResponse({
+                    'error': 0,
+                    'plantilla': programa.plantilla.to_dict()
+                })
+            except Exception as e:
+                return JsonResponse({
+                    'error': 1,
+                    'msg': 'Hubo un error al consultar la plantilla: ' + str(e)
+                })

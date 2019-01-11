@@ -203,12 +203,13 @@ class Vial(models.Model):
 	# plantilla = models.ForeignKey('Plantilla', on_delete=models.CASCADE)
 	deleted = models.BooleanField(default=False)
 
-	def crear(self, codigo, respuestas, programa, plantilla):
+	# def crear(self, codigo, respuestas, programa, plantilla):
+	def crear(self, codigo, respuestas, programa):
 		v = Vial()
 		v.codigo = codigo
 		v.respuestas = respuestas
 		v.programa = programa
-		v.plantilla = plantilla
+		# v.plantilla = plantilla
 		v.save()
 		return v
 
@@ -225,5 +226,5 @@ class Vial(models.Model):
 		return {
 			'id':self.pk,
 			'codigo':self.codigo,
-			'respuestas':self.respuestas
+			'respuestas':respuestas
 		}

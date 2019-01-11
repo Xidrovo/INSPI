@@ -266,3 +266,150 @@ para correr el cliente se ejecuta el comando
 			"error": 1,
 			"msg:": "mensaje_de_error"
 		}
+
+### Viales
+#### Obtener todos los viales de un programa
+* URL: /api/programas/viales/*programa_id*
+* Método: GET
+* Respuesta:
+
+		{
+			"viales": [
+			    {
+			        "codigo": "ABC123",
+			        "respuestas": {
+			        	"<<id_pregunta_rango>>": {
+			        		"min": 10,
+			        		"max": 20
+		        		},
+			        	"<<id_pregunta_valor_exacto>>": 200,
+			        	"<<id_pregunta_seleccion_multiple>>": [
+			        		value_opcion1,
+			        		value_opcion2
+			        	],
+			        	"<<id_pregunta_seleccion_unica>>": value_opcion
+			        	"<<id_pregunta_texto>>": "Bacon ipsum dolor amet tenderloin cupim pork burgdoggen ham hock ribeye. Shankle pork chop ham hock burgdoggen, ball tip beef ribs pork loin pork belly sausage beef tri-tip flank corned beef hamburger tongue"
+			        },
+			        "id": <<id_vial>>
+			    }
+			],
+			"error": 0
+		}
+
+#### Obtener la plantilla de un programa
+* URL: /api/programas/plantilla/*programa_id*
+* Método: GET
+* Respuesta:
+
+		{
+			"plantilla": {
+			    "descripcion": "Plantilla para el programa de evaluación externa de la calidad",
+			    "titulo": "Plantilla 1",
+			    "secciones": [
+			        {
+			            "preguntas": [
+			                {
+			                    "detalle": [
+			                        {
+			                            "name": "Opción 1",
+			                            "value": 100
+			                        },
+			                        {
+			                            "name": "Opción 2",
+			                            "value": 200
+			                        },
+			                        {
+			                            "name": "Opción 3",
+			                            "value": 300
+			                        }
+			                    ],
+			                    "descripcion": "Los valores mostrados a continuación corresponden mediciones de calibación de herramientas de diversas marcas. Escoja aquel que sea más cercano al de sus instrumentos.",
+			                    "tipo_data": {
+			                        "detalle": "",
+			                        "nombre": "Selección única",
+			                        "id": "seleccion_unica"
+			                    },
+			                    "requerido": true,
+			                    "titulo": "Pregunta A.1 - Escoja un valor de calibración de instrumentos",
+			                    "id": <<id_pregunta>>
+			                },
+			                {
+			                    "detalle": "",
+			                    "descripcion": "Debe describir detenidamente las características de las bacterias observadas en la muestra, así como el proceso que siguió para el análisis.",
+			                    "tipo_data": {
+			                        "detalle": "",
+			                        "nombre": "Texto",
+			                        "id": "texto"
+			                    },
+			                    "requerido": true,
+			                    "titulo": "Pregunta A.2 - Describa la muestra observada",
+			                    "id": <<id_pregunta>>
+			                }
+			            ],
+			            "titulo": "Sección A",
+			            "id": <<id_seccion>>
+			        },
+			        {
+			            "preguntas": [
+			                {
+			                    "detalle": "",
+			                    "descripcion": "Debe ingresar cuántas anomalías en total detectó durante el análisis de la muestra.",
+			                    "tipo_data": {
+			                        "detalle": "",
+			                        "nombre": "Rango",
+			                        "id": "rango"
+			                    },
+			                    "requerido": true,
+			                    "titulo": "Pregunta B.1 - Ingrese la cantidad de anomalías detectadas",
+			                    "id": <<id_pregunta>>
+			                }
+			            ],
+			            "titulo": "Sección B",
+			            "id": <<id_seccion>>
+			        }
+			    ],
+			    "id": <<id_plantilla>>
+			},
+			"error": 0
+		}
+
+#### Crear un vial
+* URL: /api/viales/*programa_id*
+* Método: POST
+* Envío:
+
+		{
+			"codigo": "abc123",
+			"respuestas": {
+				"<<id_pregunta_rango>>": {
+					"min": 10,
+					"max": 20
+				},
+				"<<id_pregunta_valor_exacto>>": 200,
+				"<<id_pregunta_seleccion_multiple>>": [
+					value_opcion1,
+					value_opcion2
+				],
+				"<<id_pregunta_seleccion_unica>>": value_opcion,
+				"<<id_pregunta_texto>>": "Bacon ipsum dolor amet tenderloin cupim pork burgdoggen ham hock ribeye. Shankle pork chop ham hock burgdoggen, ball tip beef ribs pork loin pork belly sausage beef tri-tip flank corned beef hamburger tongue"
+			}
+		}
+
+* Respuesta:
+
+		{
+			"error": 0
+		}
+
+## Estructuras para las tablas
+### Tabla Bacteriología
+
+		{
+			"COLUMNA" : {
+				"KIRBY BAUER" : ["CARGA", "MARCA", "LECTURA DEL DISCO (mm)", "INTERPRETACION"],
+				"MIC" : ["MARCA", "RESULTADO (ug/mL)", "INTERPRETACION"]
+			},
+			"FILAS" : {
+				"NOMBRE DEL ANTIBIOTICO" : ["OXACILINA", "PENICILINA", "ERITROMICINA", "VANCOMICINA", "SULF. + TRIMETOPRIM", "CLORANFENICOL", "CEFTRIAXONA", "AMPICILINA", "RIFAMPICINA", "CIPROFLOXACINA", "OTROS", "LEVOFLOXACINA", "CLINDAMICINA"] 
+			}
+		}

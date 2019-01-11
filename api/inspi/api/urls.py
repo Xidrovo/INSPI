@@ -16,13 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path, re_path
 from api import views
-from api.views import PlantillaView, ProgramaView
+from api.views import PlantillaView, ProgramaView, VialView
 
 urlpatterns = [
    re_path(r'^plantillas/(?P<plantilla_id>[0-9]*|)$', PlantillaView.as_view(), name='plantillas'),
    path('tipos_de_dato/', views.get_tipos_de_dato, name='tipos_de_dato'),
    re_path(r'^programas/(?P<programa_id>[0-9]*|)$', ProgramaView.as_view(), name='programas'),
-   re_path(r'^programas/viales/(?P<programa_id>[0-9]*|)$', views.get_viales, name='viales'),
+   re_path(r'^programas/viales/(?P<programa_id>[0-9]*|)$', views.get_viales, name='programa_viales'),
    re_path(r'^programas/plantilla/(?P<programa_id>[0-9]*|)$', views.get_programa_plantilla, name='programa_plantilla'),
-   re_path(r'^views/(?P<programa_id>[0-9]*|)$', ProgramaView.as_view(), name='programas'),
+   re_path(r'^viales/(?P<programa_id>[0-9]*|)$', VialView.as_view(), name='viales'),
 ]
