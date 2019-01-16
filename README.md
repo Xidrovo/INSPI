@@ -377,23 +377,22 @@ para correr el cliente se ejecuta el comando
 * URL: /api/viales/*programa_id*
 * Método: POST
 * Envío:
-
-		{
-			"codigo": "abc123",
-			"respuestas": {
-				"<<id_pregunta_rango>>": {
-					"min": 10,
-					"max": 20
-				},
-				"<<id_pregunta_valor_exacto>>": 200,
-				"<<id_pregunta_seleccion_multiple>>": [
-					value_opcion1,
-					value_opcion2
-				],
-				"<<id_pregunta_seleccion_unica>>": value_opcion,
-				"<<id_pregunta_texto>>": "Bacon ipsum dolor amet tenderloin cupim pork burgdoggen ham hock ribeye. Shankle pork chop ham hock burgdoggen, ball tip beef ribs pork loin pork belly sausage beef tri-tip flank corned beef hamburger tongue"
-			}
+	{
+		"codigo": "abc123",
+		"respuestas": {
+			"<<id_pregunta_rango>>": {
+				"min": 10,
+				"max": 20
+			},
+			"<<id_pregunta_valor_exacto>>": 200,
+			"<<id_pregunta_seleccion_multiple>>": [
+				value_opcion1,
+				value_opcion2
+			],
+			"<<id_pregunta_seleccion_unica>>": value_opcion,
+			"<<id_pregunta_texto>>": "Bacon ipsum dolor amet tenderloin cupim pork burgdoggen ham hock ribeye. Shankle pork chop ham hock burgdoggen, ball tip beef ribs pork loin pork belly sausage beef tri-tip flank corned beef hamburger tongue"
 		}
+	}
 
 * Respuesta:
 
