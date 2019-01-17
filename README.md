@@ -402,7 +402,7 @@ para correr el cliente se ejecuta el comando
 
 ### Obtener todos los viales de un programa
 * URL: /api/viales/*programa_id*
-* Método: POST
+* Método: GET
 * Respuesta:
 		{
 		    "error": 0,
