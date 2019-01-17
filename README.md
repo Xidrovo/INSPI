@@ -213,12 +213,12 @@ para correr el cliente se ejecuta el comando
 * Método: POST
 * Envio:
 		{
-			"nombre" : "Nombre del programa",
-			"plantilla_id" : << id de plantilla >>,
-			"fecha_inicio" : "12/12/2018",
-			"fecha_fin" : "12/12/2018",
-			"fecha_envio_paquete" : "12/12/2018",
-			"fecha_envio_resultados" : "12/12/2018"
+			"nombre" : "Programa de prueba 1",
+			"plantilla_id" : 1,
+			"fecha_inicio" : "2018-12-12",
+			"fecha_fin" : "2018-12-12",
+			"fecha_envio_paquete" : "2018-12-12",
+			"fecha_envio_resultados" : "2018-12-12"
 		}
 * Respuesta:
 
@@ -399,6 +399,76 @@ para correr el cliente se ejecuta el comando
 		{
 			"error": 0
 		}
+
+### Obtener todos los viales de un programa
+* URL: /api/viales/*programa_id*
+* Método: POST
+* Respuesta:
+		{
+		    "error": 0,
+		    "viales": [
+		        {
+		            "codigo": "abc123",
+		            "respuestas": [
+		                {
+		                    "id": 1,
+		                    "tipo": "seleccion_unica",
+		                    "respuesta": {
+		                        "value": 200,
+		                        "name": "Opción 2"
+		                    }
+		                },
+		                {
+		                    "id": 2,
+		                    "tipo": "texto",
+		                    "respuesta": {
+		                        "value": "Esta es una respuesta valida"
+		                    }
+		                },
+		                {
+		                    "id": 3,
+		                    "tipo": "rango",
+		                    "respuesta": {
+		                        "min": "10",
+		                        "max": "100"
+		                    }
+		                }
+		            ]
+		        },
+		        ...
+		        ...
+		        ...
+		        {
+		            "codigo": "abc456",
+		            "respuestas": [
+		                {
+		                    "id": 1,
+		                    "tipo": "seleccion_unica",
+		                    "respuesta": {
+		                        "value": 250,
+		                        "name": "Opción 3"
+		                    }
+		                },
+		                {
+		                    "id": 2,
+		                    "tipo": "texto",
+		                    "respuesta": {
+		                        "value": "Esta es una respuesta valida 2222"
+		                    }
+		                },
+		                {
+		                    "id": 3,
+		                    "tipo": "rango",
+		                    "respuesta": {
+		                        "min": "150",
+		                        "max": "300"
+		                    }
+		                }
+		            ]
+		        }
+		    ]
+		}
+
 
 ## Estructuras para las tablas
 ### Tabla Bacteriología

@@ -318,12 +318,40 @@ class VialView(View):
                 # creamos el nuevo vial
                 vial_obj = Vial().crear(codigo, respuestas, programa_obj)
 
-                return JsonResponse({'error': 0})
+                return JsonResponse({
+                    'error': 0,
+                    'msg' : 'Vial creado con exito'
+                })
             except Exception as e:
                 return JsonResponse({
                     'error': 1,
                     'msg': 'Hubo un error al crear el nuevo vial: ' + str(e)
                 })
+        else:
+            return JsonResponse({
+                'error': 1,
+                'msg': 'El programa no existe'
+            })
+
+    def get(self, request, programa_id):
+        if Programa.objects.filter(pk=programa_id, deleted__exact=False).count() > 0:
+            programa = Programa.objects.get(pk=programa_id)
+            viales = Vial.objects.filter(programa=programa)
+            paquete = []
+            for vial in viales:
+                paquete.append({
+                    "codigo" : vial.codigo,
+                    "respuestas" : json.loads(vial.respuestas)
+                    })
+            return JsonResponse({
+                'error': 0,
+                'viales': paquete
+            })
+        else:
+            return JsonResponse({
+                'error': 1,
+                'msg': 'El programa no existe'
+            })
 
 def get_tipos_de_dato(request):
     if request.method == "GET":
