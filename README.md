@@ -408,66 +408,48 @@ para correr el cliente se ejecuta el comando
 		    "error": 0,
 		    "viales": [
 		        {
-		            "codigo": "abc123",
-		            "respuestas": [
-		                {
-		                    "id": 1,
-		                    "tipo": "seleccion_unica",
-		                    "respuesta": {
-		                        "value": 200,
-		                        "name": "Opción 2"
-		                    }
-		                },
-		                {
-		                    "id": 2,
-		                    "tipo": "texto",
-		                    "respuesta": {
-		                        "value": "Esta es una respuesta valida"
-		                    }
-		                },
-		                {
-		                    "id": 3,
-		                    "tipo": "rango",
-		                    "respuesta": {
-		                        "min": "10",
-		                        "max": "100"
-		                    }
-		                }
-		            ]
+		            "codigo": "abc123"
 		        },
-		        ...
-		        ...
-		        ...
 		        {
-		            "codigo": "abc456",
-		            "respuestas": [
-		                {
-		                    "id": 1,
-		                    "tipo": "seleccion_unica",
-		                    "respuesta": {
-		                        "value": 250,
-		                        "name": "Opción 3"
-		                    }
-		                },
-		                {
-		                    "id": 2,
-		                    "tipo": "texto",
-		                    "respuesta": {
-		                        "value": "Esta es una respuesta valida 2222"
-		                    }
-		                },
-		                {
-		                    "id": 3,
-		                    "tipo": "rango",
-		                    "respuesta": {
-		                        "min": "150",
-		                        "max": "300"
-		                    }
-		                }
-		            ]
+		            "codigo": "abc456"
 		        }
 		    ]
 		}
+
+### Obtener datos de un vial especifico
+* URL: /api/viales/?codigo=*codigo_vial*
+* Método: GET
+* Respuesta:
+		{
+		    "error": 0,
+		    "codigo": "abc123",
+		    "respuesta": [
+		        {
+		            "id": 1,
+		            "tipo": "seleccion_unica",
+		            "respuesta": {
+		                "value": 200,
+		                "name": "Opción 2"
+		            }
+		        },
+		        {
+		            "id": 2,
+		            "tipo": "texto",
+		            "respuesta": {
+		                "value": "Esta es una respuesta valida"
+		            }
+		        },
+		        {
+		            "id": 3,
+		            "tipo": "rango",
+		            "respuesta": {
+		                "min": "10",
+		                "max": "100"
+		            }
+		        }
+		    ]
+		}
+
 
 
 ## Estructuras para las tablas

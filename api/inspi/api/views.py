@@ -334,24 +334,40 @@ class VialView(View):
             })
 
     def get(self, request, programa_id):
-        if Programa.objects.filter(pk=programa_id, deleted__exact=False).count() > 0:
-            programa = Programa.objects.get(pk=programa_id)
-            viales = Vial.objects.filter(programa=programa)
-            paquete = []
-            for vial in viales:
-                paquete.append({
-                    "codigo" : vial.codigo,
-                    "respuestas" : json.loads(vial.respuestas)
-                    })
-            return JsonResponse({
-                'error': 0,
-                'viales': paquete
-            })
+        vial_id = request.GET.get("codigo", None)
+        print(vial_id)
+        if vial_id:
+            try:
+                vial = Vial.objects.get(codigo=vial_id)
+                return JsonResponse({
+                    'error': 0,
+                    'codigo': vial.codigo,
+                    'respuesta' : json.loads(vial.respuestas) 
+                })
+            except:
+                return JsonResponse({
+                    'error': 1,
+                    'msg': 'El vial no existe'
+                })
+
         else:
-            return JsonResponse({
-                'error': 1,
-                'msg': 'El programa no existe'
-            })
+            if Programa.objects.filter(pk=programa_id, deleted__exact=False).count() > 0:
+                programa = Programa.objects.get(pk=programa_id)
+                viales = Vial.objects.filter(programa=programa)
+                paquete = []
+                for vial in viales:
+                    paquete.append({
+                        "codigo" : vial.codigo
+                        })
+                return JsonResponse({
+                    'error': 0,
+                    'viales': paquete
+                })
+            else:
+                return JsonResponse({
+                    'error': 1,
+                    'msg': 'El programa no existe'
+                })
 
 def get_tipos_de_dato(request):
     if request.method == "GET":
