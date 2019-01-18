@@ -130,7 +130,10 @@ export class AgregarSeccionComponent implements OnInit {
     parseDetalle(detalle: any): string {
         console.log('Detalle: ', detalle);
         var ndetalle = '';
-        if (this.tipo_data.id == 1 || this.tipo_data.id == 2) {
+        if (
+            this.tipo_data.id == 'seleccion_unica ' ||
+            this.tipo_data.id == 'seleccion_multiple'
+        ) {
             var size = detalle.length;
             detalle.forEach((element, i) => {
                 ndetalle = ndetalle.concat(
@@ -152,16 +155,16 @@ export class AgregarSeccionComponent implements OnInit {
 
     cleanModal() {
         this.titulo = '';
-        this.tipo_data = { id: -1, nombre: '' };
+        this.tipo_data = { id: '-1', nombre: '' };
         this.requerido = false;
         this.detalle = '';
         this.descripcion = '';
     }
 
     validate() {
-        if (this.tipo_data.id == 2) {
+        if (this.tipo_data.id == 'seleccion_multiple') {
             this.filled = !!this.titulo && !!this.descripcion && !!this.detalle;
-        } else if (this.tipo_data.id == 1) {
+        } else if (this.tipo_data.id == 'seleccion_unica') {
             this.filled = !!this.titulo && !!this.descripcion && !!this.detalle;
         } else {
             this.filled = !!this.titulo && !!this.descripcion;
