@@ -1,6 +1,7 @@
 import { ComponentFactoryResolver, Component, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Subject } from 'rxjs';
+import { Globals } from '../globals';
 import { Campania } from './campania.model';
 import { Router } from '@angular/router';
 import { Plantilla } from '../plantillas/plantilla.model';
@@ -38,6 +39,7 @@ export class CampaniaComponent implements OnInit {
 
     constructor(
         private apiService: ApiService,
+        private globals: Globals,
         private _router: Router
     ) {}
 
@@ -193,6 +195,10 @@ export class CampaniaComponent implements OnInit {
             descripcion: data['descripcion'],
             secciones: data['secciones']
         };
+    }
+
+    verViales(programa){                
+        this._router.navigate(['/programas/'+programa['id']+'/viales']);
     }
 
     isInvalid() {

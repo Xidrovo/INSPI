@@ -1,0 +1,49 @@
+.title {
+    text-align: center;
+}
+
+#bt {
+    margin-bottom: 5px;
+}
+
+.plantillas-container {
+    border: 1px solid gray;
+    padding: 1%;
+    min-height: 400px;
+    margin-top: 1%;
+}
+
+.plantilla-box {
+    padding: 1%;
+    margin: 0.1%;
+    background-color: beige;
+}
+
+.plantilla-box:hover {
+    background-color: rgb(199, 199, 199);
+}
+
+.modal-container {
+    min-width: 800px;
+}
+
+.float-btn {
+    bottom: 0%;
+    right: 7%;
+    position: fixed !important;
+}
+
+.btn-create {
+    position: fixed !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    margin-bottom: 3% !important;
+    margin-right: 4% !important;
+    border-radius: 100px !important;
+    font-weight: bold !important;
+}
+
+th {
+    background-color: darkcyan;
+    color: antiquewhite;
+}

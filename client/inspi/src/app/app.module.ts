@@ -33,6 +33,7 @@ import { CampaniaComponent } from './campania/campania.component';
 import { EditarPlantillaComponent } from './plantillas/editar-plantilla/editar-plantilla.component';
 import { CrearRespuestaComponent } from './crear-respuesta/crear-respuesta.component';
 import { MatSliderModule } from '@angular/material/slider';
+import { VialesComponent } from './viales/viales.component';
 // import { environment } from '../../environments/environment';
 // import { AppEffects } from './store/effects/app.effects';
 
@@ -51,7 +52,8 @@ import { MatSliderModule } from '@angular/material/slider';
         AgregarSeccionComponent,
         CampaniaComponent,
         EditarPlantillaComponent,
-        CrearRespuestaComponent
+        CrearRespuestaComponent,
+        VialesComponent
     ],
     imports: [
         BrowserModule,

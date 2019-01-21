@@ -6,6 +6,7 @@ import { PlantillasComponent } from '../plantillas/plantillas.component';
 import { PlantillasHomeComponent } from '../plantillas/plantillas-home/plantillas-home.component';
 import { PlantillaEditorComponent } from '../plantillas/plantilla-editor/plantilla-editor.component';
 import { PlantillaViewerComponent } from '../plantillas/plantilla-viewer/plantilla-viewer.component';
+import { VialesComponent } from '../viales/viales.component';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import { CampaniaComponent } from '../campania/campania.component';
 import { CrearRespuestaComponent } from '../crear-respuesta/crear-respuesta.component';
@@ -13,7 +14,14 @@ import { CrearRespuestaComponent } from '../crear-respuesta/crear-respuesta.comp
 const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'programas', component: CampaniaComponent },
+    { path: ':id/viales', component: VialesComponent },
+    { 
+        path: 'programas', 
+        component: CampaniaComponent,
+        children: [            
+            { path: ':id/viales', component: VialesComponent }            
+        ] },
+    
     { path: 'crearRespuesta', component: CrearRespuestaComponent },
     {
         path: 'plantillas',

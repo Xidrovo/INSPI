@@ -93,6 +93,48 @@ export class ApiService {
             .then(res => console.log(res.toString()))
             .catch(err => console.log(err));
     }
+
+    getViales(idPrograma) {
+        return this.httpClient.get(`${this.API_URL}viales/` + idPrograma);
+    }
+
+    getVial(idVial){
+        return this.httpClient
+            .get(`${this.API_URL}viales/?codigo=` + idVial)
+            .toPromise()
+            .then(res => {
+                return res;
+            })
+            .catch(err => console.log(err));
+    }
+
+    addVial(payload): any {
+        return this.httpClient
+            .post(`${this.API_URL}viales/`+payload.idPrograma, payload)
+            .toPromise()
+            .then(res => console.log(res.toString()))
+            .catch(err => console.log(err));
+    }
+
+    // No implementada en el back
+    /*
+    deleteVial(idVial): any {
+        return this.httpClient
+            .delete(`${this.API_URL}viales/` + idVial)
+            .toPromise()
+            .then(res => console.log(res.toString()))
+            .catch(err => console.log(err));
+    }
+    
+    setVial(payload): any {
+        return this.httpClient
+            .put(`${this.API_URL}viales/` + payload.id, payload)
+            .toPromise()
+            .then(res => console.log(res.toString()))
+            .catch(err => console.log(err));
+    }
+    */
+
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.

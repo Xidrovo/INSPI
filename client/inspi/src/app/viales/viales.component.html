@@ -1,0 +1,129 @@
+<h1 class="title">Viales</h1>
+<div class="col-sm-12">
+  <div class="row-flex">
+    <div class="col-md-auto">
+      <button
+        type="button"
+        class="btn btn-primary btn-create btn-lg shadow mb-5"
+        data-toggle="modal"
+        data-target="#vialmodal"
+        title="Crear vial"
+      >
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="border bg-white box-shadow container">
+      <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger">
+        <thead>
+          <tr>
+            <th>Código</th>            
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vial of vialesArray">
+            <td>{{ vial.codigo }}</td>
+            <td>
+              <div class="col-md-auto">                  
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    (click)="$event.stopPropagation(); editarVial(vial.id)"
+                    data-placement="top"    
+                    title="Ingresar respuestas"
+                  >
+                    <i class="fa fa-edit" aria-hidden="true"></i>
+                  </button>
+                  <swal
+                    #deleteSwal
+                    [options]="{ confirmButtonText: 'Sí', cancelButtonText: 'No' }"
+                    [showCancelButton]="true"
+                    [focusCancel]="true"
+                    title="¿Está seguro que desea eliminar el vial?"
+                    text="El vial {{vial.codigo}} se eliminará de manera permanente"
+                    type="warning"
+                    (confirm)="eliminarVial(vial)"
+                  >
+                  </swal>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="deleteSwal.show(); $event.stopPropagation()"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Eliminar vial"
+                  >
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                </div>
+            </td>                        
+          </tr>
+        </tbody>
+      </table>      
+    </div>
+
+    <!-- Modal Ingresar respuestas vial -->
+    <div
+        class="modal fade"
+        id="vialmodal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog" role="document" name="addVial">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Crear vial
+                    </h5>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                    >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="codigo">Código</label>
+                    <input
+                        [(ngModel)]="codigo"
+                        type="text"
+                        class="form-control"
+                        placeholder="Código del vial"
+                        aria-label="Código"
+                        aria-describedby="basic-addon1"
+                        required
+                        name="codigo"
+                        (keydown.enter)="crearVial()"
+                    />
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                    >
+                        Cancelar
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="crearVial()"
+                        data-dismiss="modal"
+                        [disabled]="!codigo"
+                    >
+                        Crear
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  </div>
+</div>
