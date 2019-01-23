@@ -202,7 +202,7 @@ export class CampaniaComponent implements OnInit {
     }
 
     isInvalid() {
-        if (this.nombre == "" || this.nombre.length < 8 || this.nombre.length > 25 || this.plantilla_id == null ) {
+        if (this.nombre == "" || this.nombre.length < 5 || this.nombre.length > 100 || this.plantilla_id == null ) {
             return true;
         } else {
             return false;
