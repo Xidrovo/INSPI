@@ -122,22 +122,21 @@ export class ApiService {
 
     // No implementada en el back
     /*
-    deleteVial(idVial): any {
+     */
+    deleteVial(codigoVial): any {
         return this.httpClient
-            .delete(`${this.API_URL}viales/` + idVial)
+            .delete(`${this.API_URL}viales/`, codigoVial)
             .toPromise()
             .then(res => console.log(res.toString()))
             .catch(err => console.log(err));
     }
-    
     setVial(payload): any {
         return this.httpClient
-            .put(`${this.API_URL}viales/` + payload.id, payload)
+            .put(`${this.API_URL}viales/`, payload)
             .toPromise()
             .then(res => console.log(res.toString()))
             .catch(err => console.log(err));
     }
-    */
 
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {

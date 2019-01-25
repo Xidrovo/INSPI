@@ -1,35 +1,44 @@
 .plantillas-container {
-  /*border: 1px solid gray;*/
-  padding: 1%;
-  min-height: 400px;
-  margin-top: 1%;
+    /*border: 1px solid gray;*/
+    padding: 1%;
+    min-height: 400px;
+    margin-top: 1%;
 }
 
 .plantilla-box {
-  padding: 1%;
-  margin: 0.1%;
-  background-color: beige;
+    padding: 1%;
+    margin: 0.1%;
+    background-color: beige;
 }
 
 .plantilla-box:hover {
-  background-color: rgb(199, 199, 199);
+    background-color: rgb(199, 199, 199);
 }
 
 .modal-container {
-  min-width: 800px;
+    min-width: 800px;
 }
 
 .btn-create {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin-bottom: 4%;
-  margin-right: 4%;
-  border-radius: 100px;
-  font-weight: bold;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 4%;
+    margin-right: 4%;
+    border-radius: 100px;
+    font-weight: bold;
 }
 
 th {
-  background-color: darkcyan;
-  color: antiquewhite;
+    background-color: darkcyan;
+    color: antiquewhite;
+}
+
+.action-btn {
+    display: flex;
+    justify-content: center;
+}
+.action-btn button {
+    margin-left: 0.25em;
+    margin-right: 0.25em;
 }

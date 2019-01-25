@@ -47,3 +47,12 @@ th {
     background-color: darkcyan;
     color: antiquewhite;
 }
+
+.action-btn {
+    display: flex;
+    justify-content: center;
+}
+.action-btn button {
+    margin-left: 0.25em;
+    margin-right: 0.25em;
+}

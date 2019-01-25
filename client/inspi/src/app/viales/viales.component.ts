@@ -76,15 +76,17 @@ export class VialesComponent implements OnInit {
         this.codigo = this.vialesArray[index].codigo;
         this.currentIndex = index;
         const hasInfo = await this.getVial(this.codigo);
-        if (this.vialesArray[index].respuestas === undefined) {
-            if (hasInfo.respuesta[0] === undefined) {
-                this.vial = this.fillInfo(this.plantilla);
-            } else {
-                this.vial = hasInfo.respuesta;
-            }
-        } else {
-            this.vial = this.vialesArray[index].respuestas;
-        }
+        this.vial = this.fillInfo(this.plantilla);
+        // if (this.vialesArray[index].respuestas === undefined) {
+        //     if (hasInfo.respuesta[0] === undefined) {
+        //         this.vial = this.fillInfo(this.plantilla);
+        //         console.log(this.vial);
+        //     } else {
+        //         this.vial = hasInfo.respuesta;
+        //     }
+        // } else {
+        //     this.vial = this.vialesArray[index].respuestas;
+        // }
         $('#respuestaModal')
             .modal()
             .show();
@@ -130,13 +132,6 @@ export class VialesComponent implements OnInit {
         };
     };
     /*
-  async eliminarVial(vial: Object) {
-    await this.apiService.deleteVial(vial['id']);
-    const index = this.vialesArray.findIndex(x => {
-        return x['id'] === vial['id'];
-    });
-    this.vialesArray.splice(index, 1);
-  }
   
   async editarVial(id) {      
     var vial = {
@@ -147,16 +142,20 @@ export class VialesComponent implements OnInit {
     await this.apiService.setVial(vial);
   }
   */
-
+    async eliminarVial(vial: Object) {
+        await this.apiService.deleteVial(vial.codigo);
+        const index = this.vialesArray.findIndex(x => {
+            return x.codigo === vial.codigo;
+        });
+        this.vialesArray.splice(index, 1);
+    }
     async crearVial() {
         var vial = {
             codigo: this.codigo,
             respuestas: this.parseToAnArray(this.vial)
         };
         this.vialesArray[this.currentIndex] = vial;
-        console.log(vial);
-        await this.apiService.addVial(vial, this.idPrograma);
-        // this.vialesArray.push(vial);
+        await this.apiService.setVial(vial);
     }
     parseToAnArray(array) {
         let newArray = [];
@@ -170,11 +169,10 @@ export class VialesComponent implements OnInit {
     }
     async pushVial() {
         var vial = {
-            idPrograma: this.idPrograma,
             codigo: this.codigo,
             respuestas: {}
         };
-        await this.apiService.addVial(vial);
+        await this.apiService.addVial(vial, this.idPrograma);
         this.vialesArray.push(vial);
     }
     handleUnica(target, seccionIndex, preguntaIndex) {

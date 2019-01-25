@@ -36,10 +36,10 @@
                         {{ programa.fecha_fin | date: shortDate }}
                     </td>
                     <td>
-                        <div class="col-md-auto">
+                        <div class="col-md-auto action-btn">
                             <button
-                                type="button"                            
-                                class="btn btn-info"                                
+                                type="button"
+                                class="btn btn-info"
                                 data-placement="top"
                                 title="Viales"
                                 (click)="verViales(programa)"
@@ -47,8 +47,8 @@
                                 <i class="fa fa-file" aria-hidden="true"></i>
                             </button>
                             <button
-                                type="button"                            
-                                class="btn btn-info"                                
+                                type="button"
+                                class="btn btn-info"
                                 data-placement="top"
                                 title="Previsualizar programa"
                                 (click)="verPrograma(programa)"
@@ -56,8 +56,8 @@
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </button>
                             <button
-                                type="button"                                
-                                class="btn btn-secondary"                                
+                                type="button"
+                                class="btn btn-secondary"
                                 data-placement="top"
                                 title="Editar programa"
                                 (click)="editarPrograma(programa)"
@@ -65,9 +65,11 @@
                                 <i class="fa fa-edit" aria-hidden="true"></i>
                             </button>
                             <button
-                                type="button"                                
+                                type="button"
                                 class="btn btn-danger"
-                                (click)="deleteSwal.show(); $event.stopPropagation()"
+                                (click)="
+                                    deleteSwal.show(); $event.stopPropagation()
+                                "
                                 data-toggle="tooltip"
                                 data-placement="top"
                                 title="Eliminar programa"
@@ -83,18 +85,18 @@
                                 [showCancelButton]="true"
                                 [focusCancel]="true"
                                 title="¿Está seguro que desea eliminar el programa?"
-                                text="El programa {{programa.nombre}} se eliminará de manera permanente"
+                                text="El programa {{
+                                    programa.nombre
+                                }} se eliminará de manera permanente"
                                 type="warning"
                                 (confirm)="eliminarCampania(programa)"
                             >
                             </swal>
                         </div>
-                    </td>                                        
+                    </td>
                 </tr>
             </tbody>
         </table>
-
-        
 
         <!-- Modal de nuevo programa -->
         <div
@@ -144,7 +146,8 @@
                                         <label
                                             for="recipient-name"
                                             class="col-form-label"
-                                            >Fecha de Inicio:</label>
+                                            >Fecha de Inicio:</label
+                                        >
 
                                         <input
                                             [(ngModel)]="fecha_inicio"
@@ -152,8 +155,10 @@
                                             class="form-control"
                                             type="date"
                                             value="aaaa-mm-dd"
-                                            id="inicio"                                     
-                                            min="{{ today | date:'yyyy-MM-dd' }}"                                            
+                                            id="inicio"
+                                            min="{{
+                                                today | date: 'yyyy-MM-dd'
+                                            }}"
                                         />
                                     </div>
                                     <div class="col">
@@ -170,8 +175,10 @@
                                             value="aaaa-mm-dd"
                                             id="fecha_fin"
                                             [disabled]="isActive1()"
-                                          
-                                            min="{{ fecha_inicio | date:'yyyy-MM-dd' }}"
+                                            min="{{
+                                                fecha_inicio
+                                                    | date: 'yyyy-MM-dd'
+                                            }}"
                                         />
                                     </div>
                                 </div>
@@ -192,10 +199,13 @@
                                             value="aaaa-mm-dd"
                                             id="example-date-input"
                                             [disabled]="isActive2()"
-                                            
-                                            
-                                            min="{{fecha_inicio | date:'yyyy-MM-dd'}}"
-                                            max="{{fecha_fin | date:'yyyy-MM-dd'}}"
+                                            min="{{
+                                                fecha_inicio
+                                                    | date: 'yyyy-MM-dd'
+                                            }}"
+                                            max="{{
+                                                fecha_fin | date: 'yyyy-MM-dd'
+                                            }}"
                                         />
                                     </div>
                                     <div class="col">
@@ -212,9 +222,13 @@
                                             type="date"
                                             value="aaaa-mm-dd"
                                             id="example-date-input"
-                                            min="{{fecha_envio_paquete | date:'yyyy-MM-dd'}}"
-                                            max="{{fecha_fin | date:'yyyy-MM-dd'}}"
-                                            
+                                            min="{{
+                                                fecha_envio_paquete
+                                                    | date: 'yyyy-MM-dd'
+                                            }}"
+                                            max="{{
+                                                fecha_fin | date: 'yyyy-MM-dd'
+                                            }}"
                                         />
                                     </div>
                                 </div>
@@ -260,7 +274,7 @@
                             (click)="guardarCampania()"
                             data-dismiss="modal"
                             [disabled]="isInvalid()"
-                            id = "guardar"
+                            id="guardar"
                             name="guardar"
                         >
                             Crear
@@ -280,15 +294,10 @@
         aria-labelledby="modelTitleId"
         aria-hidden="true"
     >
-        <div
-            class="modal-dialog modal-container"
-            role="document"
-        >
+        <div class="modal-dialog modal-container" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modelTitleId">
-                        Vista previa
-                    </h5>
+                    <h5 class="modal-title" id="modelTitleId">Vista previa</h5>
                     <button
                         type="button"
                         class="close"
@@ -316,7 +325,10 @@
                                         class="form-control"
                                         type="shortDate"
                                         name="fecha_inicio"
-                                        value="{{ programaSelected.fecha_inicio | date: 'dd/MM/yyyy'   }}"
+                                        value="{{
+                                            programaSelected.fecha_inicio
+                                                | date: 'dd/MM/yyyy'
+                                        }}"
                                         id="example-date-input"
                                         disabled
                                     />
@@ -331,7 +343,10 @@
                                         class="form-control"
                                         type="shortDate"
                                         name="fecha_fin"
-                                        value="{{ programaSelected.fecha_fin | date: 'dd/MM/yyyy' }}"
+                                        value="{{
+                                            programaSelected.fecha_fin
+                                                | date: 'dd/MM/yyyy'
+                                        }}"
                                         id="example-date-input"
                                         disabled
                                     />
@@ -344,14 +359,16 @@
                                     <label
                                         for="recipient-name"
                                         class="col-form-label"
-                                        >Fecha de Envio de
-                                        Paquete:</label
+                                        >Fecha de Envio de Paquete:</label
                                     >
                                     <input
                                         class="form-control"
                                         type="shortDate"
                                         name="fecha_envio_paquete"
-                                        value="{{ programaSelected.fecha_envio_paquete | date: 'dd/MM/yyyy'  }}"
+                                        value="{{
+                                            programaSelected.fecha_envio_paquete
+                                                | date: 'dd/MM/yyyy'
+                                        }}"
                                         id="example-date-input"
                                         disabled
                                     />
@@ -360,14 +377,16 @@
                                     <label
                                         for="recipient-name"
                                         class="col-form-label"
-                                        >Fecha de Envio de
-                                        Resultados:</label
+                                        >Fecha de Envio de Resultados:</label
                                     >
                                     <input
                                         class="form-control"
                                         type="shortDate"
                                         name="fecha_envio_resultados"
-                                        value="{{ programaSelected.fecha_envio_resultados | date: 'dd/MM/yyyy'  }}"
+                                        value="{{
+                                            programaSelected.fecha_envio_resultados
+                                                | date: 'dd/MM/yyyy'
+                                        }}"
                                         id="example-date-input"
                                         disabled
                                     />
@@ -376,9 +395,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label
-                                for="recipient-name"
-                                class="col-form-label"
+                            <label for="recipient-name" class="col-form-label"
                                 >Plantilla Seleccionada:</label
                             >
                             <input
@@ -407,7 +424,6 @@
         </div>
     </div>
 
-
     <!-- Modal Edicion Programa -->
     <div
         class="modal fade"
@@ -417,10 +433,7 @@
         aria-labelledby="modelTitleId"
         aria-hidden="true"
     >
-        <div
-            class="modal-dialog modal-container"
-            role="document"
-        >
+        <div class="modal-dialog modal-container" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modelTitleId">
@@ -438,9 +451,7 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label
-                                for="titulo"
-                                class="col-form-label"
+                            <label for="titulo" class="col-form-label"
                                 >Título:</label
                             >
                             <input
@@ -469,11 +480,15 @@
                                         "
                                         name="fecha_inicio"
                                         type="date"
-                                        value="{{ programaSelected.fecha_inicio | date: 'yyyy-MM-dd'  }}"
+                                        value="{{
+                                            programaSelected.fecha_inicio
+                                                | date: 'yyyy-MM-dd'
+                                        }}"
                                         id="fecha_inicio"
-                                        
-                    
-                                        min="{{ programaSelected.fecha_inicio | date:'yyyy-MM-dd' }}"
+                                        min="{{
+                                            programaSelected.fecha_inicio
+                                                | date: 'yyyy-MM-dd'
+                                        }}"
                                     />
                                 </div>
                                 <div class="col">
@@ -484,14 +499,18 @@
                                     >
                                     <input
                                         class="form-control"
-                                        [(ngModel)]="
-                                            programaSelected.fecha_fin
-                                        "
+                                        [(ngModel)]="programaSelected.fecha_fin"
                                         name="fecha_fin"
                                         type="date"
-                                        value="{{ programaSelected.fecha_fin | date: 'yyyy-MM-dd' }}"
+                                        value="{{
+                                            programaSelected.fecha_fin
+                                                | date: 'yyyy-MM-dd'
+                                        }}"
                                         id="fecha_fin"
-                                        min="{{ programaSelected.fecha_inicio | date:'yyyy-MM-dd' }}"
+                                        min="{{
+                                            programaSelected.fecha_inicio
+                                                | date: 'yyyy-MM-dd'
+                                        }}"
                                     />
                                 </div>
                             </div>
@@ -502,8 +521,7 @@
                                     <label
                                         for="fecha_envio_paquete"
                                         class="col-form-label"
-                                        >Fecha de Envio de
-                                        Paquete:</label
+                                        >Fecha de Envio de Paquete:</label
                                     >
                                     <input
                                         class="form-control"
@@ -512,19 +530,26 @@
                                         "
                                         name="fecha_envio_paquete"
                                         type="date"
-                                        value="{{ programaSelected.fecha_envio_paquete | date: 'yyyy-MM-dd'  }}"
+                                        value="{{
+                                            programaSelected.fecha_envio_paquete
+                                                | date: 'yyyy-MM-dd'
+                                        }}"
                                         id="fecha_envio_paquete"
-
-                                        min="{{ programaSelected.fecha_inicio | date:'yyyy-MM-dd'}}"
-                                        max="{{ programaSelected.fecha_fin | date:'yyyy-MM-dd'}}"
+                                        min="{{
+                                            programaSelected.fecha_inicio
+                                                | date: 'yyyy-MM-dd'
+                                        }}"
+                                        max="{{
+                                            programaSelected.fecha_fin
+                                                | date: 'yyyy-MM-dd'
+                                        }}"
                                     />
                                 </div>
                                 <div class="col">
                                     <label
                                         for="fecha_envio_resultados"
                                         class="col-form-label"
-                                        >Fecha de Envio de
-                                        Resultados:</label
+                                        >Fecha de Envio de Resultados:</label
                                     >
                                     <input
                                         class="form-control"
@@ -533,19 +558,26 @@
                                         "
                                         name="fecha_envio_resultados"
                                         type="date"
-                                        value="{{ programaSelected.fecha_envio_resultados | date: 'yyyy-MM-dd' }}"
+                                        value="{{
+                                            programaSelected.fecha_envio_resultados
+                                                | date: 'yyyy-MM-dd'
+                                        }}"
                                         id="fecha_envio_resultados"
-                                        min="{{ programaSelected.fecha_envio_paquete | date:'yyyy-MM-dd'}}"
-                                        max="{{ programaSelected.fecha_fin | date:'yyyy-MM-dd'}}"
+                                        min="{{
+                                            programaSelected.fecha_envio_paquete
+                                                | date: 'yyyy-MM-dd'
+                                        }}"
+                                        max="{{
+                                            programaSelected.fecha_fin
+                                                | date: 'yyyy-MM-dd'
+                                        }}"
                                     />
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label
-                                for="plantilla_nombre"
-                                class="col-form-label"
+                            <label for="plantilla_nombre" class="col-form-label"
                                 >Plantilla Seleccionada:</label
                             >
                             <input
@@ -573,7 +605,6 @@
                         class="btn btn-primary"
                         (click)="setPrograma(programaSelected)"
                         data-dismiss="modal"
-                        
                     >
                         Guardar
                     </button>
@@ -581,5 +612,4 @@
             </div>
         </div>
     </div>
-
 </div>

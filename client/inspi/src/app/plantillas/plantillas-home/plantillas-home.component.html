@@ -1,117 +1,140 @@
 <div class="col-sm-12">
-  <div class="row-flex">
-    <div class="col-md-auto">
-      <button
-        type="button"
-        class="btn btn-primary btn-create btn-lg shadow mb-5"
-        [routerLink]="['plantilla-editor', 0]"
-        title="Crear plantilla"
-      >
-        <i class="fa fa-plus" aria-hidden="true"></i>
-      </button>
-    </div>
-
-    <div class="border bg-white box-shadow plantillas-container container">
-      <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions"
-        [dtTrigger]="dtTrigger">
-        <thead>
-          <tr>
-            <th>Título</th>
-            <th>Descripción</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let plantilla of plantillasArray">
-            <td>{{ plantilla.titulo }}</td>
-            <td>{{ plantilla.descripcion }}</td>
-            <td>
-              <div class="col-md-auto">
-                  <button
-                    type="button"
-                    class="btn btn-info"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Previsualizar plantilla" 
-                    (click)="verPlantilla(plantilla)"
-                  >
-                    <i class="fa fa-eye" aria-hidden="true"></i>
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    (click)="$event.stopPropagation(); editarPlantilla(plantilla.id)"
-                    data-placement="top"    
-                    title="Editar plantilla"
-                  >
-                    <i class="fa fa-edit" aria-hidden="true"></i>
-                  </button>
-                  <swal
-                    #deleteSwal
-                    [options]="{ confirmButtonText: 'Sí', cancelButtonText: 'No' }"
-                    [showCancelButton]="true"
-                    [focusCancel]="true"
-                    title="¿Está seguro que desea eliminar la plantilla?"
-                    text="La plantilla {{plantilla.titulo}} se eliminará de manera permanente"
-                    type="warning"
-                    (confirm)="eliminarPlantilla(plantilla)"
-                  >
-                  </swal>
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    (click)="deleteSwal.show(); $event.stopPropagation()"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Eliminar plantilla"
-                  >
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                  </button>
-                </div>
-            </td>                        
-          </tr>
-        </tbody>
-      </table>      
-    </div>
-
-    <!-- Modal Vista Previa Plantilla -->
-    <div
-      class="modal fade"
-      id="vistaprevia"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="modelTitleId"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-container" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modelTitleId">Vista previa</h5>
+    <div class="row-flex">
+        <div class="col-md-auto">
             <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
+                type="button"
+                class="btn btn-primary btn-create btn-lg shadow mb-5"
+                [routerLink]="['plantilla-editor', 0]"
+                title="Crear plantilla"
             >
-              <span aria-hidden="true">&times;</span>
+                <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
-          </div>
-          <div class="modal-body">
-            <app-plantilla-viewer
-              [plantilla]="plantillaShowed"
-            ></app-plantilla-viewer>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Cerrar
-            </button>
-          </div>
         </div>
-      </div>
+
+        <div class="border bg-white box-shadow plantillas-container container">
+            <table
+                class="table table-striped table-bordered table-sm row-border hover"
+                datatable
+                [dtOptions]="dtOptions"
+                [dtTrigger]="dtTrigger"
+            >
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let plantilla of plantillasArray">
+                        <td>{{ plantilla.titulo }}</td>
+                        <td>{{ plantilla.descripcion }}</td>
+                        <td>
+                            <div class="col-md-auto action-btn">
+                                <button
+                                    type="button"
+                                    class="btn btn-info"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Previsualizar plantilla"
+                                    (click)="verPlantilla(plantilla)"
+                                >
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    (click)="
+                                        $event.stopPropagation();
+                                        editarPlantilla(plantilla.id)
+                                    "
+                                    data-placement="top"
+                                    title="Editar plantilla"
+                                >
+                                    <i
+                                        class="fa fa-edit"
+                                        aria-hidden="true"
+                                    ></i>
+                                </button>
+                                <swal
+                                    #deleteSwal
+                                    [options]="{
+                                        confirmButtonText: 'Sí',
+                                        cancelButtonText: 'No'
+                                    }"
+                                    [showCancelButton]="true"
+                                    [focusCancel]="true"
+                                    title="¿Está seguro que desea eliminar la plantilla?"
+                                    text="La plantilla {{
+                                        plantilla.titulo
+                                    }} se eliminará de manera permanente"
+                                    type="warning"
+                                    (confirm)="eliminarPlantilla(plantilla)"
+                                >
+                                </swal>
+                                <button
+                                    type="button"
+                                    class="btn btn-danger"
+                                    (click)="
+                                        deleteSwal.show();
+                                        $event.stopPropagation()
+                                    "
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="Eliminar plantilla"
+                                >
+                                    <i
+                                        class="fa fa-trash"
+                                        aria-hidden="true"
+                                    ></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal Vista Previa Plantilla -->
+        <div
+            class="modal fade"
+            id="vistaprevia"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="modelTitleId"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog modal-container" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modelTitleId">
+                            Vista previa
+                        </h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <app-plantilla-viewer
+                            [plantilla]="plantillaShowed"
+                        ></app-plantilla-viewer>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                        >
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
