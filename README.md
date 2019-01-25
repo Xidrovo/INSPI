@@ -379,19 +379,31 @@ para correr el cliente se ejecuta el comando
 * Envío:
 	{
 		"codigo": "abc123",
-		"respuestas": {
-			"<<id_pregunta_rango>>": {
-				"min": 10,
-				"max": 20
-			},
-			"<<id_pregunta_valor_exacto>>": 200,
-			"<<id_pregunta_seleccion_multiple>>": [
-				value_opcion1,
-				value_opcion2
-			],
-			"<<id_pregunta_seleccion_unica>>": value_opcion,
-			"<<id_pregunta_texto>>": "Bacon ipsum dolor amet tenderloin cupim pork burgdoggen ham hock ribeye. Shankle pork chop ham hock burgdoggen, ball tip beef ribs pork loin pork belly sausage beef tri-tip flank corned beef hamburger tongue"
-		}
+		"respuestas": [
+	        {
+	            "id": 1,
+	            "tipo": "seleccion_unica",
+	            "respuesta": {
+	                "value": 200,
+	                "name": "Opción 2"
+	            }
+	        },
+	        {
+	            "id": 2,
+	            "tipo": "texto",
+	            "respuesta": {
+	                "value": "Esta es una respuesta valida"
+	            }
+	        },
+	        {
+	            "id": 3,
+	            "tipo": "rango",
+	            "respuesta": {
+	                "min": "10",
+	                "max": "100"
+	            }
+	        }
+	    ]
 	}
 
 * Respuesta:
@@ -399,6 +411,45 @@ para correr el cliente se ejecuta el comando
 		{
 			"error": 0
 		}
+
+#### Editar un vial
+* URL: /api/viales/*programa_id*
+* Método: POST
+* Envío:
+	{
+		"codigo": "abc123",
+		"respuestas": [
+	        {
+	            "id": 1,
+	            "tipo": "seleccion_unica",
+	            "respuesta": {
+	                "value": 200,
+	                "name": "Opción 2"
+	            }
+	        },
+	        {
+	            "id": 2,
+	            "tipo": "texto",
+	            "respuesta": {
+	                "value": "Esta es una respuesta valida"
+	            }
+	        },
+	        {
+	            "id": 3,
+	            "tipo": "rango",
+	            "respuesta": {
+	                "min": "10",
+	                "max": "100"
+	            }
+	        }
+	    ]
+	}
+
+* Respuesta:
+	{
+	    "error": 0,
+	    "msg": "El vial se ha actualizado con éxito"
+	}
 
 ### Obtener todos los viales de un programa
 * URL: /api/viales/*programa_id*
@@ -450,7 +501,19 @@ para correr el cliente se ejecuta el comando
 		    ]
 		}
 
-
+### Archivar un vial
+* URL: /api/viales/*programa_id*
+* Método: DELETE
+* Envío:
+	{
+		"codigo" : "abc123"
+	}
+	
+* Respuesta:
+	{
+        "error": 0,
+        "msg": "El vial se ha archivado con éxito"
+    }
 
 ## Estructuras para las tablas
 ### Tabla Bacteriología
