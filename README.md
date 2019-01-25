@@ -413,8 +413,8 @@ para correr el cliente se ejecuta el comando
 		}
 
 #### Editar un vial
-* URL: /api/viales/*programa_id*
-* Método: POST
+* URL: /api/viales/
+* Método: PUT
 * Envío:
 	{
 		"codigo": "abc123",
@@ -501,7 +501,7 @@ para correr el cliente se ejecuta el comando
 		    ]
 		}
 
-### Archivar un vial
+### Borrar(Archivar) un vial
 * URL: /api/viales/*programa_id*
 * Método: DELETE
 * Envío:
