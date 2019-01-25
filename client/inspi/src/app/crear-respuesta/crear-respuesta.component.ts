@@ -13,6 +13,7 @@ export class CrearRespuestaComponent implements OnInit {
     }
     plantillasArray: any;
     currentPlantilla: any;
+    viales: any;
 
     ngOnInit() {}
 
@@ -28,5 +29,39 @@ export class CrearRespuestaComponent implements OnInit {
         $('#respuestaModal')
             .modal()
             .show();
+        this.fillInfo(this.currentPlantilla);
     }
+    fillInfo(plantilla) {
+        plantilla.secciones.map(seccion => {
+            this.viales = seccion.preguntas.map(pregunta => {
+                return this.setJSON(pregunta);
+            });
+        });
+        console.log('====:(', this.viales);
+    }
+    setJSON = pregunta => {
+        let respuesta: any;
+        switch (pregunta.tipo_data.id) {
+            case 'seleccion_unica':
+                //value, name
+                respuesta = { value: '', name: '' };
+                break;
+            case 'seleccion_multiple':
+                //[value, name]
+                respuesta = [{ value: '', name: '' }];
+                break;
+            case 'texto':
+                //value
+                respuesta = '';
+                break;
+            case 'rango':
+                //min, max
+                respuesta = { min: 0, max: 0 };
+                break;
+            default:
+                break;
+        }
+        return { id: pregunta.id, code: 'hola', respuesta: respuesta };
+    };
+    guardarRespuesta = () => {};
 }

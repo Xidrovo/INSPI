@@ -15,13 +15,12 @@ const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'login', component: LoginComponent },
     { path: ':id/viales', component: VialesComponent },
-    { 
-        path: 'programas', 
-        component: CampaniaComponent,
-        children: [            
-            { path: ':id/viales', component: VialesComponent }            
-        ] },
-    
+    {
+        path: 'programas',
+        component: CampaniaComponent
+        // children: [{ path: ':id/viales', component: VialesComponent }]
+    },
+    { path: 'programas/:id/viales', component: VialesComponent },
     { path: 'crearRespuesta', component: CrearRespuestaComponent },
     {
         path: 'plantillas',
