@@ -335,15 +335,20 @@ class VialView(View):
 
     def get(self, request, programa_id):
         vial_id = request.GET.get("codigo", None)
-        print(vial_id)
         if vial_id:
             try:
                 vial = Vial.objects.get(codigo=vial_id)
-                return JsonResponse({
-                    'error': 0,
-                    'codigo': vial.codigo,
-                    'respuesta' : json.loads(vial.respuestas) 
-                })
+                if not vial.deleted:
+                    return JsonResponse({
+                        'error': 0,
+                        'codigo': vial.codigo,
+                        'respuesta' : json.loads(vial.respuestas) 
+                    })
+                else:
+                    return JsonResponse({
+                        'error': 1,
+                        'msg': 'El vial esta archivado'
+                    })
             except:
                 return JsonResponse({
                     'error': 1,
@@ -356,8 +361,9 @@ class VialView(View):
                 viales = Vial.objects.filter(programa=programa)
                 paquete = []
                 for vial in viales:
-                    paquete.append({
-                        "codigo" : vial.codigo
+                    if not vial.deleted:
+                        paquete.append({
+                            "codigo" : vial.codigo
                         })
                 return JsonResponse({
                     'error': 0,
@@ -368,6 +374,79 @@ class VialView(View):
                     'error': 1,
                     'msg': 'El programa no existe'
                 })
+
+    def put(self, request, programa_id):
+        try:
+            # extraer el JSON como un string
+            vial_str = request.body.decode('utf-8')
+            # transformamos el string a un diccionario
+            vial_json = json.loads(vial_str)
+
+            vial_id = vial_json.get('codigo', None)
+            vial = Vial.objects.filter(codigo=vial_id)
+            if len(vial) == 1:
+                # obteniendo la instancia del vial
+                vial = vial[0]
+                # obteniendo el JSON de respuestas
+                respuestas = json.dumps(vial_json['respuestas'])
+                # actualizando el vial
+                vial_obj = Vial().editar(vial, respuestas)
+                if vial_obj:
+                    return JsonResponse({
+                        'error': 0,
+                        'msg': 'El vial se ha actualizado con éxito'
+                    })
+                else:
+                    return JsonResponse({
+                        'error': 1,
+                        'msg': 'Error actualizando el vial'
+                    })
+            else:
+                return JsonResponse({
+                    'error': 1,
+                    'msg': 'El vial no existe'
+                })
+        except Exception as e:
+            return JsonResponse({
+                'error': 1,
+                'msg': 'Error de solicitud' + str(e)
+            })
+
+    def delete(self, request, programa_id):
+        try:
+            # extraer el JSON como un string
+            vial_str = request.body.decode('utf-8')
+            # transformamos el string a un diccionario
+            vial_json = json.loads(vial_str)
+
+            vial_id = vial_json.get('codigo', None)
+            vial = Vial.objects.filter(codigo=vial_id)
+            if len(vial) == 1:
+                # obteniendo la instancia del vial
+                vial = vial[0]
+                # archivando instancia del vial
+                respuesta = vial.delete()
+
+                if respuesta:
+                    return JsonResponse({
+                        'error': 0,
+                        'msg': 'El vial se ha archivado con éxito'
+                    })
+                else:
+                    return JsonResponse({
+                        'error': 1,
+                        'msg': 'Error archivando el vial'
+                    })
+            else:
+                return JsonResponse({
+                    'error': 1,
+                    'msg': 'El vial no existe'
+                })
+        except:
+            return JsonResponse({
+                'error': 1,
+                'msg': 'Error de solicitud'
+            })
 
 def get_tipos_de_dato(request):
     if request.method == "GET":
@@ -405,6 +484,10 @@ def get_viales(request, programa_id):
                     'error': 1,
                     'msg': 'Hubo un error al consultar los viales: ' + str(e)
                 })
+    return JsonResponse({
+        'error': 1,
+        'msg': 'Error de solicitud'
+    })
 
 def get_programa_plantilla(request, programa_id):
     if request.method == "GET":

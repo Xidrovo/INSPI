@@ -213,9 +213,22 @@ class Vial(models.Model):
 		v.save()
 		return v
 
+	def editar(self, vial, respuestas):
+		try:
+			v = vial
+			v.respuestas = respuestas
+			v.save()
+			return v
+		except:
+			return None
+
 	def delete(self):
-		self.deleted = True
-		self.save()
+		try:
+			self.deleted = True
+			self.save()
+			return True
+		except:
+			return False
 
 	def to_dict(self):
 		if not self.respuestas:
