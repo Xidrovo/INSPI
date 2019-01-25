@@ -8,32 +8,32 @@
           <div class="form-group">
             <label class="col-md-auto control-label">{{ pregunta.titulo }}</label>
             <div class="col-md-auto">
-              <ng-container *ngIf="pregunta.tipo.nombre == 'tabla_ram'; then thenTemplate; else elseTemplate"></ng-container>
+              <ng-container *ngIf="pregunta.tipo.id == 'tabla_ram'; then thenTemplate; else elseTemplate"></ng-container>
               <ng-template #thenTemplate>
                 <app-tabla-ram></app-tabla-ram>
               </ng-template>
               <ng-template #elseTemplate>
-                <ng-container *ngIf="pregunta.tipo.nombre == 'tabla_mico'; then thenT; else elseT"></ng-container>
+                <ng-container *ngIf="pregunta.tipo.id == 'tabla_mico'; then thenT; else elseT"></ng-container>
                 <ng-template #thenT>
                   <app-tabla-pruebasbioquimicas></app-tabla-pruebasbioquimicas>
                 </ng-template>
                 <ng-template #elseT>
-                  <div *ngIf="pregunta.tipo.nombre == 'seleccion_multiple'">
+                  <div *ngIf="pregunta.tipo.id == 'seleccion_multiple'">
                     <div class="form-check" *ngFor="let opcion of pregunta.detalle">
                       <input class="form-check-input" type="checkbox" id="p-{{seccion.id}}-{{pregunta.id}}" value="opcion.value">
                       <label class="form-check-label" for="p-{{seccion.id}}-{{pregunta.id}}">{{ opcion.name }}</label>
                     </div>
                   </div>
-                  <div *ngIf="pregunta.tipo.nombre == 'seleccion_unica'">
+                  <div *ngIf="pregunta.tipo.id == 'seleccion_unica'">
                     <div class="form-check" *ngFor="let opcion of pregunta.detalle">
                       <input class="form-check-input" type="radio" name="radios-{{seccion.id}}-{{pregunta.id}}" id="p-{{seccion.id}}-{{opcion.value}}" value="opcion.value">
                       <label class="form-check-label" for="p-{{seccion.id}}-{{pregunta.id}}">{{ opcion.name }}</label>
                     </div>
                   </div>
-                  <div *ngIf="pregunta.tipo.nombre == 'texto'">
+                  <div *ngIf="pregunta.tipo.id == 'texto'">
                     <input type="texto" id="p-{{seccion.id}}-{{pregunta.id}}" class="form-control">
                   </div>
-                  <div *ngIf="pregunta.tipo.nombre == 'rango' || pregunta.tipo.nombre == 'valor_exacto'">
+                  <div *ngIf="pregunta.tipo.id == 'rango' || pregunta.tipo.id == 'valor_exacto'">
                     <input type="number" id="p-{{seccion.id}}-{{pregunta.id}}" class="form-control">
                   </div>
                 </ng-template>
