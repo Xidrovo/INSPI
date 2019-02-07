@@ -466,6 +466,51 @@ def get_tipos_de_dato(request):
                 'msg': 'Hubo un error al consultar los tipos de dato: ' + str(e)
             })
 
+def get_respuestas_viales(request, codigo):
+    try:
+        vial = Vial.objects.get(codigo=codigo)
+        preguntas_respondidas = json.loads(vial.respuestas)
+        if not vial.deleted:
+            plantilla = vial.programa.plantilla.to_dict()
+            secciones = plantilla.get("secciones",None)
+            secciones_dic = []
+            for seccion in secciones:
+                preguntas = seccion.get("preguntas", None)
+                preguntas_dic = []
+                for pregunta in preguntas:
+                    respuesta_pregunta = None
+                    for r in preguntas_respondidas:
+                        if int(pregunta["id"]) == int(r["id"]):
+                            respuesta_pregunta = r["respuesta"]
+                    preguntas_dic.append({
+                        "pregunta_id" : pregunta["id"],
+                        "titulo" : pregunta["titulo"],
+                        "tipo" : pregunta["tipo_data"]["id"],
+                        "respuesta" :  respuesta_pregunta
+                    })
+
+                secciones_dic.append({
+                    "seccion_id" : seccion["id"],
+                    "titulo" : seccion["titulo"],
+                    "preguntas" : preguntas_dic
+                })
+            return JsonResponse({
+                'error': 0,
+                'codigo': vial.codigo,
+                'respuesta' : secciones_dic
+            })
+        else:
+            return JsonResponse({
+                'error': 1,
+                'msg': 'El vial esta archivado'
+            })
+    except Exception as e:
+        return JsonResponse({
+            'error': 1,
+            'msg': 'El vial no existe ' + str(e)
+        })
+
+
 def get_viales(request, programa_id):
     if request.method == "GET":
         if Programa.objects.filter(pk=programa_id, deleted__exact=False).count() > 0:
