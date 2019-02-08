@@ -419,28 +419,19 @@ class VialView(View):
             # transformamos el string a un diccionario
             vial_json = json.loads(vial_str)
 
-            vial_id = vial_json.get('codigo', None)
-            vial = Vial.objects.filter(codigo=vial_id)
-            if len(vial) == 1:
-                # obteniendo la instancia del vial
-                vial = vial[0]
-                # archivando instancia del vial
-                vial.deleted = True
-                vial.save()
+            codigo = vial_json.get('codigo', None)
+            vial = Vial.objects.get(codigo=codigo)
+            vial.deleted = True
+            vial.save()
 
-                return JsonResponse({
-                    'error': 0,
-                    'msg': 'El vial se ha archivado con éxito'
-                })
-            else:
-                return JsonResponse({
-                    'error': 1,
-                    'msg': 'El vial no existe'
-                })
+            return JsonResponse({
+                'error': 0,
+                'msg': 'El vial se ha archivado con éxito'
+            })
         except:
             return JsonResponse({
                 'error': 1,
-                'msg': 'Error de solicitud'
+                'msg': 'El vial no existe'
             })
 
 def get_tipos_de_dato(request):
