@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+    HttpClient,
+    HttpErrorResponse,
+    HttpHeaders
+} from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { throwError, of, Observable } from 'rxjs';
 
@@ -122,11 +126,20 @@ export class ApiService {
             .catch(err => console.log(err));
     }
 
-    deleteVial(codigoVial): any {
+    //  Content-Type': 'application/json'
+    deleteVial(programaId, codigoVial): any {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            }),
+            body: {
+                codigo: codigoVial
+            }
+        };
         return this.httpClient
-            .delete(`${this.API_URL}viales/${codigoVial}`)
+            .delete(`${this.API_URL}viales/${programaId}`, httpOptions)
             .toPromise()
-            .then(res => console.log(res.toString()))
+            .then(res => console.log(res))
             .catch(err => console.log(err));
     }
     setVial(payload): any {
