@@ -25,5 +25,6 @@ urlpatterns = [
    re_path(r'^programas/plantilla/(?P<programa_id>[0-9]*|)$', views.get_programa_plantilla, name='programa_plantilla'),
    re_path(r'^viales/(?P<programa_id>[0-9]*|)$', VialView.as_view(), name='viales'),
    path('vial/respuesta/<codigo>/', views.get_respuestas_viales, name='respuestas_viales'),
+   path('vial/ver/<programa_id>/', views.get_viales, name='get_viales'),
    path('tipos_de_dato/', views.get_tipos_de_dato, name='tipos_de_dato'),
 ]

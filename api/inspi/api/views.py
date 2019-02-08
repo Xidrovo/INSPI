@@ -508,26 +508,29 @@ def get_respuestas_viales(request, codigo):
 
 def get_viales(request, programa_id):
     if request.method == "GET":
-        if Programa.objects.filter(pk=programa_id, deleted__exact=False).count() > 0:
-            try:
-                viales = []
-                programa = Programa.objects.get(pk=programa_id)
-                for vial in programa.viales:
-                    viales.append(vial.to_dict())
-
-                return JsonResponse({
-                    'error': 0,
-                    'viales': viales
-                })
-            except Exception as e:
-                return JsonResponse({
-                    'error': 1,
-                    'msg': 'Hubo un error al consultar los viales: ' + str(e)
-                })
+        try:
+            programa = Programa.objects.get(pk=programa_id)
+            viales = Vial.objects.filter(programa=programa)
+            viales_ARR = []
+            for vial in viales:
+                if not vial.deleted:
+                    viales_ARR.append({
+                        "codigo" : vial.codigo
+                    })
+            return JsonResponse({
+                'error': 0,
+                'viales': viales_ARR
+            })
+        except:
+            return JsonResponse({
+                'error': 1,
+                'msg': 'Programa no existe'
+            })
     return JsonResponse({
         'error': 1,
         'msg': 'Error de solicitud'
     })
+    
 
 def get_programa_plantilla(request, programa_id):
     if request.method == "GET":
