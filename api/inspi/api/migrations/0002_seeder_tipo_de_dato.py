@@ -12,6 +12,7 @@ def crearTiposDeDato(apps, schema_editor):
 		TipoDeDato_model(pk='texto', nombre='Texto', detalle=''),
 		TipoDeDato_model(pk='tabla_ram', nombre='Tabla RAM', detalle=''),
 		TipoDeDato_model(pk='tabla_mico', nombre='Tabla Micobacterias', detalle=''),
+		TipoDeDato_model(pk='tabla_bacteriologia', nombre='Tabla Bacteriologia', detalle=''),
 		TipoDeDato_model(pk='desconocido', nombre='Desconocido', detalle=''),
 	])
 
