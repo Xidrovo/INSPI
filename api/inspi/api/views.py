@@ -425,18 +425,13 @@ class VialView(View):
                 # obteniendo la instancia del vial
                 vial = vial[0]
                 # archivando instancia del vial
-                respuesta = vial.delete()
-
-                if respuesta:
-                    return JsonResponse({
-                        'error': 0,
-                        'msg': 'El vial se ha archivado con éxito'
-                    })
-                else:
-                    return JsonResponse({
-                        'error': 1,
-                        'msg': 'Error archivando el vial'
-                    })
+                vial.deleted = True
+                vial.save()
+                
+                return JsonResponse({
+                    'error': 0,
+                    'msg': 'El vial se ha archivado con éxito'
+                })
             else:
                 return JsonResponse({
                     'error': 1,
