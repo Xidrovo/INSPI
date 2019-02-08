@@ -338,7 +338,7 @@ class VialView(View):
         if vial_id:
             try:
                 vial = Vial.objects.get(codigo=vial_id)
-                if not vial.deleted:
+                if vial.deleted == False:
                     return JsonResponse({
                         'error': 0,
                         'codigo': vial.codigo,
@@ -361,7 +361,7 @@ class VialView(View):
                 viales = Vial.objects.filter(programa=programa)
                 paquete = []
                 for vial in viales:
-                    if not vial.deleted:
+                    if vial.deleted == False:
                         paquete.append({
                             "codigo" : vial.codigo
                         })
@@ -427,7 +427,7 @@ class VialView(View):
                 # archivando instancia del vial
                 vial.deleted = True
                 vial.save()
-                
+
                 return JsonResponse({
                     'error': 0,
                     'msg': 'El vial se ha archivado con éxito'
