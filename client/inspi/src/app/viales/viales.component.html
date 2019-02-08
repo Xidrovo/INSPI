@@ -212,12 +212,17 @@
                                     "
                                     style="width: 33.3333%;"
                                 >
-                                    <option value="" disabled
-                                        >Elije una opción</option
-                                    >
+                                    <option value="" disabled>
+                                        Elije una opción
+                                    </option>
                                     <option
                                         *ngFor="let opcion of pregunta.detalle"
                                         [value]="opcion.value"
+                                        [selected]="
+                                            opcion.value ==
+                                            vial[seccionIndex][preguntaIndex]
+                                                .respuesta.value
+                                        "
                                         >{{ opcion.name }}</option
                                     >
                                 </select>

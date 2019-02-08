@@ -25,7 +25,9 @@ export class ApiService {
             .get(`${this.API_URL}programas/` + idCampania)
             .toPromise()
             .then(res => {
-                return res.programa;
+                let response: any;
+                response = res;
+                return response.programa;
             })
             .catch(err => console.log(err));
     }
@@ -104,7 +106,7 @@ export class ApiService {
 
     getVial(idVial) {
         return this.httpClient
-            .get(`${this.API_URL}viales/?codigo=` + idVial)
+            .get(`${this.API_URL}vial/respuesta/${idVial}`)
             .toPromise()
             .then(res => {
                 return res;
@@ -120,12 +122,9 @@ export class ApiService {
             .catch(err => console.log(err));
     }
 
-    // No implementada en el back
-    /*
-     */
     deleteVial(codigoVial): any {
         return this.httpClient
-            .delete(`${this.API_URL}viales/`, codigoVial)
+            .delete(`${this.API_URL}viales/${codigoVial}`)
             .toPromise()
             .then(res => console.log(res.toString()))
             .catch(err => console.log(err));

@@ -12,7 +12,7 @@ declare var $: any;
     styleUrls: ['./viales.component.css']
 })
 export class VialesComponent implements OnInit {
-    vialesArray: Object[];
+    vialesArray: any;
     vial: any;
     codigo: any;
     idPrograma;
@@ -68,25 +68,17 @@ export class VialesComponent implements OnInit {
         return await this.apiService.getCampania(idPrograma);
     }
     async obtenerPlantilla(idPlantilla) {
-        const plantilla = await this.apiService.getPlantilla(idPlantilla);
+        let plantilla: any;
+        plantilla = await this.apiService.getPlantilla(idPlantilla);
         return plantilla.plantilla;
     }
     async verPlantilla(index) {
-        console.log('index!', index);
+        console.log('D:', index);
         this.codigo = this.vialesArray[index].codigo;
         this.currentIndex = index;
-        const hasInfo = await this.getVial(this.codigo);
-        this.vial = this.fillInfo(this.plantilla);
-        // if (this.vialesArray[index].respuestas === undefined) {
-        //     if (hasInfo.respuesta[0] === undefined) {
-        //         this.vial = this.fillInfo(this.plantilla);
-        //         console.log(this.vial);
-        //     } else {
-        //         this.vial = hasInfo.respuesta;
-        //     }
-        // } else {
-        //     this.vial = this.vialesArray[index].respuestas;
-        // }
+        let hasInfo: any;
+        hasInfo = await this.getVial(this.codigo);
+        this.vial = this.fillInfo(this.plantilla, hasInfo.respuesta);
         $('#respuestaModal')
             .modal()
             .show();
@@ -94,16 +86,18 @@ export class VialesComponent implements OnInit {
     async getVial(vialCode) {
         return await this.apiService.getVial(vialCode);
     }
-    fillInfo(plantilla) {
-        const respuestas = plantilla.secciones.map(seccion => {
-            const respuesta = seccion.preguntas.map(pregunta => {
-                return this.setJSON(pregunta);
+    fillInfo(plantilla, res) {
+        let respTemp: any;
+        const respuestas = plantilla.secciones.map((seccion, indexS) => {
+            const respuesta = seccion.preguntas.map((pregunta, indexP) => {
+                respTemp = res[indexS].preguntas[indexP].respuesta;
+                return this.setJSON(pregunta, respTemp);
             });
             return respuesta;
         });
         return respuestas;
     }
-    setJSON = pregunta => {
+    setJSON = (pregunta, resp) => {
         let respuesta: any;
         switch (pregunta.tipo_data.id) {
             case 'seleccion_unica':
@@ -125,6 +119,9 @@ export class VialesComponent implements OnInit {
             default:
                 break;
         }
+        if (resp !== null) {
+            respuesta = resp;
+        }
         return {
             id: pregunta.id,
             tipo: pregunta.tipo_data.id,
@@ -142,11 +139,13 @@ export class VialesComponent implements OnInit {
     await this.apiService.setVial(vial);
   }
   */
-    async eliminarVial(vial: Object) {
+    async eliminarVial(vial: any) {
         await this.apiService.deleteVial(vial.codigo);
         const index = this.vialesArray.findIndex(x => {
             return x.codigo === vial.codigo;
         });
+        console.log('===', vial.codigo);
+        await this.apiService.deleteVial(vial.codigo);
         this.vialesArray.splice(index, 1);
     }
     async crearVial() {
@@ -156,6 +155,7 @@ export class VialesComponent implements OnInit {
         };
         this.vialesArray[this.currentIndex] = vial;
         await this.apiService.setVial(vial);
+        $('#respuestaModal').modal('hide');
     }
     parseToAnArray(array) {
         let newArray = [];
