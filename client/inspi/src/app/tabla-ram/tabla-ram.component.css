@@ -1,19 +1,24 @@
-.numberField {
+.cell-input {
     width: 100%;
     border: 0px;
 }
 
-.table {    
+.table {        
     text-align: center;
     margin-top: 1%;
     margin-bottom: 1%;
     font-size: .8rem;
 }
 
-.table thead th{
-    vertical-align: middle;    
+th{
+    font-weight: bold;
 }
 
-.table th, .table td {
+.table td, .table th {
     padding: 0.3rem;
+    vertical-align: middle !important;
+}
+
+.align-left {
+    text-align: left !important;
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-tabla-ram',
+  selector: 'app-tabla',
   templateUrl: './tabla-ram.component.html',
   styleUrls: ['./tabla-ram.component.css']
 })

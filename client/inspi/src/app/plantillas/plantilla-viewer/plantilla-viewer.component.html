@@ -10,7 +10,7 @@
             <div class="col-md-auto">
               <ng-container *ngIf="pregunta.tipo.id.includes('tabla'); then thenTemplate; else elseTemplate"></ng-container>
               <ng-template #thenTemplate>
-                <app-tabla-ram [detalle]=pregunta.tipo.detalle></app-tabla-ram>
+                <app-tabla [detalle]="pregunta.tipo.detalle"></app-tabla>
               </ng-template>
               <ng-template #elseTemplate>                                
                 <div *ngIf="pregunta.tipo.id == 'seleccion_multiple'">

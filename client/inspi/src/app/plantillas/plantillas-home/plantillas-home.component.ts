@@ -107,7 +107,7 @@ export class PlantillasHomeComponent implements OnInit {
         };
     }
 
-    private parsePregunta(data: object): Pregunta {
+    private parsePregunta(data: object): Pregunta {        
         return {
             id: data['id'],
             titulo: data['titulo'],

@@ -1,9 +1,27 @@
-<table class="table table-borderer">
-  <thead>
-    <tr>
-      <th *ngFor="let cabecera of detalle.COLUMNAS"></th>
-    </tr>
-  </thead>
+<table class="table table-bordered">
+  
+  <tr>
+    <th rowspan="2">{{ detalle.FILAS.cabecera }}</th>
+    <ng-container *ngFor="let parte of detalle.COLUMNAS" >
+      <th [attr.colspan]="parte.cant_columnas">{{ parte.cabecera }}</th>
+    </ng-container>
+  </tr>    
+  <tr>
+    <ng-container *ngFor="let parte of detalle.COLUMNAS">      
+      <ng-container *ngFor="let column of parte.campos">
+        <td><strong>{{ column }}</strong></td>
+      </ng-container>      
+    </ng-container>
+  </tr>
+  <tr *ngFor="let fila of detalle.FILAS.campos">
+    <td class="align-left">{{ fila }}</td> 
+    <ng-container *ngFor="let parte of detalle.COLUMNAS">      
+      <ng-container *ngFor="let column of parte.campos">
+        <td><input type="text" class="cell-input"></td>
+      </ng-container>      
+    </ng-container>     
+  </tr>
+  
 </table>
 
 <!--table class="table table-bordered">
