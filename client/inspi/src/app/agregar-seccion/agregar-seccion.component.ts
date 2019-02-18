@@ -8,6 +8,7 @@ import {
     EventEmitter
 } from '@angular/core';
 import { ApiService } from '../api.service';
+import { PlantillaEditorComponent } from '../plantillas/plantilla-editor/plantilla-editor.component';
 
 declare var $: any;
 @NgModule({
@@ -39,6 +40,12 @@ export class AgregarSeccionComponent implements OnInit {
     @Output()
     deleteClick: EventEmitter<String> = new EventEmitter<String>();
 
+    @Output()
+    subirSeccion: EventEmitter<String> = new EventEmitter<String>();
+
+    @Output()
+    bajarSeccion: EventEmitter<String> = new EventEmitter<String>();
+
     constructor(private apiService: ApiService) {}
     ngOnInit() {
         this.tipoDatos = this.apiService
@@ -59,6 +66,14 @@ export class AgregarSeccionComponent implements OnInit {
     }
     eliminar(event, index) {
         this.deleteClick.emit(index);
+    }
+
+    subirS(event, index) {
+        this.subirSeccion.emit(index);
+    }
+
+    bajarS(event, index) {
+        this.bajarSeccion.emit(index);
     }
 
     addInfo(titulo, pregunta) {
@@ -160,6 +175,36 @@ export class AgregarSeccionComponent implements OnInit {
         this.detalle = '';
         this.descripcion = '';
     }
+
+    
+
+    
+
+    subir(indice){
+        if (indice == 0){
+            console.log("desctivado");
+        } else {
+            let auxiliar = this.arrayPreguntas[indice - 1];
+            this.arrayPreguntas[indice - 1] = this.arrayPreguntas[indice];
+            this.arrayPreguntas[indice] = auxiliar;
+        }
+
+    }
+
+    bajar(indice){
+        if (indice == this.arrayPreguntas.length - 1 ){
+            console.log("desctivado");
+        } else {
+            let auxiliar = this.arrayPreguntas[indice + 1];
+            this.arrayPreguntas[indice + 1] = this.arrayPreguntas[indice];
+            this.arrayPreguntas[indice] = auxiliar;
+        }
+
+    }
+
+    
+
+
 
     validate() {
         if (this.tipo_data.id == 'seleccion_multiple') {

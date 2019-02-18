@@ -15,6 +15,7 @@ import { Globals } from '../../globals';
 
 declare var $: any;
 
+
 @Component({
     selector: 'app-plantilla-editor',
     templateUrl: './plantilla-editor.component.html',
@@ -82,6 +83,14 @@ export class PlantillaEditorComponent {
         componentRef.instance.deleteClick.subscribe(() => {
             this.eliminarAlgo(componentRef._component.index);
         });
+
+        componentRef.instance.subirSeccion.subscribe(() => {
+            this.subirS2(componentRef._component.index);
+        });
+
+        componentRef.instance.bajarSeccion.subscribe(() => {
+            this.bajarS2(componentRef._component.index);
+        });
         this.refsArray.push(componentRef);
         this.validate();
         this.title = '';
@@ -105,6 +114,16 @@ export class PlantillaEditorComponent {
         componentRef.instance.deleteClick.subscribe(() => {
             this.eliminarAlgo(componentRef._component.index);
         });
+
+        componentRef.instance.subirSeccion.subscribe(() => {
+            this.subirS2(componentRef._component.index);
+        });
+
+        componentRef.instance.bajarSeccion.subscribe(() => {
+            this.bajarS2(componentRef._component.index);
+        });
+
+
         this.refsArray.push(componentRef);
         this.validate();
         this.title = '';
@@ -135,6 +154,7 @@ export class PlantillaEditorComponent {
     }
     // realizar un post a la api para almacenar la plantilla
     async guardarPlantilla() {
+
         this.refsArray.forEach(x => {
             this.payload.push(x._component.getInfo());
         });
@@ -144,6 +164,8 @@ export class PlantillaEditorComponent {
             descripcion: this.descripcion,
             secciones: this.payload
         };
+
+        console.log(this.plantilla);
         if (this.editMode) {
             this.plantilla.id = this.globals.currentTemplate.plantilla.id;
             await this.apiService.setPlantilla(this.plantilla);
@@ -156,4 +178,39 @@ export class PlantillaEditorComponent {
         const someSection = this.refsArray.length > 0;
         this.canPost = !!this.titulo && !!this.descripcion && someSection;
     };
+
+
+    subirS2(indice){
+        if (indice == 0){
+            console.log("desctivado");
+        } else {
+
+            let auxiliar = this.refsArray[indice - 1];
+            this.refsArray[indice - 1] = this.refsArray[indice];
+            this.refsArray[indice] = auxiliar;
+            this.reCalculateIndex();
+            this.actualizar();
+        }
+
+    }
+
+    bajarS2(indice){
+        if (indice == this.refsArray.length - 1){
+            console.log("desctivado");
+        } else {
+          
+            let auxiliar = this.refsArray[indice + 1];
+            this.refsArray[indice + 1] = this.refsArray[indice];
+            this.refsArray[indice] = auxiliar;
+            this.reCalculateIndex();
+            this.actualizar();
+        }
+
+    }
+
+    actualizar(){
+        console.log("sirve")
+    }
+
+    
 }
