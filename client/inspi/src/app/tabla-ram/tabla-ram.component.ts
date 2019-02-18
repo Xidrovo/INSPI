@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-tabla-ram',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tabla-ram.component.css']
 })
 export class TablaRamComponent implements OnInit {
+
+  @Input() detalle;
 
   constructor() { }
 

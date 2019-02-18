@@ -519,11 +519,20 @@ para correr el cliente se ejecuta el comando
 ### Tabla Bacteriología
 
 		{
-			"COLUMNA" : {
-				"KIRBY BAUER" : ["CARGA", "MARCA", "LECTURA DEL DISCO (mm)", "INTERPRETACION"],
-				"MIC" : ["MARCA", "RESULTADO (ug/mL)", "INTERPRETACION"]
-			},
+			"COLUMNAS" : [
+				{
+					"cabecera": "KIRBY BAUER",
+					"cant_columnas": 4,
+					"campos": ["CARGA", "MARCA", "LECTURA DEL DISCO (mm)", "INTERPRETACION"]
+				},
+				{
+					"cabecera": "MIC",
+					"cant_columnas": 3,
+					"campos": ["MARCA", "RESULTADO (ug/mL)", "INTERPRETACION"]
+				}				 				 
+			],
 			"FILAS" : {
-				"NOMBRE DEL ANTIBIOTICO" : ["OXACILINA", "PENICILINA", "ERITROMICINA", "VANCOMICINA", "SULF. + TRIMETOPRIM", "CLORANFENICOL", "CEFTRIAXONA", "AMPICILINA", "RIFAMPICINA", "CIPROFLOXACINA", "OTROS", "LEVOFLOXACINA", "CLINDAMICINA"] 
+				"cabecera": "NOMBRE DEL ANTIBIOTICO",
+				"campos": ["OXACILINA", "PENICILINA", "ERITROMICINA", "VANCOMICINA", "SULF. + TRIMETOPRIM", "CLORANFENICOL", "CEFTRIAXONA", "AMPICILINA", "RIFAMPICINA", "CIPROFLOXACINA", "OTROS", "LEVOFLOXACINA", "CLINDAMICINA"] 
 			}
 		}
