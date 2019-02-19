@@ -1,5 +1,43 @@
 .seccion-box {
-	border: 2px solid gray;
-	padding: 2%;
-	margin: 2%;
+    border: 2px solid gray;
+    padding: 2%;
+    margin: 2%;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+.flex-row {
+    flex-direction: row;
+}
+.text-lg {
+    font-size: 1.5rem;
+}
+.up-down-actions button {
+    cursor: pointer;
+    margin: 0px;
+    margin-bottom: 0.25em;
+    margin-top: 0.25em;
+    background: transparent;
+    border: 0px;
+    color: #2779bd;
+}
+
+.up-down-actions button:hover {
+    color: #1c3d5a;
+}
+.mr-4 {
+    margin-right: 1em;
+}
+.mx-2 {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+.my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
 }

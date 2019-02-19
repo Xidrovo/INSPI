@@ -7,64 +7,68 @@
             <h4>Título de Sección: {{ title }}</h4>
             <h4>Numero de Sección: {{ index + 1 }}</h4>
         </div>
-        <div class="col-md-auto">
-        <button                    
+        <div class="flex">
+            <div
+                class="my-auto mr-4"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="Eliminar sección"
+            >
+                <swal
+                    #deleteSwal
+                    [options]="{
+                        confirmButtonText: 'Sí',
+                        cancelButtonText: 'No'
+                    }"
+                    [showCancelButton]="true"
+                    [focusCancel]="true"
+                    title="¿Está seguro que desea eliminar la sección?"
+                    text="Se eliminarán todas las preguntas que contenga la sección {{
+                        title
+                    }}"
+                    type="warning"
+                    (confirm)="eliminar($event, index)"
+                >
+                </swal>
+                <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="deleteSwal.show()"
+                >
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="flex flex-col up-down-actions">
+                <div class="col-md-auto">
+                    <button
                         type="button"
-                        class="btn btn-secondary"
-                        style="margin: 1%;"
                         (click)="subirS($event, index)"
                         data-toggle="tooltip"
                         data-placement="top"
                         title="Arriba"
                     >
-                        <i class="fa fa-angle-up" aria-hidden="true"></i>
-                        
+                        <i
+                            class="fa fa-angle-up text-lg"
+                            aria-hidden="true"
+                        ></i>
                     </button>
-        </div>
-        <div class="col-md-auto">
-
+                </div>
+                <div class="col-md-auto">
                     <button
                         type="button"
-                        class="btn btn-secondary"
-                        style="margin: 1%;"
                         (click)="bajarS($event, index)"
                         data-toggle="tooltip"
                         data-placement="top"
                         title="Abajo"
                     >
-                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        
+                        <i
+                            class="fa fa-angle-down text-lg"
+                            aria-hidden="true"
+                        ></i>
                     </button>
-
-        </div>
-        
-        <div
-            class="col-md-auto"
-            data-toggle="tooltip"
-            data-placement="left"
-            title="Eliminar sección"
-        >
-
-
-            <swal
-                #deleteSwal
-                [options]="{ confirmButtonText: 'Sí', cancelButtonText: 'No' }"
-                [showCancelButton]="true"
-                [focusCancel]="true"
-                title="¿Está seguro que desea eliminar la sección?"
-                text="Se eliminarán todas las preguntas que contenga la sección {{title}}"
-                type="warning"
-                (confirm)="eliminar($event, index)"
-            >
-            </swal>
-            <button
-                type="button"
-                class="close"
-                aria-label="Close"
-                (click)="deleteSwal.show()"
-            >
-                <i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -79,7 +83,9 @@
                     [attr.id]="'sel' + index"
                     (change)="onSelectChange()"
                 >
-                    <option value="-1" selected disabled hidden>--ESCOJA UN TIPO--</option>
+                    <option value="-1" selected disabled hidden
+                        >--ESCOJA UN TIPO--</option
+                    >
                     <option
                         *ngFor="let tipo of tipoDatos.tipos_de_dato"
                         [attr.value]="tipo.id"
@@ -98,14 +104,12 @@
             >
                 <div class="col">{{ pregunta.titulo }}</div>
                 <div class="col">{{ pregunta.tipo_data.nombre }}</div>
-                <div class="col">
+                <div class="flex flex-row">
                     <!-- No creo que editar sea necesario aquí. -->
-                    
-                    
                     <button
                         type="button"
-                        class="btn btn-success"
-                        style="margin: 1%;"
+                        class="btn btn-success my-auto"
+                        style="margin: 1%; height: 38px;"
                         (click)="editarPregunta(y)"
                         data-toggle="tooltip"
                         data-placement="top"
@@ -114,43 +118,41 @@
                         <i class="fa fa-edit" aria-hidden="true"></i>
                     </button>
 
-
                     <button
                         (click)="borrarPregunta(y)"
-                        class="btn btn-danger"
-                        style="margin: 1%;"
+                        class="btn btn-danger my-auto"
+                        style="margin: 1%; height: 38px;"
                         data-toggle="tooltip"
                         data-placement="top"
                         title="Eliminar pregunta"
                     >
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
+                    <div class="flex flex-col up-down-actions my-auto mx-2">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            style="margin: 1%;"
+                            (click)="subir(y)"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title="Arriba"
+                        >
+                            <i class="fa fa-angle-up" aria-hidden="true"></i>
+                        </button>
 
-                    <button                    
-                        type="button"
-                        class="btn btn-secondary"
-                        style="margin: 1%;"
-                        (click)="subir(y)"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="Arriba"
-                    >
-                        <i class="fa fa-angle-up" aria-hidden="true"></i>
-                        
-                    </button>
-
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        style="margin: 1%;"
-                        (click)="bajar(y)"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="Abajo"
-                    >
-                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        
-                    </button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            style="margin: 1%;"
+                            (click)="bajar(y)"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title="Abajo"
+                        >
+                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

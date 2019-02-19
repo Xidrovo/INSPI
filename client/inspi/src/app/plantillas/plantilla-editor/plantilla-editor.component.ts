@@ -15,7 +15,6 @@ import { Globals } from '../../globals';
 
 declare var $: any;
 
-
 @Component({
     selector: 'app-plantilla-editor',
     templateUrl: './plantilla-editor.component.html',
@@ -123,7 +122,6 @@ export class PlantillaEditorComponent {
             this.bajarS2(componentRef._component.index);
         });
 
-
         this.refsArray.push(componentRef);
         this.validate();
         this.title = '';
@@ -154,7 +152,6 @@ export class PlantillaEditorComponent {
     }
     // realizar un post a la api para almacenar la plantilla
     async guardarPlantilla() {
-
         this.refsArray.forEach(x => {
             this.payload.push(x._component.getInfo());
         });
@@ -179,38 +176,32 @@ export class PlantillaEditorComponent {
         this.canPost = !!this.titulo && !!this.descripcion && someSection;
     };
 
-
-    subirS2(indice){
-        if (indice == 0){
-            console.log("desctivado");
+    subirS2(indice) {
+        console.log('here!');
+        if (indice == 0) {
+            console.log('desctivado');
         } else {
-
             let auxiliar = this.refsArray[indice - 1];
             this.refsArray[indice - 1] = this.refsArray[indice];
             this.refsArray[indice] = auxiliar;
             this.reCalculateIndex();
             this.actualizar();
         }
-
     }
 
-    bajarS2(indice){
-        if (indice == this.refsArray.length - 1){
-            console.log("desctivado");
+    bajarS2(indice) {
+        if (indice == this.refsArray.length - 1) {
+            console.log('desctivado');
         } else {
-          
             let auxiliar = this.refsArray[indice + 1];
             this.refsArray[indice + 1] = this.refsArray[indice];
             this.refsArray[indice] = auxiliar;
             this.reCalculateIndex();
             this.actualizar();
         }
-
     }
 
-    actualizar(){
-        console.log("sirve")
+    actualizar() {
+        console.log('sirve');
     }
-
-    
 }
