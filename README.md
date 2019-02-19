@@ -516,23 +516,33 @@ para correr el cliente se ejecuta el comando
     }
 
 ## Estructuras para las tablas
-### Tabla Bacteriología
+### Tabla RAM
+	{
+	    "COLUMNA" : {
+	        "DIFUSIÓN DE DISCO- KIRBY BAUER" : ["Carga del disco", "Diámetro del Halo(mm)", "Interpretación"],
+	        "MICRODILUCIÓN EN CALDO" : ["CIM (μg/ml) ", "Interpretación"]
+	    },
+	    "FILA" : {
+	        "NOMBRE DEL ANTIBIOTICO" : ["Meropenem", "Ceftazidima", "Aztreonam", "Ciprofloxacina", "Colistín", "*"]
+	    }
+	}
 
-		{
-			"COLUMNAS" : [
-				{
-					"cabecera": "KIRBY BAUER",
-					"cant_columnas": 4,
-					"campos": ["CARGA", "MARCA", "LECTURA DEL DISCO (mm)", "INTERPRETACION"]
-				},
-				{
-					"cabecera": "MIC",
-					"cant_columnas": 3,
-					"campos": ["MARCA", "RESULTADO (ug/mL)", "INTERPRETACION"]
-				}				 				 
-			],
-			"FILAS" : {
-				"cabecera": "NOMBRE DEL ANTIBIOTICO",
-				"campos": ["OXACILINA", "PENICILINA", "ERITROMICINA", "VANCOMICINA", "SULF. + TRIMETOPRIM", "CLORANFENICOL", "CEFTRIAXONA", "AMPICILINA", "RIFAMPICINA", "CIPROFLOXACINA", "OTROS", "LEVOFLOXACINA", "CLINDAMICINA"] 
-			}
+### Tabla Bacteriología
+	{
+		"COLUMNAS" : [
+			{
+				"cabecera": "KIRBY BAUER",
+				"cant_columnas": 4,
+				"campos": ["CARGA", "MARCA", "LECTURA DEL DISCO (mm)", "INTERPRETACION"]
+			},
+			{
+				"cabecera": "MIC",
+				"cant_columnas": 3,
+				"campos": ["MARCA", "RESULTADO (ug/mL)", "INTERPRETACION"]
+			}				 				 
+		],
+		"FILAS" : {
+			"cabecera": "NOMBRE DEL ANTIBIOTICO",
+			"campos": ["OXACILINA", "PENICILINA", "ERITROMICINA", "VANCOMICINA", "SULF. + TRIMETOPRIM", "CLORANFENICOL", "CEFTRIAXONA", "AMPICILINA", "RIFAMPICINA", "CIPROFLOXACINA", "OTROS", "LEVOFLOXACINA", "CLINDAMICINA"] 
 		}
+	}
