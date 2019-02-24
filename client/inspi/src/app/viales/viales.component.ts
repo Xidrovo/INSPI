@@ -171,8 +171,14 @@ export class VialesComponent implements OnInit {
             codigo: this.codigo,
             respuestas: {}
         };
-        await this.apiService.addVial(vial, this.idPrograma);
-        this.vialesArray.push(vial);
+        var respuesta = await this.apiService.addVial(vial, this.idPrograma);
+        console.log(respuesta);
+        if (respuesta['error']==0){
+            location.reload();
+        } else {
+            alert("El codigo del vial ya existe");
+        }
+        
     }
     handleUnica(target, seccionIndex, preguntaIndex) {
         this.vial[seccionIndex][preguntaIndex].respuesta = {

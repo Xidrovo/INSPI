@@ -112,13 +112,8 @@ export class CampaniaComponent implements OnInit {
         if (result.error == 0){
             newProgram['id'] = result.programa_id;
         }
-
-        // HAY QUE HACER QUE RECARGUE LA PAGINA PARA QUE APAREZCA EL PROGRAMA CREADO
-        //this.campaniasArray.push(newProgram);
-        $('#tblProgramas').DataTable().row.add([
-            newProgram.nombre, "Del "+formatDate(newProgram.fecha_inicio, 'MMM d, yyyy', 'en-US')+" al "+formatDate(newProgram.fecha_fin, 'MMM d, yyyy', 'en-US'), "botones :v"
-        ]).draw();
-            
+        
+        location.reload();
         
     }
 
