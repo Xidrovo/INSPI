@@ -518,11 +518,11 @@ para correr el cliente se ejecuta el comando
 ## Estructuras para las tablas
 ### Tabla RAM
 	{
-	    "COLUMNA" : {
+	    "COLUMNAS" : {
 	        "DIFUSIÓN DE DISCO- KIRBY BAUER" : ["Carga del disco", "Diámetro del Halo(mm)", "Interpretación"],
 	        "MICRODILUCIÓN EN CALDO" : ["CIM (μg/ml) ", "Interpretación"]
 	    },
-	    "FILA" : {
+	    "FILAS" : {
 	        "NOMBRE DEL ANTIBIOTICO" : ["Meropenem", "Ceftazidima", "Aztreonam", "Ciprofloxacina", "Colistín", "*"]
 	    }
 	}
