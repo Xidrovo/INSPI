@@ -115,12 +115,14 @@ class Seccion(models.Model):
 class Plantilla(models.Model):
 	titulo = models.CharField(max_length=200)
 	descripcion = models.TextField(default=None, blank=True, null=True)
+	estado = models.CharField(max_length=1)
 	deleted = models.BooleanField(default=False)
 
 	def crear(self, titulo, descripcion):
 		p = Plantilla()
 		p.titulo = titulo
 		p.descripcion = descripcion
+		p.estado = 'i'
 		p.save()
 		return p
 
