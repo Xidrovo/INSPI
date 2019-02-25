@@ -120,7 +120,7 @@
                             aria-describedby="basic-addon1"
                             required
                             name="codigo"
-                            (keydown.enter)="crearVial()"
+                            (keydown.enter)="pushVial()"
                         />
                     </div>
                     <div class="modal-footer">
@@ -185,11 +185,20 @@
                                     {{ pregunta.titulo }}
                                 </p>
                                 <input
-                                    *ngIf="
-                                        pregunta.tipo_data.id ==
-                                            'valor_exacto' ||
-                                        pregunta.tipo_data.id == 'texto'
+                                    *ngIf="pregunta.tipo_data.id == 'valor_exacto'"
+                                    class="form-control"
+                                    type="number"
+                                    step="0.01"
+                                    style="width: 33.3333%; height: 35px; margin-top: auto; margin-bottom: auto;"
+                                    [(ngModel)]="
+                                        vial[seccionIndex][preguntaIndex]
+                                            .respuesta
                                     "
+                                />
+                                <input
+                                    *ngIf="pregunta.tipo_data.id == 'texto'"
+                                    class="form-control"
+                                    type="text"
                                     style="width: 33.3333%; height: 35px; margin-top: auto; margin-bottom: auto;"
                                     [(ngModel)]="
                                         vial[seccionIndex][preguntaIndex]
@@ -252,8 +261,10 @@
                                 >
                                     <input
                                         placeholder="Valor mínimo"
-                                        class="relative"
+                                        class="relative form-control"
                                         style="width: 45%;"
+                                        type="number"
+                                        step="0.01"
                                         [(ngModel)]="
                                             vial[seccionIndex][preguntaIndex]
                                                 .respuesta.min
@@ -261,14 +272,22 @@
                                     />
                                     <input
                                         placeholder="Valor máximo"
-                                        class="relative"
+                                        class="relative form-control"
                                         style="width: 45%;"
+                                        type="number"
+                                        step="0.01"
+                                        min="{{ vial[seccionIndex][preguntaIndex]
+                                            .respuesta.min }}"
                                         [(ngModel)]="
                                             vial[seccionIndex][preguntaIndex]
                                                 .respuesta.max
                                         "
                                     />
                                 </div>
+                                <ng-container *ngIf="pregunta.tipo_data.id.includes('tabla'); then thenTemplate"></ng-container>
+                                <ng-template #thenTemplate>
+                                    <app-tabla [detalle]="pregunta.tipo_data.detalle" [respuesta]="vial[seccionIndex][preguntaIndex].respuesta"></app-tabla>
+                                </ng-template>
                             </div>
                         </div>
                     </div>

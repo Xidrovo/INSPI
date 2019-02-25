@@ -99,35 +99,41 @@ export class VialesComponent implements OnInit {
     }
     setJSON = (pregunta, resp) => {
         let respuesta: any;
-        switch (pregunta.tipo_data.id) {
-            case 'seleccion_unica':
-                //value, name
-                respuesta = { value: '', name: '' };
-                break;
-            case 'seleccion_multiple':
-                //[value, name]
-                respuesta = [{ value: '', name: '' }];
-                break;
-            case 'texto':
-                //value
-                respuesta = '';
-                break;
-            case 'rango':
-                //min, max
-                respuesta = { min: 0, max: 0 };
-                break;
-            default:
-                break;
-        }
         if (resp !== null) {
             respuesta = resp;
-        }
+        } else {
+            switch (pregunta.tipo_data.id) {
+                case 'seleccion_unica':
+                    //value, name
+                    respuesta = { value: '', name: '' };
+                    break;
+                case 'seleccion_multiple':
+                    //[value, name]
+                    respuesta = [{ value: '', name: '' }];
+                    break;
+                case 'texto':
+                    //value
+                    respuesta = '';
+                    break;
+                case 'rango':
+                    //min, max
+                    respuesta = { min: 0, max: 0 };
+                    break;
+                default:
+                    break;
+            }
+            if (pregunta.tipo_data.id.indexOf('tabla') != -1){
+                respuesta = {};
+            }
+        }        
+        
         return {
             id: pregunta.id,
             tipo: pregunta.tipo_data.id,
             respuesta: respuesta
         };
     };
+    
     /*
   
   async editarVial(id) {      
@@ -172,7 +178,7 @@ export class VialesComponent implements OnInit {
             respuestas: {}
         };
         var respuesta = await this.apiService.addVial(vial, this.idPrograma);
-        console.log(respuesta);
+        
         if (respuesta['error']==0){
             location.reload();
         } else {

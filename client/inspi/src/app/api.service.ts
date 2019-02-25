@@ -122,7 +122,7 @@ export class ApiService {
         return this.httpClient
             .post(`${this.API_URL}viales/` + idPrograma, payload)
             .toPromise()
-            .then(res => console.log(res.toString()))
+            .then(res => {return res;})
             .catch(err => console.log(err));
     }
 

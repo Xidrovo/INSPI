@@ -9,7 +9,7 @@
   <tr>
     <ng-container *ngFor="let parte of detalle.COLUMNAS">      
       <ng-container *ngFor="let column of parte.campos">
-        <td><strong>{{ column }}</strong></td>
+        <td><strong>{{ column.titulo }}</strong></td>
       </ng-container>      
     </ng-container>
   </tr>
@@ -17,56 +17,9 @@
     <td class="align-left">{{ fila }}</td> 
     <ng-container *ngFor="let parte of detalle.COLUMNAS">      
       <ng-container *ngFor="let column of parte.campos">
-        <td><input type="text" class="cell-input"></td>
+        <td><input [attr.type]="column.tipo_dato" step="0.01" class="cell-input" [(ngModel)]="respuesta[fila][parte.cabecera][column.titulo]"></td>
       </ng-container>      
     </ng-container>     
   </tr>
   
 </table>
-
-<!--table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Antibiótico</th>
-      <th scope="col">Carga del disco</th>
-      <th scope="col">Tipo y Marca de discos</th>
-      <th scope="col">Diámetro del halo (mm)</th>
-      <th scope="col">CIM(ug/ml)/Método</th>
-      <th scope="col">Interpretación</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row"><input type="text" name="antib1" id="id1" style="border:0px"></th>
-      <td><input type="number" name="carga1" class="numberField"></td>
-      <td><input type="text" name="marca1" style="border:0px; max-width:90px"></td>
-      <td><input type="number" name="diam1" class="numberField"></td>
-      <td><input type="number" name="cim1" class="numberField"></td>
-      <td><input type="text" name="inte1" style="border:0px"></td>
-    </tr>
-    <tr>
-      <th scope="row"><input type="text" name="antib2" id="id2" style="border:0px"></th>
-      <td><input type="number" name="carga2" class="numberField"></td>
-      <td><input type="text" name="marca2" style="border:0px; max-width:90px"></td>
-      <td><input type="number" name="diam2" class="numberField"></td>
-      <td><input type="number" name="cim2" class="numberField"></td>
-      <td><input type="text" name="inte2" style="border:0px"></td>
-    </tr>
-    <tr>
-      <th scope="row"><input type="text" name="antib3" id="id3" style="border:0px"></th>
-      <td><input type="number" name="carga3" class="numberField"></td>
-      <td><input type="text" name="marca3" style="border:0px; max-width:90px"></td>
-      <td><input type="number" name="diam3" class="numberField"></td>
-      <td><input type="number" name="cim3" class="numberField"></td>
-      <td><input type="text" name="inte3" style="border:0px"></td>
-    </tr>
-    <tr>
-      <th scope="row"><input type="text" name="antib4" id="id4" style="border:0px"></th>
-      <td><input type="number" name="carga4" class="numberField"></td>
-      <td><input type="text" name="marca4" style="border:0px; max-width:90px"></td>
-      <td><input type="number" name="diam4" class="numberField"></td>
-      <td><input type="number" name="cim4" class="numberField"></td>
-      <td><input type="text" name="inte4" style="border:0px"></td>
-    </tr>
-  </tbody>
-</table-->

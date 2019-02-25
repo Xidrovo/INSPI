@@ -10,6 +10,7 @@ declare var $: any;
 export class PlantillaViewerComponent implements OnInit {
 
   @Input() plantilla;    
+  respuesta = null;
 
   constructor() { }
 
