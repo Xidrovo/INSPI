@@ -105,14 +105,26 @@ class PlantillaView(View):
                 # transformamos el string a un diccionario
                 plantillaJSON = json.loads(plantilla_str)
 
-                # traemos la plantilla que se desea editar y la actualizamos
-                plantilla_obj = Plantilla.objects.get(pk=plantilla_id)
-                plantilla_obj.titulo = plantillaJSON['titulo']
-                plantilla_obj.descripcion = plantillaJSON['descripcion']
-                plantilla_obj.save()
+                # extraemos los datos
+                titulo_plantilla = plantillaJSON['titulo']
+                descripcion_plantilla = plantillaJSON['descripcion']
+                secciones = plantillaJSON['secciones']
 
-                # borramos todas las secciones existentes (y sus preguntas)
-                Seccion.objects.filter(plantilla=plantilla_id).delete()
+                # verificamos el estado de la plantilla
+                # si su estado es Activo ('a') entonces se debe dubplicar la plantilla, es decir, crear una plantilla nueva
+                # con los datos enviados y con estado Inicial ('i')
+                if plantilla_obj.estado is 'a':
+                    # creamos la nueva plantilla
+                    plantilla_obj = Plantilla().crear(titulo_plantilla, descripcion_plantilla)
+                else:
+                    # si su estado es Inicial ('i') entonces se puede actualizar la plantilla
+                    plantilla_obj = Plantilla.objects.get(pk=plantilla_id)
+                    plantilla_obj.titulo = titulo_plantilla
+                    plantilla_obj.descripcion = descripcion_plantilla
+                    plantilla_obj.save()
+
+                    # borramos todas las secciones existentes (y sus preguntas)
+                    Seccion.objects.filter(plantilla=plantilla_id).delete()
 
                 # extraemos los datos para las secciones
                 secciones = plantillaJSON['secciones']
@@ -141,6 +153,7 @@ class PlantillaView(View):
 
                         # creamos la pregunta y la asociamos a la sección
                         pregunta_obj = Pregunta().crear(titulo_pregunta, descripcion, requerido, detalle, seccion_obj, tipo_de_dato)
+
                 return JsonResponse({'error': 0})
             except Exception as e:
                 return JsonResponse({
@@ -318,6 +331,10 @@ class VialView(View):
                 # creamos el nuevo vial
                 vial_obj = Vial().crear(codigo, respuestas, programa_obj)
 
+                # cambiamos el estado de la plantilla asignada al programa
+                programa_obj.plantilla.estado = 'a'
+                programa_obj.plantilla.save()
+
                 return JsonResponse({
                     'error': 0,
                     'msg' : 'Vial creado con exito'
@@ -423,6 +440,12 @@ class VialView(View):
             vial = Vial.objects.get(codigo=codigo)
             vial.deleted = True
             vial.save()
+
+            # si el programa ya no tiene viales, entonces su plantilla debe cambiar a estado Inicial ('i')
+            if Vial.objects.filter(programa=programa_id).count() is 0:
+                programa = Programa.objects.get(pk=programa_id)
+                programa.plantilla.estado = 'i'
+                programa.plantilla.estado.save()
 
             return JsonResponse({
                 'error': 0,
