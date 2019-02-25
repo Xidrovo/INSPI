@@ -1,4 +1,10 @@
-import { ComponentFactoryResolver, Component, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import {
+    ComponentFactoryResolver,
+    Component,
+    OnChanges,
+    SimpleChanges,
+    OnInit
+} from '@angular/core';
 import { ApiService } from '../api.service';
 import { Subject } from 'rxjs';
 import { Globals } from '../globals';
@@ -7,29 +13,32 @@ import { Router } from '@angular/router';
 import { Plantilla } from '../plantillas/plantilla.model';
 import { formatDate } from '@angular/common';
 
-
 declare var $: any;
 
 @Component({
     selector: 'app-campania',
     templateUrl: './campania.component.html',
     styleUrls: ['./campania.component.css']
-
 })
-
-
 export class CampaniaComponent implements OnInit {
-    programaSelected: Campania = {id: -1, nombre: "",plantilla_id: -1,plantilla_nombre: null,
-        fecha_inicio: null,fecha_fin: null,fecha_envio_paquete: null,fecha_envio_resultados: null};
+    programaSelected: Campania = {
+        id: -1,
+        nombre: '',
+        plantilla_id: -1,
+        plantilla_nombre: null,
+        fecha_inicio: null,
+        fecha_fin: null,
+        fecha_envio_paquete: null,
+        fecha_envio_resultados: null
+    };
     campaniasArray: Campania[];
     dtOptions: DataTables.Settings = {};
     dtTrigger: Subject<any> = new Subject();
     plantillasArray: Plantilla[];
 
-    
     private campania: any;
     private nombre: string = '';
-    private plantilla_id: number = -1;    
+    private plantilla_id: number = -1;
     private fecha_inicio: Date = null;
     private fecha_fin: Date = null;
     private fecha_envio_paquete: Date = null;
@@ -42,7 +51,6 @@ export class CampaniaComponent implements OnInit {
         private globals: Globals,
         private _router: Router
     ) {}
-
 
     ngOnInit() {
         this.dtOptions = {
@@ -57,7 +65,6 @@ export class CampaniaComponent implements OnInit {
         };
         this.obtenerPlantillas();
         this.obtenerCampanias();
-        
     }
 
     obtenerCampanias() {
@@ -71,7 +78,7 @@ export class CampaniaComponent implements OnInit {
                       )
                     : [
                           {
-                              nombre: "Error",
+                              nombre: 'Error',
                               id: -1,
                               plantilla_id: -1,
                               plantilla_nombre: null,
@@ -99,7 +106,7 @@ export class CampaniaComponent implements OnInit {
     }
 
     async guardarCampania() {
-        var newProgram:any = {
+        var newProgram: any = {
             plantilla_id: this.plantilla_id,
             nombre: this.nombre,
             fecha_inicio: this.fecha_inicio,
@@ -109,12 +116,11 @@ export class CampaniaComponent implements OnInit {
         };
 
         var result = await this.apiService.addCampania(newProgram);
-        if (result.error == 0){
+        if (result.error == 0) {
             newProgram['id'] = result.programa_id;
         }
-        
+
         location.reload();
-        
     }
 
     async eliminarCampania(campania: Campania) {
@@ -125,15 +131,18 @@ export class CampaniaComponent implements OnInit {
         this.campaniasArray.splice(index, 1);
     }
 
-
     verPrograma(programa) {
         this.programaSelected = programa;
-        $('#vistaprevia').modal().show();
+        $('#vistaprevia')
+            .modal()
+            .show();
     }
 
     editarPrograma(programa) {
         this.programaSelected = programa;
-        $('#modaleditar').modal().show();
+        $('#modaleditar')
+            .modal()
+            .show();
     }
 
     /*
@@ -153,7 +162,6 @@ export class CampaniaComponent implements OnInit {
     */
 
     async setPrograma(programa) {
-                
         const editCampania = {
             fecha_envio_paquete: programa.fecha_envio_paquete,
             fecha_envio_resultados: programa.fecha_envio_resultados,
@@ -164,7 +172,7 @@ export class CampaniaComponent implements OnInit {
             plantilla_id: programa.plantilla_id,
             plantilla_nombre: programa.plantilla_nombre
         };
-                
+
         await this.apiService.setCampania(editCampania);
         //this.globals.currentTemplate = this.campania;
         //$('#idE' + campania.id).modal().hide();
@@ -192,12 +200,17 @@ export class CampaniaComponent implements OnInit {
         };
     }
 
-    verViales(programa){                
-        this._router.navigate(['/programas/'+programa['id']+'/viales']);
+    verViales(programa) {
+        this._router.navigate(['/programas/' + programa['id'] + '/viales']);
     }
 
     isInvalid() {
-        if (this.nombre == "" || this.nombre.length < 5 || this.nombre.length > 100 || this.plantilla_id == null ) {
+        if (
+            this.nombre == '' ||
+            this.nombre.length < 5 ||
+            this.nombre.length > 100 ||
+            this.plantilla_id == null
+        ) {
             return true;
         } else {
             return false;
@@ -208,7 +221,6 @@ export class CampaniaComponent implements OnInit {
         if (this.fecha_inicio) {
             return false;
         } else {
-            
             return true;
         }
     }
@@ -220,10 +232,4 @@ export class CampaniaComponent implements OnInit {
             return false;
         }
     }
-
-  
-
-
-
-    
 }

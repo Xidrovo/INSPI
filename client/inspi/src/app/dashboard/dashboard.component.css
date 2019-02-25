@@ -1,0 +1,27 @@
+.mt-2 {
+    margin-top: 0.75em;
+}
+.mt-4 {
+    margin-top: 1.25em;
+}
+.mb-4 {
+    margin-bottom: 1.25em;
+}
+.text-grey {
+    color: #8795a1;
+}
+
+.text-grey-dark {
+    color: #606f7b;
+}
+
+.text-lg {
+    font-size: 1.5rem;
+}
+
+.parrafo a,
+.parrafo b {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}

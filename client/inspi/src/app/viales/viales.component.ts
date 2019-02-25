@@ -73,7 +73,6 @@ export class VialesComponent implements OnInit {
         return plantilla.plantilla;
     }
     async verPlantilla(index) {
-        console.log('D:', index);
         this.codigo = this.vialesArray[index].codigo;
         this.currentIndex = index;
         let hasInfo: any;
@@ -122,18 +121,18 @@ export class VialesComponent implements OnInit {
                 default:
                     break;
             }
-            if (pregunta.tipo_data.id.indexOf('tabla') != -1){
+            if (pregunta.tipo_data.id.indexOf('tabla') != -1) {
                 respuesta = {};
             }
-        }        
-        
+        }
+
         return {
             id: pregunta.id,
             tipo: pregunta.tipo_data.id,
             respuesta: respuesta
         };
     };
-    
+
     /*
   
   async editarVial(id) {      
@@ -177,14 +176,17 @@ export class VialesComponent implements OnInit {
             codigo: this.codigo,
             respuestas: {}
         };
+        if (vial.codigo === undefined || vial.codigo === '') {
+            console.log("can't create an empty Vial :)");
+            return;
+        }
         var respuesta = await this.apiService.addVial(vial, this.idPrograma);
-        
-        if (respuesta['error']==0){
+
+        if (respuesta['error'] == 0) {
             location.reload();
         } else {
-            alert("El codigo del vial ya existe");
+            alert('El codigo del vial ya existe');
         }
-        
     }
     handleUnica(target, seccionIndex, preguntaIndex) {
         this.vial[seccionIndex][preguntaIndex].respuesta = {
