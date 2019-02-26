@@ -146,11 +146,16 @@ export class VialesComponent implements OnInit {
   */
 
     async eliminarVial(vial: any) {
-        await this.apiService.deleteVial(this.idPrograma, vial.codigo);
-        const index = this.vialesArray.findIndex(x => {
-            return x.codigo === vial.codigo;
-        });
-        this.vialesArray.splice(index, 1);
+        let respuesta = await this.apiService.deleteVial(this.idPrograma, vial.codigo);
+        if (respuesta['error'] == 0){
+            const index = this.vialesArray.findIndex(x => {
+                return x.codigo === vial.codigo;
+            });
+            this.vialesArray.splice(index, 1);
+        } else {
+            alert('Mensaje: '+ respuesta['msg']);
+        }
+        
     }
     async crearVial() {
         var vial = {

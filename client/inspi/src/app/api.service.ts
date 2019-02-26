@@ -58,7 +58,7 @@ export class ApiService {
         return this.httpClient
             .delete(`${this.API_URL}programas/` + idCampania)
             .toPromise()
-            .then(res => console.log(res.toString()))
+            .then(res => { return res; })
             .catch(err => console.log(err));
     }
 
@@ -100,7 +100,7 @@ export class ApiService {
         return this.httpClient
             .delete(`${this.API_URL}plantillas/` + idPlantilla)
             .toPromise()
-            .then(res => console.log(res.toString()))
+            .then(res => { return res; })
             .catch(err => console.log(err));
     }
 
@@ -139,7 +139,7 @@ export class ApiService {
         return this.httpClient
             .delete(`${this.API_URL}viales/${programaId}`, httpOptions)
             .toPromise()
-            .then(res => console.log(res))
+            .then(res => { return res; })
             .catch(err => console.log(err));
     }
     setVial(payload): any {

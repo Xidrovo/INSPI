@@ -85,7 +85,7 @@ export class AgregarSeccionComponent implements OnInit {
             descripcion: this.descripcion
             //dato: this.dato
         };
-        console.log('===detalle', info.detalle);
+        
         if (this.onEdit) {
             this.arrayPreguntas[this.editIndex] = info;
             this.onEdit = false;
@@ -103,11 +103,12 @@ export class AgregarSeccionComponent implements OnInit {
             return detalle;
         }
         let detail = Array();
-        if (detalle !== null && detalle !== undefined) {
-            detalle = detalle.split('\n');
+        if (detalle !== null && detalle !== undefined) {   
+            detalle = detalle.split('\n');         
             detalle.forEach((element, i) => {
-                console.log('===detalle, splited', element, i);
-                detail.push({ value: i, name: element });
+                if (element){
+                    detail.push({ value: i, name: element });
+                }                
             });
             return detail;
         }
@@ -143,7 +144,7 @@ export class AgregarSeccionComponent implements OnInit {
     }
 
     parseDetalle(detalle: any): string {
-        console.log('Detalle: ', detalle);
+        
         var ndetalle = '';
         if (
             this.tipo_data.id == 'seleccion_unica ' ||
@@ -154,12 +155,12 @@ export class AgregarSeccionComponent implements OnInit {
                 ndetalle = ndetalle.concat(
                     element['name'].concat(i < size - 1 ? '\n' : '')
                 );
-                console.log('Ndetale name: ', ndetalle);
+                
             });
         } else {
             ndetalle = '' + detalle;
         }
-        console.log('Detalle resul: ', ndetalle);
+        
         return ndetalle;
     }
 

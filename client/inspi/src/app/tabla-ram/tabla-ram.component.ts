@@ -13,6 +13,9 @@ export class TablaRamComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (this.respuesta==null){
+      this.respuesta = {};
+    }
     if (Object.keys(this.respuesta).length==0){      
       this.parseRespuestasTabla();
     }

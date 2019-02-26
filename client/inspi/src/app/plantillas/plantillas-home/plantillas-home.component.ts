@@ -120,11 +120,16 @@ export class PlantillasHomeComponent implements OnInit {
 
     // Making it async, so we can show if there's a new error or not.
     async eliminarPlantilla(plantilla: Plantilla) {
-        await this.apiService.deletePlantilla(plantilla.id);
-        const index = this.plantillasArray.findIndex(x => {
-            return x.id === plantilla.id;
-        });
-        this.plantillasArray.splice(index, 1);
+        let respuesta = await this.apiService.deletePlantilla(plantilla.id);
+        if (respuesta['error'] == 0){
+            const index = this.plantillasArray.findIndex(x => {
+                return x.id === plantilla.id;
+            });
+            this.plantillasArray.splice(index, 1);
+        } else{
+            alert('Mensaje: '+respuesta['msg']);
+        }
+        
     }
 
     async editarPlantilla(id) {

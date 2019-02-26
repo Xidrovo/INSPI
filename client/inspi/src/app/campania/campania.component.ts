@@ -124,11 +124,16 @@ export class CampaniaComponent implements OnInit {
     }
 
     async eliminarCampania(campania: Campania) {
-        await this.apiService.deleteCampania(campania.id);
-        const index = this.campaniasArray.findIndex(x => {
-            return x.id === campania.id;
-        });
-        this.campaniasArray.splice(index, 1);
+        let respuesta = await this.apiService.deleteCampania(campania.id);
+        if (respuesta['error'] == 0){
+            const index = this.campaniasArray.findIndex(x => {
+                return x.id === campania.id;
+            });
+            this.campaniasArray.splice(index, 1);
+        } else {
+            alert('Mensaje: '+ respuesta['msg']);
+        }
+        
     }
 
     verPrograma(programa) {
