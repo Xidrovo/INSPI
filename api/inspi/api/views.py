@@ -99,6 +99,9 @@ class PlantillaView(View):
     def put(self, request, plantilla_id):
         if Plantilla.objects.filter(pk=plantilla_id, deleted__exact=False).count() > 0:
             try:
+                # buscamos plantilla
+                plantilla_obj = Plantilla.objects.get(pk=plantilla_id)
+
                 # extraer el JSON como un string
                 plantilla_str = request.body.decode('utf-8')
 
