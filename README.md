@@ -537,12 +537,10 @@ para correr el cliente se ejecuta el comando
 				]
 			}
 		],
-		"FILAS" : [
-			{
-				"cabecera" : "NOMBRE DEL ANTIBIOTICO",
-				"campos" : ["Meropenem", "Ceftazidima", "Aztreonam", "Ciprofloxacina", "Colistín", "*"]
-			}
-		]
+		"FILAS" : {
+			"cabecera" : "NOMBRE DEL ANTIBIOTICO",
+			"campos" : ["Meropenem", "Ceftazidima", "Aztreonam", "Ciprofloxacina", "Colistín", "*"]
+		}
 	}
 
 ### Tabla Bacteriología
