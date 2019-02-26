@@ -518,13 +518,31 @@ para correr el cliente se ejecuta el comando
 ## Estructuras para las tablas
 ### Tabla RAM
 	{
-	    "COLUMNAS" : {
-	        "DIFUSIÓN DE DISCO- KIRBY BAUER" : ["Carga del disco", "Diámetro del Halo(mm)", "Interpretación"],
-	        "MICRODILUCIÓN EN CALDO" : ["CIM (μg/ml) ", "Interpretación"]
-	    },
-	    "FILAS" : {
-	        "NOMBRE DEL ANTIBIOTICO" : ["Meropenem", "Ceftazidima", "Aztreonam", "Ciprofloxacina", "Colistín", "*"]
-	    }
+		"COLUMNAS" : [
+			{
+				"cabecera" : "DIFUSIÓN DE DISCO- KIRBY BAUER",
+				"cant_columnas" : 3,
+				"campos" : [
+					{"titulo" : "Carga del disco", "tipo_dato" : "number"},
+					{"titulo" : "Diámetro del Halo(mm)", "tipo_dato" : "number"},
+					{"titulo" : "Interpretación", "tipo_dato" : "text"}
+				]
+			},
+			{
+				"cabecera" : "MICRODILUCIÓN EN CALDO",
+				"cant_columnas" : 2,
+				"campos" : [
+					{"titulo" : "CIM (μg/ml)", "tipo_dato" : "number"},
+					{"titulo" : "Interpretación", "tipo_dato" : "text"}
+				]
+			}
+		],
+		"FILAS" : [
+			{
+				"cabecera" : "NOMBRE DEL ANTIBIOTICO",
+				"campos" : ["Meropenem", "Ceftazidima", "Aztreonam", "Ciprofloxacina", "Colistín", "*"]
+			}
+		]
 	}
 
 ### Tabla Bacteriología
