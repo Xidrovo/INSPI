@@ -45,6 +45,8 @@ export class CampaniaComponent implements OnInit {
     private fecha_envio_resultados: Date = null;
 
     public today: number = Date.now();
+    vialesArray: any;
+    cantidadViales: number = -1;
 
     constructor(
         private apiService: ApiService,
@@ -209,12 +211,49 @@ export class CampaniaComponent implements OnInit {
         this._router.navigate(['/programas/' + programa['id'] + '/viales']);
     }
 
+    async vialesCont(idPrograma) {
+        await this.apiService
+            .getViales(idPrograma)
+            .subscribe((data: object) => {
+                this.vialesArray =
+                    data['error'] == 0
+                        ? data['viales']
+                        : [
+                              {
+                                  id: -1,
+                                  codigo: ''
+                              }
+                          ];
+                
+                
+                this.cantidadViales =this.vialesArray.length;
+               
+                
+            });
+
+        
+    }
+
+    isUsed() {
+        if (this.cantidadViales == 0){
+            return false;
+        } else {
+            return true;
+        }
+        
+    }
+
     isInvalid() {
         if (
             this.nombre == '' ||
             this.nombre.length < 5 ||
             this.nombre.length > 100 ||
-            this.plantilla_id == null
+            this.plantilla_id == -1 ||
+            this.fecha_inicio == null ||
+            this.fecha_fin == null ||
+            this.fecha_envio_paquete == null ||
+            this.fecha_envio_resultados == null
+            
         ) {
             return true;
         } else {

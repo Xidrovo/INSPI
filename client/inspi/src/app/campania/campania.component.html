@@ -60,7 +60,7 @@
                                 class="btn btn-secondary"
                                 data-placement="top"
                                 title="Editar programa"
-                                (click)="editarPrograma(programa)"
+                                (click)="editarPrograma(programa); vialesCont(programa.id)"
                             >
                                 <i class="fa fa-edit" aria-hidden="true"></i>
                             </button>
@@ -577,19 +577,37 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="plantilla_nombre" class="col-form-label"
-                                >Plantilla Seleccionada:</label
-                            >
-                            <input
-                                type="text"
-                                name="plantilla_nombre"
-                                value="{{ programaSelected.plantilla_nombre }}"
-                                class="form-control"
-                                aria-label="Plantilla"
-                                aria-describedby="basic-addon1"
-                                disabled
-                            />
-                        </div>
+                                <label for="exampleFormControlSelect1"
+                                    >Seleccione una Plantilla:</label
+                                >
+                                <select
+                                    [(ngModel)]="programaSelected.plantilla_id"
+                                    name="plantilla_id"
+                                    class="selectpicker form-control"
+                                    [disabled]="isUsed()"
+                                    value="{{ programaSelected.plantilla_nombre }}"
+                                >
+                                    <option
+                                        value="-1"
+                                        disabled
+                                        selected
+                                        style="display:none;"
+                                        >-- Escoja una Plantilla --</option
+                                    >
+                                    <option
+                                        *ngFor="
+                                            let plantilla of plantillasArray
+                                        "
+                                        [attr.value]="plantilla.id"
+                                        >{{ plantilla.titulo }}</option
+                                    >
+                                </select>
+                            </div>
+
+
+
+
+                        
                     </form>
                 </div>
                 <div class="modal-footer">
