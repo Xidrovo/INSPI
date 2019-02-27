@@ -204,11 +204,6 @@ export class VialesComponent implements OnInit {
         };
     }
     handleMultiple(target, seccionIndex, preguntaIndex) {
-        console.log(
-            target.value,
-            this.vial[seccionIndex][preguntaIndex].respuesta,
-            '<=='
-        );
         const newValue = [
             {
                 value: target.value,
@@ -251,10 +246,12 @@ export class VialesComponent implements OnInit {
         return -1;
     }
     selectMultiple(value, seccionIndex, preguntaIndex) {
-        return !!this.vial[seccionIndex][preguntaIndex].respuesta.find(
+        const check = !!this.vial[seccionIndex][preguntaIndex].respuesta.find(
             valor => {
                 return valor.value == value;
             }
         );
+        console.log(check);
+        return check;
     }
 }

@@ -257,6 +257,15 @@
                                     <option
                                         *ngFor="let opcion of pregunta.detalle"
                                         [value]="opcion.value"
+                                        [ngClass]="
+                                            selectMultiple(
+                                                opcion.value,
+                                                seccionIndex,
+                                                preguntaIndex
+                                            )
+                                                ? 'text-primary'
+                                                : 'text-secondary'
+                                        "
                                         >{{ opcion.name }}</option
                                     >
                                 </select>
