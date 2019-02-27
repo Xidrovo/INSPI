@@ -58,7 +58,9 @@ export class ApiService {
         return this.httpClient
             .delete(`${this.API_URL}programas/` + idCampania)
             .toPromise()
-            .then(res => { return res; })
+            .then(res => {
+                return res;
+            })
             .catch(err => console.log(err));
     }
 
@@ -100,7 +102,9 @@ export class ApiService {
         return this.httpClient
             .delete(`${this.API_URL}plantillas/` + idPlantilla)
             .toPromise()
-            .then(res => { return res; })
+            .then(res => {
+                return res;
+            })
             .catch(err => console.log(err));
     }
 
@@ -122,7 +126,9 @@ export class ApiService {
         return this.httpClient
             .post(`${this.API_URL}viales/` + idPrograma, payload)
             .toPromise()
-            .then(res => {return res;})
+            .then(res => {
+                return res;
+            })
             .catch(err => console.log(err));
     }
 
@@ -139,7 +145,9 @@ export class ApiService {
         return this.httpClient
             .delete(`${this.API_URL}viales/${programaId}`, httpOptions)
             .toPromise()
-            .then(res => { return res; })
+            .then(res => {
+                return res;
+            })
             .catch(err => console.log(err));
     }
     setVial(payload): any {

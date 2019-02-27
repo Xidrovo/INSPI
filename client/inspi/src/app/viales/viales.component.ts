@@ -114,6 +114,8 @@ export class VialesComponent implements OnInit {
                     //value
                     respuesta = '';
                     break;
+                case 'valor_exacto':
+                    respuesta = 0;
                 case 'rango':
                     //min, max
                     respuesta = { min: 0, max: 0 };
@@ -146,16 +148,18 @@ export class VialesComponent implements OnInit {
   */
 
     async eliminarVial(vial: any) {
-        let respuesta = await this.apiService.deleteVial(this.idPrograma, vial.codigo);
-        if (respuesta['error'] == 0){
+        let respuesta = await this.apiService.deleteVial(
+            this.idPrograma,
+            vial.codigo
+        );
+        if (respuesta['error'] == 0) {
             const index = this.vialesArray.findIndex(x => {
                 return x.codigo === vial.codigo;
             });
             this.vialesArray.splice(index, 1);
         } else {
-            alert('Mensaje: '+ respuesta['msg']);
+            alert('Mensaje: ' + respuesta['msg']);
         }
-        
     }
     async crearVial() {
         var vial = {
@@ -198,5 +202,59 @@ export class VialesComponent implements OnInit {
             value: target.value,
             name: target.options[target.selectedIndex].innerText
         };
+    }
+    handleMultiple(target, seccionIndex, preguntaIndex) {
+        console.log(
+            target.value,
+            this.vial[seccionIndex][preguntaIndex].respuesta,
+            '<=='
+        );
+        const newValue = [
+            {
+                value: target.value,
+                name: target.options[target.selectedIndex].innerText
+            }
+        ];
+        if (this.vial[seccionIndex][preguntaIndex].respuesta[0].value !== '') {
+            // Primero comprobamos si el item estaba seleccionado, de ser así que se deseleccione.
+            const exist = this.checkUncheck(
+                this.vial[seccionIndex][preguntaIndex].respuesta,
+                target.value
+            );
+            // Que exista significa que hay que sacarlo de ahí!
+            if (exist !== -1) {
+                this.vial[seccionIndex][preguntaIndex].respuesta.splice(
+                    exist,
+                    1
+                );
+                return;
+            } else {
+                this.vial[seccionIndex][preguntaIndex].respuesta = [
+                    ...this.vial[seccionIndex][preguntaIndex].respuesta,
+                    ...newValue
+                ];
+                return;
+            }
+        } else {
+            this.vial[seccionIndex][preguntaIndex].respuesta = [...newValue];
+        }
+    }
+    checkUncheck(actualValue, value) {
+        let indice = -1;
+        const check = !!actualValue.find((valor, index) => {
+            indice = index;
+            return valor.value == value;
+        });
+        if (check) {
+            return indice;
+        }
+        return -1;
+    }
+    selectMultiple(value, seccionIndex, preguntaIndex) {
+        return !!this.vial[seccionIndex][preguntaIndex].respuesta.find(
+            valor => {
+                return valor.value == value;
+            }
+        );
     }
 }

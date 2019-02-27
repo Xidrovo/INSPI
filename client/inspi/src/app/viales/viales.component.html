@@ -185,7 +185,9 @@
                                     {{ pregunta.titulo }}
                                 </p>
                                 <input
-                                    *ngIf="pregunta.tipo_data.id == 'valor_exacto'"
+                                    *ngIf="
+                                        pregunta.tipo_data.id == 'valor_exacto'
+                                    "
                                     class="form-control"
                                     type="number"
                                     step="0.01"
@@ -244,8 +246,12 @@
                                         'seleccion_multiple'
                                     "
                                     style="width: 33.333%"
-                                    [(ngModel)]="
-                                        vial[seccionIndex][preguntaIndex]
+                                    (change)="
+                                        handleMultiple(
+                                            $event.target,
+                                            seccionIndex,
+                                            preguntaIndex
+                                        )
                                     "
                                 >
                                     <option
@@ -276,17 +282,30 @@
                                         style="width: 45%;"
                                         type="number"
                                         step="0.01"
-                                        min="{{ vial[seccionIndex][preguntaIndex]
-                                            .respuesta.min }}"
+                                        min="{{
+                                            vial[seccionIndex][preguntaIndex]
+                                                .respuesta.min
+                                        }}"
                                         [(ngModel)]="
                                             vial[seccionIndex][preguntaIndex]
                                                 .respuesta.max
                                         "
                                     />
                                 </div>
-                                <ng-container *ngIf="pregunta.tipo_data.id.includes('tabla'); then thenTemplate"></ng-container>
+                                <ng-container
+                                    *ngIf="
+                                        pregunta.tipo_data.id.includes('tabla');
+                                        then thenTemplate
+                                    "
+                                ></ng-container>
                                 <ng-template #thenTemplate>
-                                    <app-tabla [detalle]="pregunta.tipo_data.detalle" [respuesta]="vial[seccionIndex][preguntaIndex].respuesta"></app-tabla>
+                                    <app-tabla
+                                        [detalle]="pregunta.tipo_data.detalle"
+                                        [respuesta]="
+                                            vial[seccionIndex][preguntaIndex]
+                                                .respuesta
+                                        "
+                                    ></app-tabla>
                                 </ng-template>
                             </div>
                         </div>
