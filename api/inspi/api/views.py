@@ -118,6 +118,7 @@ class PlantillaView(View):
                 # con los datos enviados y con estado Inicial ('i')
                 if plantilla_obj.estado is 'a':
                     # creamos la nueva plantilla
+                    titulo_plantilla = titulo_plantilla + ' [DUPLICADO]'
                     plantilla_obj = Plantilla().crear(titulo_plantilla, descripcion_plantilla)
                 else:
                     # si su estado es Inicial ('i') entonces se puede actualizar la plantilla
@@ -230,7 +231,12 @@ class ProgramaView(View):
                 # traemos el programa que se desea editar y la actualizamos
                 programa_obj = Programa.objects.get(pk=programa_id)
                 programa_obj.nombre = programaJSON['nombre']
-                programa_obj.plantilla = Plantilla.objects.get(pk=programaJSON.get('plantilla_id', None))
+
+                if programa_obj.plantilla.estado is 'a':
+                    raise Exception('Error de Plantilla en uso. No puede cambiar la plantilla asignada al programa pues aun existen viales asociados.')
+                else:
+                    programa_obj.plantilla = Plantilla.objects.get(pk=programaJSON.get('plantilla_id', None))
+
                 programa_obj.fecha_inicio = programaJSON['fecha_inicio']
                 programa_obj.fecha_fin = programaJSON['fecha_fin']
                 programa_obj.fecha_envio_paquete = programaJSON['fecha_envio_paquete']
@@ -324,24 +330,46 @@ class VialView(View):
                 # transformamos el string a un diccionario
                 vial_json = json.loads(vial_str)
 
-                # traemos el programa al que se desea anadir un vial
-                programa_obj = Programa.objects.get(pk=programa_id)
-
                 # obtenemos los campos
                 codigo = vial_json['codigo']
                 respuestas = json.dumps(vial_json['respuestas'])
 
-                # creamos el nuevo vial
-                vial_obj = Vial().crear(codigo, respuestas, programa_obj)
+                if Vial.objects.filter(codigo__exact=codigo, deleted__exact=False).count() > 0:
+                    raise Exception('Error de Duplicidad. El código \'' + codigo + '\' ya está en uso.')
+                elif Vial.objects.filter(codigo__exact=codigo, deleted__exact=True).count() > 0:
+                    # traemos el programa al que se desea anadir un vial
+                    programa_obj = Programa.objects.get(pk=programa_id)
 
-                # cambiamos el estado de la plantilla asignada al programa
-                programa_obj.plantilla.estado = 'a'
-                programa_obj.plantilla.save()
+                    # creamos el nuevo vial
+                    vial_obj = Vial.objects.get(codigo=codigo)
+                    vial_obj.respuestas = respuestas
+                    vial_obj.programa = programa_obj
+                    vial_obj.deleted = False
+                    vial_obj.save()
 
-                return JsonResponse({
-                    'error': 0,
-                    'msg' : 'Vial creado con exito'
-                })
+                    # cambiamos el estado de la plantilla asignada al programa
+                    programa_obj.plantilla.estado = 'a'
+                    programa_obj.plantilla.save()
+
+                    return JsonResponse({
+                        'error': 0,
+                        'msg' : 'Vial creado con exito'
+                    })
+                else:
+                    # traemos el programa al que se desea anadir un vial
+                    programa_obj = Programa.objects.get(pk=programa_id)
+
+                    # creamos el nuevo vial
+                    vial_obj = Vial().crear(codigo, respuestas, programa_obj)
+
+                    # cambiamos el estado de la plantilla asignada al programa
+                    programa_obj.plantilla.estado = 'a'
+                    programa_obj.plantilla.save()
+
+                    return JsonResponse({
+                        'error': 0,
+                        'msg' : 'Vial creado con exito'
+                    })
             except Exception as e:
                 return JsonResponse({
                     'error': 1,
